@@ -27,9 +27,9 @@ var repo_site = "https://imaru.github.io/jqTemplate/";
      <p>If the circle is <strong>orange</strong>, press the letter J 
      as fast as you can.</p>
      <div style='width: 700px;'>
-     <div style='float: left;'><img src='" +repo_site+ "img/blue.png'></img>
+     <div style='float: left;'><img src='img/blue.png'></img>
      <p class='small'><strong>Press the F key</strong></p></div>
-     <div style='float: right;'><img src='" +repo_site+ "img/orange.png'></img>
+     <div style='float: right;'><img src='img/orange.png'></img>
      <p class='small'><strong>Press the J key</strong></p></div>
      </div>
      <p>Press any key to begin.</p>
