@@ -22,6 +22,15 @@ var time_array = [500, 5000]; // 表示時間の配列を定義
 // 表示時間の配列をランダムに並び替え
 var shuffled_time = jsPsych.randomization.sampleWithoutReplacement(time_array, 2)[0];
 
+
+
+var welcome = {
+    type : "html-keyboard-response",
+    stimulus : "Enterキーを押すと実験が始まります",
+    choices: ["Enter"]
+};
+
+
 // 画像トライアル
 var hello_trial = {
     type: 'image-keyboard-response',
@@ -33,11 +42,6 @@ var hello_trial = {
     }
 }
 
-var welcome = {
-    type : "html-keyboard-response",
-    stimulus : "Enterキーを押すと実験が始まります",
-    choices: ["Enter"]
-};
 
 // スペースキーで四角形を表示するトライアル
 var space_key_trial = {
