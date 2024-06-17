@@ -74,5 +74,5 @@ var space_key_trial = {
 }
 
 jsPsych.init({
-    timeline: [hello_trial, welcome, space_key_trial],
+    timeline: [welcome, hello_trial, space_key_trial],
 })
