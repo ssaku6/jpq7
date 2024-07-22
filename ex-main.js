@@ -2,77 +2,131 @@ var repo_site = "https://ssaku6.github.io/jpq7/";
 
 // 画像ファイル名の配列
 var imageFiles = [
-    repo_site + 'img/01.jpg',
-    repo_site + 'img/02.jpg',
-    repo_site + 'img/03.jpg',
-    repo_site + 'img/04.jpg',
-    repo_site + 'img/05.jpg',
-    repo_site + 'img/06.jpg',
-    repo_site + 'img/07.jpg',
-    repo_site + 'img/08.jpg',
-    repo_site + 'img/09.jpg',
-    repo_site + 'img/10.jpg',
+    'jspsych-6.3.1/img/01.jpg',
+    'jspsych-6.3.1/img/02.jpg',
+    'jspsych-6.3.1/img/03.jpg',
+    'jspsych-6.3.1/img/04.jpg',
+    'jspsych-6.3.1/img/05.jpg',
+    'jspsych-6.3.1/img/06.jpg',
+    'jspsych-6.3.1/img/07.jpg',
+    'jspsych-6.3.1/img/08.jpg',
+    'jspsych-6.3.1/img/09.jpg',
+    'jspsych-6.3.1/img/10.jpg',
 ];
 
 // ランダムに1つの画像ファイル名を選択
 var selectedImage = jsPsych.randomization.sampleWithoutReplacement(imageFiles, 1)[0];
 
-var time_array = [500, 5000]; // 表示時間の配列を定義
-
-// 表示時間の配列をランダムに並び替え
-var shuffled_time = jsPsych.randomization.sampleWithoutReplacement(time_array, 2)[0];
-
-
+// 画像を表示している時間とサイズを格納する変数
+var viewingTime = 0;
+var imageWidth = 0;
+var imageHeight = 0;
 
 var welcome = {
-    type : "html-keyboard-response",
-    stimulus : "Enterキーを押すと実験が始まります",
+    type: "html-keyboard-response",
+    stimulus: "Enterキーを押すと実験が始まります。<br>jキーで絵画を表示させ、fキーで消える",
     choices: ["Enter"]
 };
 
-
 // 画像トライアル
 var hello_trial = {
-    type: 'image-keyboard-response',
-    stimulus: selectedImage,
-    trial_duration: shuffled_time,
-    choices: jsPsych.NO_KEYS, // スペースキーを押して画像が表示された後の選択を防ぐためにキー入力を無効にする
-    on_finish: function(){
-        document.body.style.backgroundColor = 'white'; // 画像が表示された後に背景色を白に変更する
-    }
-}
+    type: 'html-keyboard-response',
+    stimulus: '<img id="jspsych-image" src="' + selectedImage + '" style="display: none;">',
+    choices: jsPsych.NO_KEYS,
+    on_load: function() {
+        var imageElement = document.getElementById('jspsych-image');
+        var startTime = null;
 
+        // keydownイベントリスナー
+        var keydownListener = function(e) {
+            if (e.code === 'KeyJ' && startTime === null) {
+                startTime = performance.now();
+                imageElement.style.display = 'block';
+
+                // 画像のサイズを取得
+                imageWidth = imageElement.width;
+                imageHeight = imageElement.height;
+            } else if (e.code === 'KeyF' && startTime !== null) {
+                var endTime = performance.now();
+                viewingTime = endTime - startTime;
+                console.log("Viewing time: " + viewingTime + " milliseconds");
+                imageElement.style.display = 'none';
+                // イベントリスナーを解除して次の試行に進む
+                document.removeEventListener('keydown', keydownListener);
+                jsPsych.finishTrial();
+            }
+        };
+
+        // イベントリスナーの追加
+        document.addEventListener('keydown', keydownListener);
+    },
+    on_finish: function(){
+        document.body.style.backgroundColor = 'white';
+    }
+};
+
+var welcome2 = {
+    type: "html-keyboard-response",
+    stimulus: `
+    絵画を評価していた時間を再現してください。<br>
+    次の画面では、真っ白な画面が表示れます。<br>
+    その画面ではSpaceキーを長押しすると四角形が表示され、押し続けることを止めると消えます。<br>
+    絵画を見ていた時間と同じ時間、四角形を表示させてください。<br>
+    <strong>spaceキーを押す操作は1度しかできないので注意してください</strong>`,
+    choices: ["Enter"]
+};
 
 // スペースキーで四角形を表示するトライアル
 var space_key_trial = {
     type: 'html-keyboard-response',
-    stimulus: '',
-    choices: jsPsych.NO_KEYS, // スペースキーの押し始めと離しを検知するためにキー入力を無効にする
-    on_start: function(trial){
-        trial.stimulus = '<div id="rectangle" style="width: 100px; height: 100px; background-color: red; display: none;"></div>';
+    stimulus: '<div id="rectangle" style="display: none; background-color: grey;"></div>',
+    choices: jsPsych.NO_KEYS,
+    on_load: function() {
+        // 四角形のサイズを設定
+        var rectangle = document.getElementById('rectangle');
+        rectangle.style.width = imageWidth + 'px';
+        rectangle.style.height = imageHeight + 'px';
+    },
+    on_start: function(trial) {
         var startTime = null;
+        var displayed = false;
 
-        // keydownイベントを設定
-        document.addEventListener('keydown', function(e){
-            if(e.code === 'Space' && startTime === null){
+        // keydownイベントリスナー
+        var keydownListener = function(e) {
+            if (e.code === 'Space' && startTime === null && !displayed) {
                 startTime = performance.now();
                 document.getElementById('rectangle').style.display = 'block';
             }
-        });
+        };
 
-        // keyupイベントを設定
-        document.addEventListener('keyup', function(e){
-            if(e.code === 'Space' && startTime !== null){
+        // keyupイベントリスナー
+        var keyupListener = function(e) {
+            if (e.code === 'Space' && startTime !== null && !displayed) {
                 var endTime = performance.now();
                 var reactionTime = endTime - startTime;
                 console.log("Reaction time: " + reactionTime + " milliseconds");
                 document.getElementById('rectangle').style.display = 'none';
-                startTime = null; // リセットする
+                displayed = true;
+                document.removeEventListener('keydown', keydownListener);
+                document.removeEventListener('keyup', keyupListener);
+
+                // 実験終了トライアルを追加
+                jsPsych.finishTrial();
+                jsPsych.init({
+                    timeline: [end_experiment],
+                });
             }
-        });
+        };
+
+        // イベントリスナーの追加
+        document.addEventListener('keydown', keydownListener);
+        document.addEventListener('keyup', keyupListener);
     }
-}
+};
+
+
 
 jsPsych.init({
-    timeline: [welcome, hello_trial, space_key_trial],
-})
+    timeline: [welcome, hello_trial, welcome2, space_key_trial],
+});
+
