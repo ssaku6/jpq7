@@ -1,6 +1,6 @@
 var repo_site = "https://ssaku6.github.io/jpq7/";
 
-// 画像ファイル名の配列
+// 画像ファイル名の配列をリポジトリ形式で指定
 var imageFiles = [
     repo_site + 'jspsych-6.3.1/img/01.jpg',
     repo_site + 'jspsych-6.3.1/img/02.jpg',
@@ -35,6 +35,11 @@ var hello_trial = {
     choices: jsPsych.NO_KEYS,
     on_load: function() {
         var imageElement = document.getElementById('jspsych-image');
+        imageElement.onload = function() {
+            // 画像のサイズを取得
+            imageWidth = imageElement.width;
+            imageHeight = imageElement.height;
+        };
         var startTime = null;
 
         // keydownイベントリスナー
@@ -42,10 +47,6 @@ var hello_trial = {
             if (e.code === 'KeyJ' && startTime === null) {
                 startTime = performance.now();
                 imageElement.style.display = 'block';
-
-                // 画像のサイズを取得
-                imageWidth = imageElement.width;
-                imageHeight = imageElement.height;
             } else if (e.code === 'KeyF' && startTime !== null) {
                 var endTime = performance.now();
                 viewingTime = endTime - startTime;
@@ -124,8 +125,6 @@ var space_key_trial = {
     }
 };
 
-
-
 var end_experiment = {
     type: "html-keyboard-response",
     stimulus: "実験終了です。",
@@ -141,4 +140,3 @@ var end_experiment = {
 jsPsych.init({
     timeline: [welcome, hello_trial, welcome2, space_key_trial, end_experiment],
 });
-
