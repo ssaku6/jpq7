@@ -126,7 +126,19 @@ var space_key_trial = {
 
 
 
+var end_experiment = {
+    type: "html-keyboard-response",
+    stimulus: "実験終了です。",
+    choices: jsPsych.NO_KEYS,
+    trial_duration: 3000,
+    on_finish: function() {
+        // データを保存する場合など
+        console.log('Experiment completed.');
+    }
+};
+
+// 実験の初期化
 jsPsych.init({
-    timeline: [welcome, hello_trial, welcome2, space_key_trial,end_experiment],
+    timeline: [welcome, hello_trial, welcome2, space_key_trial, end_experiment],
 });
 
