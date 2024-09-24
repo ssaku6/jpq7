@@ -82,7 +82,7 @@ var space_key_trial = {
 
 var end_experiment = {
     type: 'html-keyboard-response',
-    stimulus: '実験が終了しました。お疲れ様でした。',
+    stimulus: '続いて今見た絵画を5段階で評価してください。',
     choices: jsPsych.NO_KEYS
 };
 
