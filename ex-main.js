@@ -3,16 +3,16 @@ var repo_site = "https://ssaku6.github.io/jpq7/";
 
     // 画像ファイル名の配列
     var imageFiles = [
-        'img/01.jpg',
-        'img/02.jpg',
-        'img/03.jpg',
-        'img/04.jpg',
-        'img/05.jpg',
-        'img/06.jpg',
-        'img/07.jpg',
-        'img/08.jpg',
-        'img/09.jpg',
-        'img/10.jpg',
+        repo_site+'img/01.jpg',
+        repo_site+'img/02.jpg',
+        repo_site+'img/03.jpg',
+        repo_site+'img/04.jpg',
+        repo_site+'img/05.jpg',
+        repo_site+'img/31.jpg',
+        repo_site+'img/32.jpg',
+        repo_site+'img/33.jpg',
+        repo_site+'img/34.jpg',
+        repo_site+'img/35.jpg',
     ];
 
     // ランダムに1つの画像ファイル名を選択
