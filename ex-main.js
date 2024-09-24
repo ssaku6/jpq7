@@ -1,65 +1,43 @@
 var repo_site = "https://ssaku6.github.io/jpq7/";
 
-// 画像ファイル名の配列
-var imageFiles = [
-    repo_site + 'jspsych-6.3.1/img/01.jpg',
-    repo_site + 'jspsych-6.3.1/img/02.jpg',
-    repo_site + 'jspsych-6.3.1/img/03.jpg',
-    repo_site + 'jspsych-6.3.1/img/04.jpg',
-    repo_site + 'jspsych-6.3.1/img/05.jpg',
-    repo_site + 'jspsych-6.3.1/img/06.jpg',
-    repo_site + 'jspsych-6.3.1/img/07.jpg',
-    repo_site + 'jspsych-6.3.1/img/08.jpg',
-    repo_site + 'jspsych-6.3.1/img/09.jpg',
-    repo_site + 'jspsych-6.3.1/img/10.jpg',
+ // 画像ファイル名の配列
+ var imageFiles = [
+    'jspsych-6.3.1/img/01.jpg',
+    'jspsych-6.3.1/img/02.jpg',
+    'jspsych-6.3.1/img/03.jpg',
+    'jspsych-6.3.1/img/04.jpg',
+    'jspsych-6.3.1/img/05.jpg',
+    'jspsych-6.3.1/img/31.jpg',
+    'jspsych-6.3.1/img/32.jpg',
+    'jspsych-6.3.1/img/33.jpg',
+    'jspsych-6.3.1/img/34.jpg',
+    'jspsych-6.3.1/img/35.jpg',
 ];
-
 
 // ランダムに1つの画像ファイル名を選択
 var selectedImage = jsPsych.randomization.sampleWithoutReplacement(imageFiles, 1)[0];
 
 // 画像を表示している時間とサイズを格納する変数
-var viewingTime = 0;
-var imageWidth = 0;
-var imageHeight = 0;
+var viewingTime = 3000; // 3秒（3000ミリ秒）
 
 var welcome = {
     type: "html-keyboard-response",
-    stimulus: "Enterキーを押すと実験が始まります。<br>jキーで絵画を表示させ、fキーで消える",
+    stimulus: "Enterキーを押すと実験が始まります。",
     choices: ["Enter"]
 };
 
-// 画像トライアル
-var hello_trial = {
+// 画像を3秒間表示するトライアル
+var image_trial = {
     type: 'html-keyboard-response',
-    stimulus: '<img id="jspsych-image" src="' + selectedImage + '" style="display: none;">',
+    stimulus: '<img id="jspsych-image" src="' + selectedImage + '">',
     choices: jsPsych.NO_KEYS,
+    trial_duration: viewingTime, // 表示時間を3秒に設定
     on_load: function() {
         var imageElement = document.getElementById('jspsych-image');
-        var startTime = null;
 
-        // keydownイベントリスナー
-        var keydownListener = function(e) {
-            if (e.code === 'KeyJ' && startTime === null) {
-                startTime = performance.now();
-                imageElement.style.display = 'block';
-
-                // 画像のサイズを取得
-                imageWidth = imageElement.width;
-                imageHeight = imageElement.height;
-            } else if (e.code === 'KeyF' && startTime !== null) {
-                var endTime = performance.now();
-                viewingTime = endTime - startTime;
-                console.log("Viewing time: " + viewingTime + " milliseconds");
-                imageElement.style.display = 'none';
-                // イベントリスナーを解除して次の試行に進む
-                document.removeEventListener('keydown', keydownListener);
-                jsPsych.finishTrial();
-            }
-        };
-
-        // イベントリスナーの追加
-        document.addEventListener('keydown', keydownListener);
+        // 画像のサイズを取得
+        var imageWidth = imageElement.width;
+        var imageHeight = imageElement.height;
     },
     on_finish: function(){
         document.body.style.backgroundColor = 'white';
@@ -70,7 +48,7 @@ var welcome2 = {
     type: "html-keyboard-response",
     stimulus: `
     絵画を評価していた時間を再現してください。<br>
-    次の画面では、真っ白な画面が表示れます。<br>
+    次の画面では、真っ白な画面が表示されます。<br>
     その画面ではSpaceキーを長押しすると四角形が表示され、押し続けることを止めると消えます。<br>
     絵画を見ていた時間と同じ時間、四角形を表示させてください。<br>
     <strong>spaceキーを押す操作は1度しかできないので注意してください</strong>`,
@@ -85,8 +63,8 @@ var space_key_trial = {
     on_load: function() {
         // 四角形のサイズを設定
         var rectangle = document.getElementById('rectangle');
-        rectangle.style.width = imageWidth + 'px';
-        rectangle.style.height = imageHeight + 'px';
+        rectangle.style.width = '300px'; // ここで画像サイズに合わせても良い
+        rectangle.style.height = '200px';
     },
     on_start: function(trial) {
         var startTime = null;
@@ -125,8 +103,6 @@ var space_key_trial = {
     }
 };
 
-
-
 jsPsych.init({
-    timeline: [welcome, hello_trial, welcome2, space_key_trial],
+    timeline: [welcome, image_trial, welcome2, space_key_trial],
 });
