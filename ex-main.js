@@ -1,7 +1,7 @@
 var repo_site = "https://ssaku6.github.io/jpq7/";
 
- // 画像ファイル名の配列
- var imageFiles = [
+// 画像ファイル名の配列
+var imageFiles = [
     'jspsych-6.3.1/img/01.jpg',
     'jspsych-6.3.1/img/02.jpg',
     'jspsych-6.3.1/img/03.jpg',
@@ -15,7 +15,7 @@ var repo_site = "https://ssaku6.github.io/jpq7/";
 ];
 
 // ランダムに1つの画像ファイル名を選択
-var selectedImage = jsPsych.randomization.sampleWithoutReplacement(imageFiles, 1)[0];
+var selectedImage = repo_site + jsPsych.randomization.sampleWithoutReplacement(imageFiles, 1)[0];
 
 // 画像を表示している時間とサイズを格納する変数
 var viewingTime = 3000; // 3秒（3000ミリ秒）
@@ -31,14 +31,7 @@ var image_trial = {
     type: 'html-keyboard-response',
     stimulus: '<img id="jspsych-image" src="' + selectedImage + '">',
     choices: jsPsych.NO_KEYS,
-    trial_duration: viewingTime, // 表示時間を3秒に設定
-    on_load: function() {
-        var imageElement = document.getElementById('jspsych-image');
-
-        // 画像のサイズを取得
-        var imageWidth = imageElement.width;
-        var imageHeight = imageElement.height;
-    },
+    trial_duration: viewingTime,
     on_finish: function(){
         document.body.style.backgroundColor = 'white';
     }
@@ -48,29 +41,19 @@ var welcome2 = {
     type: "html-keyboard-response",
     stimulus: `
     絵画を評価していた時間を再現してください。<br>
-    次の画面では、真っ白な画面が表示されます。<br>
-    その画面ではSpaceキーを長押しすると四角形が表示され、押し続けることを止めると消えます。<br>
-    絵画を見ていた時間と同じ時間、四角形を表示させてください。<br>
-    <strong>spaceキーを押す操作は1度しかできないので注意してください</strong>`,
+    Spaceキーを押して操作してください。`,
     choices: ["Enter"]
 };
 
 // スペースキーで四角形を表示するトライアル
 var space_key_trial = {
     type: 'html-keyboard-response',
-    stimulus: '<div id="rectangle" style="display: none; background-color: grey;"></div>',
+    stimulus: '<div id="rectangle" style="display: none; width: 300px; height: 200px; background-color: grey;"></div>',
     choices: jsPsych.NO_KEYS,
-    on_load: function() {
-        // 四角形のサイズを設定
-        var rectangle = document.getElementById('rectangle');
-        rectangle.style.width = '300px'; // ここで画像サイズに合わせても良い
-        rectangle.style.height = '200px';
-    },
     on_start: function(trial) {
         var startTime = null;
         var displayed = false;
 
-        // keydownイベントリスナー
         var keydownListener = function(e) {
             if (e.code === 'Space' && startTime === null && !displayed) {
                 startTime = performance.now();
@@ -78,7 +61,6 @@ var space_key_trial = {
             }
         };
 
-        // keyupイベントリスナー
         var keyupListener = function(e) {
             if (e.code === 'Space' && startTime !== null && !displayed) {
                 var endTime = performance.now();
@@ -89,20 +71,21 @@ var space_key_trial = {
                 document.removeEventListener('keydown', keydownListener);
                 document.removeEventListener('keyup', keyupListener);
 
-                // 実験終了トライアルを追加
                 jsPsych.finishTrial();
-                jsPsych.init({
-                    timeline: [end_experiment],
-                });
             }
         };
 
-        // イベントリスナーの追加
         document.addEventListener('keydown', keydownListener);
         document.addEventListener('keyup', keyupListener);
     }
 };
 
+var end_experiment = {
+    type: 'html-keyboard-response',
+    stimulus: '実験が終了しました。お疲れ様でした。',
+    choices: jsPsych.NO_KEYS
+};
+
 jsPsych.init({
-    timeline: [welcome, image_trial, welcome2, space_key_trial],
+    timeline: [welcome, image_trial, welcome2, space_key_trial, end_experiment],
 });
