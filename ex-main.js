@@ -1,4 +1,4 @@
-var repo_site = "https://ssaku6.github.io/jpq7/img";
+var repo_site = "https://ssaku6.github.io/jpq7/";
 
 // 画像ファイル名の配列
 var imageFiles = [
