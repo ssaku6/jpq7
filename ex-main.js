@@ -2,16 +2,16 @@ var repo_site = "https://ssaku6.github.io/jpq7/";
 
 // 画像ファイル名の配列
 var imageFiles = [
-    'jspsych-6.3.1/img/01.jpg',
-    'jspsych-6.3.1/img/02.jpg',
-    'jspsych-6.3.1/img/03.jpg',
-    'jspsych-6.3.1/img/04.jpg',
-    'jspsych-6.3.1/img/05.jpg',
-    'jspsych-6.3.1/img/31.jpg',
-    'jspsych-6.3.1/img/32.jpg',
-    'jspsych-6.3.1/img/33.jpg',
-    'jspsych-6.3.1/img/34.jpg',
-    'jspsych-6.3.1/img/35.jpg',
+    'img/01.jpg',
+    'img/02.jpg',
+    'img/03.jpg',
+    'img/04.jpg',
+    'img/05.jpg',
+    'img/31.jpg',
+    'img/32.jpg',
+    'img/33.jpg',
+    'img/34.jpg',
+    'img/35.jpg',
 ];
 
 // ランダムに1つの画像ファイル名を選択
