@@ -121,7 +121,7 @@ var repo_site = "https://ssaku6.github.io/jpq7/";
     var end_experiment = {
         type: 'html-keyboard-response',
         stimulus: '続いて今見た絵画を5段階で評価してください。',
-        choices: jsPsych.NO_KEYS
+        choices:  ["Enter"]
     };
 
     jsPsych.init({
