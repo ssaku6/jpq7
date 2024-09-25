@@ -118,8 +118,23 @@ var repo_site = "https://ssaku6.github.io/jpq7/";
         }
     };
 
+ // 自動終了のためのトライアル
+ var end_experiment = {
+    type: 'html-keyboard-response',
+    stimulus: '続いて絵画の評価を行ってください。',
+    choices: jsPsych.NO_KEYS, // キー入力なし
+    trial_duration: 2000, // 2秒後に自動で終了
+    on_finish: function() {
+        // 2秒後にページを閉じる
+        setTimeout(function() {
+            window.close();
+        }, 2000);
+    }
+};
+
+
    
     jsPsych.init({
-        timeline: [preload, welcome, hello_trial, welcome2, space_key_trial],
+        timeline: [preload, welcome, hello_trial, welcome2, space_key_trial,end_experiment],
     });
 
