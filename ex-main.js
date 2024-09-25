@@ -1,7 +1,7 @@
 var repo_site = "https://ssaku6.github.io/jpq7/";
 
 // 使用する画像のパスを指定
-var selectedImage = 'img/01.jpg'; // 指定したい画像のパスを記入
+var selectedImage = repo_site + 'img/01.jpg'; // 指定したい画像のパスを記入
 
 // 画像を表示している時間とサイズを格納する変数
 var imageWidth = 0;
@@ -47,7 +47,7 @@ var hello_trial = {
 var welcome2 = {
     type: "html-keyboard-response",
     stimulus: `絵画を評価していた時間を再現してください。<br>
-    次の画面では、真っ白な画面が表示されます。<br>
+    次の画面では、真っ白な画面が表示れます。<br>
     その画面ではSpaceキーを長押しすると四角形が表示され、押し続けることを止めると消えます。<br>
     絵画を見ていた時間と同じ時間、四角形を表示させてください。<br>
     <strong>spaceキーを押す操作は1度しかできないので注意してください</strong><br>
@@ -100,23 +100,7 @@ var space_key_trial = {
     }
 };
 
-// 次の画面に進む指示を表示するトライアル
-var end_message = {
-    type: "html-keyboard-response",
-    stimulus: "実験は終了しました。次の画面に進んでください。",
-    choices: ["Enter"],
-    on_finish: function() {
-        // 次のページに進む処理
-        jsPsych.data.addDataToLastTrial({
-            trial_type: 'end_message',
-            timestamp: Date.now()
-        });
-        jsPsych.init({
-            timeline: []
-        });
-    }
-};
-
+// jsPsychを初期化
 jsPsych.init({
-    timeline: [preload, welcome, hello_trial, welcome2, space_key_trial, end_message],
+    timeline: [preload, welcome, hello_trial, welcome2, space_key_trial],
 });
