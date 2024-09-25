@@ -1,6 +1,7 @@
 
 var repo_site = "https://ssaku6.github.io/jpq7/";
 
+var timeline=[];
     // 画像ファイル名の配列
     var imageFiles = [
         repo_site+'img/01.jpg',
