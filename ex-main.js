@@ -109,8 +109,24 @@ var repo_site = "https://ssaku6.github.io/jpq7/";
         }
     };
 
+    // 次の画面に進む指示を表示するトライアル
+var end_message = {
+    type: "html-keyboard-response",
+    stimulus: "実験は終了しました。次の画面に進んでください。",
+    choices: ["Enter"],
+    on_finish: function() {
+        // 次のページに進む処理
+        jsPsych.data.addDataToLastTrial({
+            trial_type: 'end_message',
+            timestamp: Date.now()
+        });
+        jsPsych.init({
+            timeline: []
+        });
+    }
+};
    
     jsPsych.init({
-        timeline: [preload, welcome, hello_trial, welcome2, space_key_trial],
+        timeline: [preload, welcome, hello_trial, welcome2, space_key_trial,end_message],
     });
 
