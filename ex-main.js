@@ -118,8 +118,10 @@ var repo_site = "https://ssaku6.github.io/jpq7/";
         }
     };
 
-   
-    jsPsych.init({
-        timeline: [preload, welcome, hello_trial, welcome2],
-    });
+   var produce={
+    timeline:[preload, welcome, hello_trial, welcome2, space_key_trial]
+   }
+    
+    
+    timeline.push(produce);
 
