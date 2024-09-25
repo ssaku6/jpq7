@@ -2,25 +2,10 @@
 var repo_site = "https://ssaku6.github.io/jpq7/";
 
 var timeline=[];
-    // 画像ファイル名の配列
-    var imageFiles = [
-        repo_site+'img/01.jpg',
-        repo_site+'img/02.jpg',
-        repo_site+'img/03.jpg',
-        repo_site+'img/04.jpg',
-        repo_site+'img/05.jpg',
-        repo_site+'img/31.jpg',
-        repo_site+'img/32.jpg',
-        repo_site+'img/33.jpg',
-        repo_site+'img/34.jpg',
-        repo_site+'img/35.jpg',
-    ];
-
-    // ランダムに1つの画像ファイル名を選択
-    var selectedImage = jsPsych.randomization.sampleWithoutReplacement(imageFiles, 1)[0];
+    // 使用する画像のパスを指定
+    var selectedImage = 'jspsych-6.3.1/img/01.jpg'; // 指定したい画像のパスを記入
 
     // 画像を表示している時間とサイズを格納する変数
-    var viewingTime = 0;
     var imageWidth = 0;
     var imageHeight = 0;
 
@@ -119,9 +104,13 @@ var timeline=[];
         }
     };
 
-   
-    
-    timeline.push(preload);
-    timeline.push(welcome);
-    timeline.push(hello_trial);
+    // 次の画面に進む指示を表示するトライアル
+    var end_message = {
+        type: "html-keyboard-response",
+        stimulus: "実験は終了しました。次の画面に進んでください。",
+        choices: ["Enter"]
+    };
 
+    jsPsych.init({
+        timeline: [preload, welcome, hello_trial, welcome2, space_key_trial, end_message],
+    });
