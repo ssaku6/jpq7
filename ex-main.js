@@ -1,7 +1,7 @@
 
 var repo_site = "https://ssaku6.github.io/jpq7/";
 
-var timeline=[];
+
     // 使用する画像のパスを指定
     var selectedImage = 'jspsych-6.3.1/img/01.jpg'; // 指定したい画像のパスを記入
 
