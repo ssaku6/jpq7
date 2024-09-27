@@ -109,6 +109,9 @@ var repo_site = "https://ssaku6.github.io/jpq7/";
         choices: ["Enter"]
     };
 
+    // **ここでtimelineを宣言し、トライアルを追加**
+    var timeline = [preload, welcome, hello_trial, welcome2, space_key_trial, end_message];
+
     jsPsych.init({
         timeline: [preload, welcome, hello_trial, welcome2, space_key_trial, end_message],
     });
