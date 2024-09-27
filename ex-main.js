@@ -1,7 +1,6 @@
 var repo_site = "https://ssaku6.github.io/jpq7/";
 
-// タイムラインを初期化
-var timeline = [];
+
 
     // 使用する画像のパスを指定
     var selectedImage = repo_site+'img/01.jpg'; // 指定したい画像のパスを記入
@@ -113,15 +112,3 @@ var timeline = [];
     };
 
    
-// プリロードトライアルを追加
-timeline.push(preload);
-timeline.push(welcome);
-timeline.push(hello_trial);
-timeline.push(welcome2);
-timeline.push(space_key_trial);
-timeline.push(end_message);
-
-// jsPsychの初期化
-jsPsych.init({
-    timeline: timeline,  // 定義されたtimelineを渡す
-});
