@@ -113,7 +113,15 @@ var timeline = [];
     };
 
    
+// プリロードトライアルを追加
+timeline.push(preload);
+timeline.push(welcome);
+timeline.push(hello_trial);
+timeline.push(welcome2);
+timeline.push(space_key_trial);
+timeline.push(end_message);
 
-    jsPsych.init({
-        timeline: [preload, welcome, hello_trial, welcome2, space_key_trial, end_message,],
-    });
+// jsPsychの初期化
+jsPsych.init({
+    timeline: timeline,  // 定義されたtimelineを渡す
+});
