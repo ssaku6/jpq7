@@ -1,7 +1,7 @@
 var repo_site = "https://ssaku6.github.io/jpq7/";
 
     // 使用する画像のパスを指定
-    var selectedImage = 'img/01.jpg'; // 指定したい画像のパスを記入
+    var selectedImage = 'ssaku6.github.io/jpq7/img/01.jpg'; // 指定したい画像のパスを記入
 
     // 画像を表示している時間とサイズを格納する変数
     var imageWidth = 0;
