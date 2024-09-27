@@ -1,5 +1,8 @@
 var repo_site = "https://ssaku6.github.io/jpq7/";
 
+// タイムラインを初期化
+var timeline = [];
+
     // 使用する画像のパスを指定
     var selectedImage = repo_site+'img/01.jpg'; // 指定したい画像のパスを記入
 
@@ -109,10 +112,8 @@ var repo_site = "https://ssaku6.github.io/jpq7/";
         choices: ["Enter"]
     };
 
-    // timelineを定義
-var timeline = [preload, welcome, hello_trial, welcome2, space_key_trial, end_message];
-
+   
 
     jsPsych.init({
-        timeline: [preload, welcome, hello_trial, welcome2, space_key_trial, end_message,timeline],
+        timeline: [preload, welcome, hello_trial, welcome2, space_key_trial, end_message,],
     });
