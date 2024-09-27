@@ -1,5 +1,8 @@
 var repo_site = "https://ssaku6.github.io/jpq7/";
 
+
+var timeline = [];
+
 // 使用する画像のパスを指定
 var selectedImage = repo_site + 'img/01.jpg';
 
