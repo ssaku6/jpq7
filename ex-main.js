@@ -7,8 +7,6 @@ var selectedImage = repo_site + 'img/01.jpg';
 var imageWidth = 0;
 var imageHeight = 0;
 
-// タイムラインを初期化
-var timeline = [];
 
 // 画像をプリロードするトライアル
 var preload = {
@@ -110,15 +108,6 @@ var end_message = {
     choices: ["Enter"]
 };
 
-// タイムラインにトライアルを追加
-timeline.push(preload);
-timeline.push(welcome);
-timeline.push(hello_trial);
-timeline.push(welcome2);
-timeline.push(space_key_trial);
-timeline.push(end_message);
-
-// jsPsychの初期化
 jsPsych.init({
-    timeline: timeline,
+    timeline: [preload, welcome, hello_trial, welcome2, space_key_trial, end_message],
 });
