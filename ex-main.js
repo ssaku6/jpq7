@@ -1,6 +1,8 @@
-
-
 var repo_site = "https://ssaku6.github.io/jpq7/";
+
+
+/* create timeline */
+var timeline = [];
 
 // 使用する画像のパスを指定
 var selectedImage = repo_site + 'img/01.jpg';
@@ -16,12 +18,17 @@ var preload = {
     images: [selectedImage]
 };
 
+timeline.push(preload);
+
+
 // ウェルカムメッセージ
 var welcome = {
     type: "html-keyboard-response",
     stimulus: "Enterキーを押すと実験が始まります。",
     choices: ["Enter"]
 };
+
+timeline.push(welcome);
 
 // 画像トライアル
 var hello_trial = {
@@ -48,6 +55,10 @@ var hello_trial = {
     }
 };
 
+timeline.push(hello_trial);
+
+
+
 // 次の画面での説明
 var welcome2 = {
     type: "html-keyboard-response",
@@ -59,6 +70,9 @@ var welcome2 = {
     enterキーで進む`,
     choices: ["Enter"]
 };
+
+timeline.push(welcome2);
+
 
 // スペースキーで四角形を表示するトライアル
 var space_key_trial = {
@@ -103,6 +117,9 @@ var space_key_trial = {
     }
 };
 
+timeline.push(space_key_trial);
+
+
 // 次の画面に進む指示を表示するトライアル
 var end_message = {
     type: "html-keyboard-response",
@@ -110,6 +127,4 @@ var end_message = {
     choices: ["Enter"]
 };
 
-jsPsych.init({
-    timeline: [preload, welcome, hello_trial, welcome2, space_key_trial, end_message],
-});
+timeline.push(end_message);
