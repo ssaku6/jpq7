@@ -77,13 +77,21 @@ timeline.push(welcome2);
 // スペースキーで四角形を表示するトライアル
 var space_key_trial = {
     type: 'html-keyboard-response',
-    stimulus: '<div id="rectangle" style="display: none; background-color: grey;"></div>',
+    stimulus: '',  // HTMLを使わず、後からJavaScriptで追加
     choices: jsPsych.NO_KEYS,
     on_load: function() {
-        // 四角形のサイズを設定
-        var rectangle = document.getElementById('rectangle');
+        // 新しい要素をJavaScriptで生成
+        var rectangle = document.createElement('div');
+        rectangle.id = 'rectangle';
+        
+        // サイズや背景色などのスタイルを設定
         rectangle.style.width = imageWidth + 'px';
         rectangle.style.height = imageHeight + 'px';
+        rectangle.style.backgroundColor = 'grey';
+        rectangle.style.display = 'none';  // 初期状態は非表示
+        
+        // ページの指定された場所に追加（ここではbodyに追加）
+        document.body.appendChild(rectangle);
     },
     on_start: function(trial) {
         var startTime = null;
@@ -118,7 +126,6 @@ var space_key_trial = {
 };
 
 timeline.push(space_key_trial);
-
 
 // 次の画面に進む指示を表示するトライアル
 var end_message = {
