@@ -12,4 +12,6 @@ var welcome2 = {
     choices: ["Enter"]
 };
 
-
+jsPsych.init({
+    timeline: [ welcome2,],
+});
