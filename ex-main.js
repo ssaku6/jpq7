@@ -1,5 +1,9 @@
 var repo_site = "https://ssaku6.github.io/jpq7/";
 
+/* create timeline */
+var timeline = [];
+
+
 
  /* define welcome message trial */
  var welcome = {
@@ -9,6 +13,4 @@ var repo_site = "https://ssaku6.github.io/jpq7/";
   
   
 
-jsPsych.init({
-    timeline: [ welcome],
-});
+timeline.push(welcome);
