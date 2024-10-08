@@ -10,5 +10,4 @@ var welcome = {
     choices: ["Enter"]
 };
 
-timeline.push(welcome);
 
