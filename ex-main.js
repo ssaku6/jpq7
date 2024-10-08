@@ -1,6 +1,5 @@
 var repo_site = "https://ssaku6.github.io/jpq7/";
 
-
 /* create timeline */
 var timeline = [];
 
@@ -11,7 +10,6 @@ var selectedImage = repo_site + 'img/01.jpg';
 var imageWidth = 0;
 var imageHeight = 0;
 
-
 // 画像をプリロードするトライアル
 var preload = {
     type: 'preload',
@@ -19,7 +17,6 @@ var preload = {
 };
 
 timeline.push(preload);
-
 
 // ウェルカムメッセージ
 var welcome = {
@@ -33,31 +30,37 @@ timeline.push(welcome);
 // 画像トライアル
 var hello_trial = {
     type: 'html-keyboard-response',
-    stimulus: '<img id="jspsych-image" src="' + selectedImage + '" style="display: none;">',
+    stimulus: '', // JavaScriptで動的に生成
     choices: jsPsych.NO_KEYS,
     on_load: function() {
-        var imageElement = document.getElementById('jspsych-image');
+        // 画像要素を作成し、DOMに追加
+        var imgElement = document.createElement('img');
+        imgElement.src = selectedImage;
+        imgElement.id = 'jspsych-image';
+        document.body.appendChild(imgElement);
+
         // 画像をすぐに表示
-        imageElement.style.display = 'block';
+        imgElement.style.display = 'block';
 
         // 画像のサイズを取得
-        imageWidth = imageElement.naturalWidth;
-        imageHeight = imageElement.naturalHeight;
+        imageWidth = imgElement.naturalWidth;
+        imageHeight = imgElement.naturalHeight;
 
         // 3秒後に画像を非表示にする処理
         setTimeout(function() {
-            imageElement.style.display = 'none';
+            imgElement.style.display = 'none';
             jsPsych.finishTrial(); // 次の試行に進む
         }, 3000); // 3秒間表示後に非表示
     },
     on_finish: function() {
+        // 画像を削除
+        var imgElement = document.getElementById('jspsych-image');
+        imgElement.remove();
         document.body.style.backgroundColor = 'white';
     }
 };
 
 timeline.push(hello_trial);
-
-
 
 // 次の画面での説明
 var welcome2 = {
@@ -73,10 +76,61 @@ var welcome2 = {
 
 timeline.push(welcome2);
 
+// スペースキーで四角形を表示するトライアル
+var space_key_trial = {
+    type: 'html-keyboard-response',
+    stimulus: '',  // 空の文字列にして後から追加
+    choices: jsPsych.NO_KEYS,
+    on_load: function() {
+        // 四角形を動的に作成して追加
+        var rectangle = document.createElement('div');
+        rectangle.id = 'rectangle';
+        rectangle.style.backgroundColor = 'grey';
+        rectangle.style.width = imageWidth + 'px';
+        rectangle.style.height = imageHeight + 'px';
+        rectangle.style.display = 'none';  // 初期状態で非表示
+        document.body.appendChild(rectangle);
+    },
+    on_start: function(trial) {
+        var startTime = null;
+        var displayed = false;
 
+        // keydownイベントリスナー
+        var keydownListener = function(e) {
+            if (e.code === 'Space' && startTime === null && !displayed) {
+                startTime = performance.now();
+                document.getElementById('rectangle').style.display = 'block';
+            }
+        };
 
+        // keyupイベントリスナー
+        var keyupListener = function(e) {
+            if (e.code === 'Space' && startTime !== null && !displayed) {
+                var endTime = performance.now();
+                var reactionTime = endTime - startTime;
+                console.log("Reaction time: " + reactionTime + " milliseconds");
+                document.getElementById('rectangle').style.display = 'none';
+                displayed = true;
+                document.removeEventListener('keydown', keydownListener);
+                document.removeEventListener('keyup', keyupListener);
+                jsPsych.finishTrial();
+            }
+        };
 
-// 次の画面に進む指示を表示するトライアル
+        // イベントリスナーの追加
+        document.addEventListener('keydown', keydownListener);
+        document.addEventListener('keyup', keyupListener);
+    },
+    on_finish: function() {
+        // 四角形を削除
+        var rectangle = document.getElementById('rectangle');
+        rectangle.remove();
+    }
+};
+
+timeline.push(space_key_trial);
+
+// 終了メッセージ
 var end_message = {
     type: "html-keyboard-response",
     stimulus: "実験は終了しました。次の画面に進んでください。",
@@ -84,3 +138,9 @@ var end_message = {
 };
 
 timeline.push(end_message);
+
+// 実験の初期化
+jsPsych.init({
+    timeline: timeline,
+    display_element: 'jspsych-target'  // 必要に応じて追加
+});
