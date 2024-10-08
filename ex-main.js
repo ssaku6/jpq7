@@ -1,13 +1,14 @@
 var repo_site = "https://ssaku6.github.io/jpq7/";
 
 
- /* preload images */
- var preload = {
-    type: 'preload',
-    images: [repo_site+'img/blue.png', repo_site+'img/orange.png']
+ /* define welcome message trial */
+ var welcome = {
+    type: "html-keyboard-response",
+    stimulus: "Welcome to the experiment. Press any key to begin."
   };
+  
   
 
 jsPsych.init({
-    timeline: [ preload,],
+    timeline: [ welcome],
 });
