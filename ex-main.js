@@ -1,9 +1,5 @@
 var repo_site = "https://ssaku6.github.io/jpq7/";
 
-
-/* create timeline */
-var timeline = [];
-
 // 使用する画像のパスを指定
 var selectedImage = repo_site + 'img/01.jpg';
 
@@ -18,17 +14,12 @@ var preload = {
     images: [selectedImage]
 };
 
-timeline.push(preload);
-
-
 // ウェルカムメッセージ
 var welcome = {
     type: "html-keyboard-response",
     stimulus: "Enterキーを押すと実験が始まります。",
     choices: ["Enter"]
 };
-
-timeline.push(welcome);
 
 // 画像トライアル
 var hello_trial = {
@@ -55,10 +46,6 @@ var hello_trial = {
     }
 };
 
-timeline.push(hello_trial);
-
-
-
 // 次の画面での説明
 var welcome2 = {
     type: "html-keyboard-response",
@@ -71,61 +58,7 @@ var welcome2 = {
     choices: ["Enter"]
 };
 
-timeline.push(welcome2);
 
-
-// スペースキーで四角形を表示するトライアル
-var space_key_trial = {
-    type: 'html-keyboard-response',
-    stimulus: '',  // HTMLを使わず、後からJavaScriptで追加
-    choices: jsPsych.NO_KEYS,
-    on_load: function() {
-        // 新しい要素をJavaScriptで生成
-        var rectangle = document.createElement('div');
-        rectangle.id = 'rectangle';
-        
-        // サイズや背景色などのスタイルを設定
-        rectangle.style.width = imageWidth + 'px';
-        rectangle.style.height = imageHeight + 'px';
-        rectangle.style.backgroundColor = 'grey';
-        rectangle.style.display = 'none';  // 初期状態は非表示
-        
-        // ページの指定された場所に追加（ここではbodyに追加）
-        document.body.appendChild(rectangle);
-    },
-    on_start: function(trial) {
-        var startTime = null;
-        var displayed = false;
-
-        // keydownイベントリスナー
-        var keydownListener = function(e) {
-            if (e.code === 'Space' && startTime === null && !displayed) {
-                startTime = performance.now();
-                document.getElementById('rectangle').style.display = 'block';
-            }
-        };
-
-        // keyupイベントリスナー
-        var keyupListener = function(e) {
-            if (e.code === 'Space' && startTime !== null && !displayed) {
-                var endTime = performance.now();
-                var reactionTime = endTime - startTime;
-                console.log("Reaction time: " + reactionTime + " milliseconds");
-                document.getElementById('rectangle').style.display = 'none';
-                displayed = true;
-                document.removeEventListener('keydown', keydownListener);
-                document.removeEventListener('keyup', keyupListener);
-                jsPsych.finishTrial();
-            }
-        };
-
-        // イベントリスナーの追加
-        document.addEventListener('keydown', keydownListener);
-        document.addEventListener('keyup', keyupListener);
-    }
-};
-
-timeline.push(space_key_trial);
 
 // 次の画面に進む指示を表示するトライアル
 var end_message = {
@@ -134,4 +67,6 @@ var end_message = {
     choices: ["Enter"]
 };
 
-timeline.push(end_message);
+jsPsych.init({
+    timeline: [preload, welcome, hello_trial, welcome2, end_message],
+});
