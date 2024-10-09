@@ -1,7 +1,7 @@
 var repo_site = "https://ssaku6.github.io/jpq7/";
 
 /* create timeline */
-/*var timeline = [];*/
+var timeline = [];
 
 
 
@@ -13,9 +13,5 @@ var welcome = {
 };
 
 
-
-jsPsych.init({
-    timeline: [welcome],
-});
-/*timeline.push(welcome);*/
+timeline.push(welcome);
 
