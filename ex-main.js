@@ -123,7 +123,7 @@ timeline.push(space_key_trial);
 // 次の画面に進む指示を表示するトライアル
 var end_message = {
     type: "html-keyboard-response",
-    stimulus: "実験は終了しました。次の画面に進んでください。",
+    stimulus: "実験は終了しました。次の画面に進んでください。<br>enterで次に進む。",
     choices: ["Enter"]
 };
 
