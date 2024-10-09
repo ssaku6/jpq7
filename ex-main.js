@@ -7,7 +7,7 @@ var timeline = [];
 
 // ウェルカムメッセージ
 var welcome = {
-    type: "html-keyboard-response",
+    type: "jspsych-html-keyboard-response",
     stimulus: "Enterキーを押すと実験が始まります。",
     choices: ["Enter"]
 };
