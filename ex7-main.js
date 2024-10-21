@@ -74,7 +74,7 @@ timeline.push(welcome2);
 
 var welcome3 = {
     type: "html-keyboard-response",
-    stimulus: `spaceキーを長押しすると灰色の四角形が表示されるので、 絵画を見ていたと思う時間と同じ時間、四角形を表示させてください。spaceキーを離すと四角形が消えます。<br>enterキーで次の画面に進みます。`,
+    stimulus: `spaceキーを長押しすると灰色の四角形が表示されるので、 絵画を見ていたと思う時間と同じ時間、四角形を表示させてください。<br>spaceキーを離すと四角形が消えます。<br>enterキーで次の画面に進みます。`,
     choices: ["Enter"]
 };
 
