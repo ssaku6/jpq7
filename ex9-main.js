@@ -24,7 +24,7 @@ timeline.push(preload);
 // ウェルカムメッセージ
 var welcome = {
     type: "html-keyboard-response",
-    stimulus: "enterキーを押すと絵画が表示されます。絵画は自動で消えるまで、表示されます。<br>事前に見た評価項目に基づき、絵画が消えるまで見続けてください。<br>enterキーで次のページに進みます。",
+    stimulus: "enterキーを押すと絵画が表示されます。絵画は自動で消えるまで、表示されます。<br>事前に見た評価項目に基づき、絵画が消えるまで見続けてください。",
     choices: ["Enter"]
 };
 
