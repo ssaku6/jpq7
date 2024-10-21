@@ -24,7 +24,7 @@ timeline.push(preload);
 // ウェルカムメッセージ
 var welcome = {
     type: "html-keyboard-response",
-    stimulus: "Enterキーを押すと実験が始まります。",
+    stimulus: "Enterキーを押すと絵画が表示されます。絵画は自動で消えるまで、表示されます。<br>事前にお伝えした評価項目に基づき、絵画をじっくり丁寧に評価してください。<br>enterキーで次のページに進みます。",
     choices: ["Enter"]
 };
 
@@ -62,16 +62,24 @@ timeline.push(hello_trial);
 // 次の画面での説明
 var welcome2 = {
     type: "html-keyboard-response",
-    stimulus: `絵画を評価していた時間を再現してください。<br>
+    stimulus: `<strong>予告していませんでしたが、絵画の評価の前に、絵画を見ていた時間の長さを再現していただきます。</strong><br><br>
     次の画面では、真っ白な画面が表示れます。<br>
     その画面ではSpaceキーを長押しすると四角形が表示され、押し続けることを止めると消えます。<br>
     絵画を見ていた時間と同じ時間、四角形を表示させてください。<br>
-    <strong>spaceキーを押す操作は1度しかできないので注意してください</strong><br>
-    enterキーで進む`,
+    <strong>spaceキーを押す操作は1度しかできないので注意してください。</strong><br>
+    enterキーで進のページに進みます。`,
     choices: ["Enter"]
 };
 
 timeline.push(welcome2);
+
+var welcome3 = {
+    type: "html-keyboard-response",
+    stimulus: `spaceキーを長押しすると灰色の長方形が表示されるので、見ていた時間を再現してください。spaceキーを離すと長方形が消えます。<br>enterキーで次の画面に進みます。`,
+    choices: ["Enter"]
+};
+
+timeline.push(welcome3);
 
 
 // スペースキーで四角形を表示するトライアル
@@ -123,7 +131,7 @@ timeline.push(space_key_trial);
 // 次の画面に進む指示を表示するトライアル
 var end_message = {
     type: "html-keyboard-response",
-    stimulus: "実験は終了しました。次の画面に進んでください。<br>enterで次に進む。",
+    stimulus: "続いて絵画の評価をしていただきます。<br>評価項目は4つありますが、全てに回答するのではなく、事前に見た評価項目のみに回答してください。<br>enterキーで次のページに進みます。",
     choices: ["Enter"]
 };
 

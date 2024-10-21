@@ -131,7 +131,7 @@ timeline.push(space_key_trial);
 // 次の画面に進む指示を表示するトライアル
 var end_message = {
     type: "html-keyboard-response",
-    stimulus: "続いて絵画の評価をしていただきます。<br>評価項目全てに回答するのではなく、事前に見た評価項目のみに回答してください。<br>enterキーで次のページに進みます。",
+    stimulus: "続いて絵画の評価をしていただきます。<br>評価項目は4つありますが、全てに回答するのではなく、事前に見た評価項目のみに回答してください。<br>enterキーで次のページに進みます。",
     choices: ["Enter"]
 };
 
