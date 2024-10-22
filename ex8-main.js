@@ -30,6 +30,16 @@ var welcome = {
 
 timeline.push(welcome);
 
+// 固視点トライアル（教示の後に追加）
+var fixation_trial = {
+    type: "html-keyboard-response",
+    stimulus: "<p style='font-size: 48px;'>+</p>",  // 固視点として「+」を表示
+    choices: jsPsych.NO_KEYS,  // キー入力を無効にする
+    trial_duration: 1000  // 固視点を1秒間表示（時間は調整可能）
+};
+
+timeline.push(fixation_trial);
+
 // 画像トライアル
 var hello_trial = {
     type: 'html-keyboard-response',
@@ -66,26 +76,24 @@ var welcome2 = {
     その画面ではSpaceキーを長押しすると四角形が表示され、離すと四角形が消えます。<br>
     絵画を見ていたと思う時間と同じ時間、四角形を表示させてください。<br>
     <strong>spaceキーを押す操作は1度しかできないので注意してください。</strong><br>
-    enterキーで進のページに進みます。`,
+    enterキーで次のページに進みます。`,
     choices: ["Enter"]
 };
 
 timeline.push(welcome2);
 
-var welcome3 = {
-    type: "html-keyboard-response",
-    stimulus: `次の画面は、真っ白な画面になります。<br>spaceキーを長押しすると灰色の四角形が表示されるので、 絵画を見ていたと思う時間と同じ時間、四角形を表示させてください。<br>spaceキーを離すと四角形が消えます。<br>enterキーで次の画面に進みます。`,
-    choices: ["Enter"]
-};
-
-timeline.push(welcome3);
-
-
-// スペースキーで四角形を表示するトライアル
 var space_key_trial = {
     type: 'html-keyboard-response',
-    stimulus: '<div id="rectangle" style="display: none; background-color: grey;"></div>',
-    choices: jsPsych.NO_KEYS,
+    stimulus: `
+        <div id="instructions">
+            <p>では、<strong>spaceキーを押して四角形を表示させてください</strong></p>
+            <p>spaceキーを長押しすると灰色の四角形が表示されるので、 絵画を見ていたと思う時間と同じ時間、四角形を表示させてください。</p>
+            <p>spaceキーを離すと四角形が消えます。</p>
+            
+        </div>
+        <div id="rectangle" style="display: none; background-color: grey;"></div>
+    `,
+    choices: jsPsych.NO_KEYS,  // Enterキーを不要にするためNO_KEYSを設定
     on_load: function() {
         // 四角形のサイズを設定
         var rectangle = document.getElementById('rectangle');
@@ -100,7 +108,12 @@ var space_key_trial = {
         var keydownListener = function(e) {
             if (e.code === 'Space' && startTime === null && !displayed) {
                 startTime = performance.now();
-                document.getElementById('rectangle').style.display = 'block';
+
+                // 教示を非表示にする
+                document.getElementById('instructions').style.display = 'none';
+
+                // 四角形を表示
+                document.getElementById('rectangle').style.display = 'block';  
             }
         };
 
@@ -110,11 +123,15 @@ var space_key_trial = {
                 var endTime = performance.now();
                 var reactionTime = endTime - startTime;
                 console.log("Reaction time: " + reactionTime + " milliseconds");
-                document.getElementById('rectangle').style.display = 'none';
+
+                // 四角形を非表示にする
+                document.getElementById('rectangle').style.display = 'none';  
                 displayed = true;
+
+                // イベントリスナーを解除して試行を終了
                 document.removeEventListener('keydown', keydownListener);
                 document.removeEventListener('keyup', keyupListener);
-                jsPsych.finishTrial();
+                jsPsych.finishTrial();  // 試行を終了
             }
         };
 
@@ -125,7 +142,6 @@ var space_key_trial = {
 };
 
 timeline.push(space_key_trial);
-
 
 // 次の画面に進む指示を表示するトライアル
 var end_message = {
