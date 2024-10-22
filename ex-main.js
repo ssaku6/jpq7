@@ -97,6 +97,8 @@ var space_key_trial = {
         var keydownListener = function(e) {
             if (e.code === 'Space' && startTime === null && !displayed) {
                 startTime = performance.now();
+                
+                document.getElementById('instructions').style.display = 'none';// 教示を非表示にする
                 document.getElementById('rectangle').style.display = 'block';  // 四角形を表示
             }
         };
