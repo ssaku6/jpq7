@@ -66,30 +66,28 @@ var welcome2 = {
     その画面ではSpaceキーを長押しすると四角形が表示され、離すと四角形が消えます。<br>
     絵画を見ていたと思う時間と同じ時間、四角形を表示させてください。<br>
     <strong>spaceキーを押す操作は1度しかできないので注意してください。</strong><br>
-    enterキーで進のページに進みます。`,
+    enterキーで次のページに進みます。`,
     choices: ["Enter"]
 };
 
 timeline.push(welcome2);
 
-
 var space_key_trial = {
     type: 'html-keyboard-response',
     stimulus: `
         <div>
-            <p>次の画面は、真っ白な画面になります。</p>
+            
             <p>spaceキーを長押しすると灰色の四角形が表示されるので、 絵画を見ていたと思う時間と同じ時間、四角形を表示させてください。</p>
             <p>spaceキーを離すと四角形が消えます。</p>
-            <p>enterキーで次の画面に進みます。</p>
         </div>
         <div id="rectangle" style="display: none; background-color: grey;"></div>
     `,
-    choices: ['Enter'],  // Enterキーで次の画面に進む
+    choices: jsPsych.NO_KEYS,  // Enterキーを不要にするためNO_KEYSを設定
     on_load: function() {
         // 四角形のサイズを設定
         var rectangle = document.getElementById('rectangle');
-        rectangle.style.width = '200px';  // 必要なサイズに変更
-        rectangle.style.height = '200px';  // 必要なサイズに変更
+        rectangle.style.width = '200px';  // 必要に応じてサイズを変更
+        rectangle.style.height = '200px';  // 必要に応じてサイズを変更
     },
     on_start: function(trial) {
         var startTime = null;
@@ -106,10 +104,16 @@ var space_key_trial = {
         // keyupイベントリスナー
         var keyupListener = function(e) {
             if (e.code === 'Space' && startTime !== null && !displayed) {
+                var endTime = performance.now();
+                var reactionTime = endTime - startTime;
+                console.log("Reaction time: " + reactionTime + " milliseconds");
                 document.getElementById('rectangle').style.display = 'none';  // 四角形を非表示
                 displayed = true;
+                
+                // イベントリスナーを解除して試行を終了
                 document.removeEventListener('keydown', keydownListener);
                 document.removeEventListener('keyup', keyupListener);
+                jsPsych.finishTrial();  // 試行を終了
             }
         };
 
@@ -120,7 +124,6 @@ var space_key_trial = {
 };
 
 timeline.push(space_key_trial);
-
 
 // 次の画面に進む指示を表示するトライアル
 var end_message = {
