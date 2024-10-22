@@ -86,8 +86,8 @@ var space_key_trial = {
     on_load: function() {
         // 四角形のサイズを設定
         var rectangle = document.getElementById('rectangle');
-        rectangle.style.width = '200px';  // 必要に応じてサイズを変更
-        rectangle.style.height = '200px';  // 必要に応じてサイズを変更
+        rectangle.style.width = imageWidth + 'px';
+        rectangle.style.height = imageHeight + 'px';
     },
     on_start: function(trial) {
         var startTime = null;
