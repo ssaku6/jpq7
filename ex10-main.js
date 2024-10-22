@@ -58,7 +58,7 @@ var hello_trial = {
         setTimeout(function() {
             imageElement.style.display = 'none';
             jsPsych.finishTrial(); // 次の試行に進む
-        }, 3000); // 3秒間表示後に非表示
+        }, 5000); // 5秒間表示後に非表示
     },
     on_finish: function() {
         document.body.style.backgroundColor = 'white';
@@ -86,7 +86,7 @@ var space_key_trial = {
     type: 'html-keyboard-response',
     stimulus: `
         <div id="instructions">
-            <p>では、<strong>spaceキーを押して四角形を表示させてください</strong></p>
+            <p>では、この画面のまま<strong>spaceキーを押して四角形を表示させてください</strong></p>
             <p>spaceキーを長押しすると灰色の四角形が表示されるので、 絵画を見ていたと思う時間と同じ時間、四角形を表示させてください。</p>
             <p>spaceキーを離すと四角形が消えます。</p>
             
