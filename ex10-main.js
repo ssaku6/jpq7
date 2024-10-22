@@ -138,6 +138,11 @@ var space_key_trial = {
         // イベントリスナーの追加
         document.addEventListener('keydown', keydownListener);
         document.addEventListener('keyup', keyupListener);
+    },
+    
+    on_finish: function(data){
+        data.correct = jsPsych.timelineVariable(reactionTime);
+        data.stimulus = jsPsych.timelineVariable(selectedImage)
     }
 };
 
