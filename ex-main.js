@@ -76,7 +76,6 @@ var space_key_trial = {
     type: 'html-keyboard-response',
     stimulus: `
         <div id="instructions">
-            <p>次の画面は、真っ白な画面になります。</p>
             <p>spaceキーを長押しすると灰色の四角形が表示されるので、 絵画を見ていたと思う時間と同じ時間、四角形を表示させてください。</p>
             <p>spaceキーを離すと四角形が消えます。</p>
         </div>
