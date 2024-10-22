@@ -142,7 +142,7 @@ var space_key_trial = {
     
     on_finish: function(data){
         data.correct = jsPsych.timelineVariable("reactionTime");
-        data.stimulus = jsPsych.timelineVariable("selectedImage")
+        data.stimulus = jsPsych.timelineVariable("selectedImage");
     }
 };
 
