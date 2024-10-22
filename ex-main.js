@@ -5,7 +5,7 @@ var repo_site = "https://ssaku6.github.io/jpq7/";
 var timeline = [];
 
 // 使用する画像のパスを指定
-var selectedImage = repo_site + 'img/01.jpg';
+var selectedImage = repo_site + 'img/10.jpg';
 
 // 画像を表示している時間とサイズを格納する変数
 var imageWidth = 0;
@@ -72,18 +72,25 @@ var welcome2 = {
 
 timeline.push(welcome2);
 
+var welcome3 = {
+    type: "html-keyboard-response",
+    stimulus: `次の画面は、真っ白な画面になります。<br>spaceキーを長押しすると灰色の四角形が表示されるので、 絵画を見ていたと思う時間と同じ時間、四角形を表示させてください。<br>spaceキーを離すと四角形が消えます。<br>enterキーで次の画面に進みます。`,
+    choices: ["Enter"]
+};
+
+timeline.push(welcome3);
+
+
+// スペースキーで四角形を表示するトライアル
 var space_key_trial = {
     type: 'html-keyboard-response',
-    stimulus: ` 次の画面は、真っ白な画面になります。<br>spaceキーを長押しすると灰色の四角形が表示されるので、 絵画を見ていたと思う時間と同じ時間、四角形を表示させてください。<br>spaceキーを離すと四角形が消えます。<br>enterキーで次の画面に進みます。
-    
-        <div id="rectangle" style="display: none; background-color: grey;"></div>`,
-
-    choices: ["Enter"],
+    stimulus: '次の画面は、真っ白な画面になります。<br>spaceキーを長押しすると灰色の四角形が表示されるので、 絵画を見ていたと思う時間と同じ時間、四角形を表示させてください。<br>spaceキーを離すと四角形が消えます。<br>enterキーで次の画面に進みます。<div id="rectangle" style="display: none; background-color: grey;"></div>',
+    choices: jsPsych.NO_KEYS,
     on_load: function() {
         // 四角形のサイズを設定
         var rectangle = document.getElementById('rectangle');
-        rectangle.style.width = '200px';  // 必要なサイズに変更
-        rectangle.style.height = '200px';  // 必要なサイズに変更
+        rectangle.style.width = imageWidth + 'px';
+        rectangle.style.height = imageHeight + 'px';
     },
     on_start: function(trial) {
         var startTime = null;
