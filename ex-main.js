@@ -75,8 +75,8 @@ timeline.push(welcome2);
 var space_key_trial = {
     type: 'html-keyboard-response',
     stimulus: `
-        <div>
-            
+        <div id="instructions">
+            <p>次の画面は、真っ白な画面になります。</p>
             <p>spaceキーを長押しすると灰色の四角形が表示されるので、 絵画を見ていたと思う時間と同じ時間、四角形を表示させてください。</p>
             <p>spaceキーを離すと四角形が消えます。</p>
         </div>
@@ -97,9 +97,12 @@ var space_key_trial = {
         var keydownListener = function(e) {
             if (e.code === 'Space' && startTime === null && !displayed) {
                 startTime = performance.now();
-                
-                document.getElementById('instructions').style.display = 'none';// 教示を非表示にする
-                document.getElementById('rectangle').style.display = 'block';  // 四角形を表示
+
+                // 教示を非表示にする
+                document.getElementById('instructions').style.display = 'none';
+
+                // 四角形を表示
+                document.getElementById('rectangle').style.display = 'block';  
             }
         };
 
@@ -109,9 +112,11 @@ var space_key_trial = {
                 var endTime = performance.now();
                 var reactionTime = endTime - startTime;
                 console.log("Reaction time: " + reactionTime + " milliseconds");
-                document.getElementById('rectangle').style.display = 'none';  // 四角形を非表示
+
+                // 四角形を非表示にする
+                document.getElementById('rectangle').style.display = 'none';  
                 displayed = true;
-                
+
                 // イベントリスナーを解除して試行を終了
                 document.removeEventListener('keydown', keydownListener);
                 document.removeEventListener('keyup', keyupListener);
