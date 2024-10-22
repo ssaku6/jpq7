@@ -30,6 +30,16 @@ var welcome = {
 
 timeline.push(welcome);
 
+// 固視点トライアル（教示の後に追加）
+var fixation_trial = {
+    type: "html-keyboard-response",
+    stimulus: "<p style='font-size: 48px;'>+</p>",  // 固視点として「+」を表示
+    choices: jsPsych.NO_KEYS,  // キー入力を無効にする
+    trial_duration: 1000  // 固視点を1秒間表示（時間は調整可能）
+};
+
+timeline.push(fixation_trial);
+
 // 画像トライアル
 var hello_trial = {
     type: 'html-keyboard-response',
