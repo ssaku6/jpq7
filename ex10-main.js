@@ -73,7 +73,7 @@ timeline.push(hello_trial);
 var welcome2 = {
     type: "html-keyboard-response",
     stimulus: `<strong>予告していませんでしたが、絵画の評価の前に、絵画を見ていた時間の長さを再現してもらいます。</strong><br><br>
-    その画面ではSpaceキーを長押しすると四角形が表示され、離すと四角形が消えます。<br>
+    次の画面ではSpaceキーを長押しすると四角形が表示され、離すと四角形が消えます。<br>
     絵画を見ていたと思う時間と同じ時間、四角形を表示させてください。<br>
     <strong>spaceキーを押す操作は1度しかできないので注意してください。</strong><br>
     enterキーで次のページに進みます。`,
