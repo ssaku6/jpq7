@@ -73,17 +73,23 @@ var welcome2 = {
 timeline.push(welcome2);
 
 
-
-// スペースキーで四角形を表示するトライアル
 var space_key_trial = {
     type: 'html-keyboard-response',
-    stimulus: '次の画面は、真っ白な画面になります。<br>spaceキーを長押しすると灰色の四角形が表示されるので、 絵画を見ていたと思う時間と同じ時間、四角形を表示させてください。<br>spaceキーを離すと四角形が消えます。<br>enterキーで次の画面に進みます。<div id="rectangle" style="display: none; background-color: grey;"></div>',
-    choices: jsPsych.NO_KEYS,
+    stimulus: `
+        <div>
+            <p>次の画面は、真っ白な画面になります。</p>
+            <p>spaceキーを長押しすると灰色の四角形が表示されるので、 絵画を見ていたと思う時間と同じ時間、四角形を表示させてください。</p>
+            <p>spaceキーを離すと四角形が消えます。</p>
+            <p>enterキーで次の画面に進みます。</p>
+        </div>
+        <div id="rectangle" style="display: none; background-color: grey;"></div>
+    `,
+    choices: ['Enter'],  // Enterキーで次の画面に進む
     on_load: function() {
         // 四角形のサイズを設定
         var rectangle = document.getElementById('rectangle');
-        rectangle.style.width = imageWidth + 'px';
-        rectangle.style.height = imageHeight + 'px';
+        rectangle.style.width = '200px';  // 必要なサイズに変更
+        rectangle.style.height = '200px';  // 必要なサイズに変更
     },
     on_start: function(trial) {
         var startTime = null;
@@ -93,21 +99,17 @@ var space_key_trial = {
         var keydownListener = function(e) {
             if (e.code === 'Space' && startTime === null && !displayed) {
                 startTime = performance.now();
-                document.getElementById('rectangle').style.display = 'block';
+                document.getElementById('rectangle').style.display = 'block';  // 四角形を表示
             }
         };
 
         // keyupイベントリスナー
         var keyupListener = function(e) {
             if (e.code === 'Space' && startTime !== null && !displayed) {
-                var endTime = performance.now();
-                var reactionTime = endTime - startTime;
-                console.log("Reaction time: " + reactionTime + " milliseconds");
-                document.getElementById('rectangle').style.display = 'none';
+                document.getElementById('rectangle').style.display = 'none';  // 四角形を非表示
                 displayed = true;
                 document.removeEventListener('keydown', keydownListener);
                 document.removeEventListener('keyup', keyupListener);
-                jsPsych.finishTrial();
             }
         };
 
