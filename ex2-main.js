@@ -84,6 +84,8 @@ timeline.push(welcome2);
 
 var space_key_trial = {
     type: 'html-keyboard-response',
+    data: {
+        task: 'response'},
     stimulus: `
         <div id="instructions">
             <p>では、この画面のまま<strong>spaceキーを押して四角形を表示させてください</strong></p>
