@@ -82,75 +82,84 @@ var welcome2 = {
 
 timeline.push(welcome2);
 
-var space_key_trial = {
-    type: 'html-keyboard-response',
-    data: {
-        task: 'response'},
-    stimulus: `
-        <div id="instructions">
-            <p>では、この画面のまま<strong>spaceキーを押して四角形を表示させてください</strong></p>
-            <p>spaceキーを長押しすると灰色の四角形が表示されるので、 絵画を見ていたと思う時間と同じ時間、四角形を表示させてください。</p>
-            <p>spaceキーを離すと四角形が消えます。</p>
+    var reactionTime;  // グローバル変数として定義
+
+    var space_key_trial = {
+        type: 'html-keyboard-response',
+        stimulus: `
+            <div id="instructions">
+                <p>では、この画面のまま<strong>spaceキーを押して四角形を表示させてください</strong></p>
+                <p>spaceキーを長押しすると灰色の四角形が表示されるので、 絵画を見ていたと思う時間と同じ時間、四角形を表示させてください。</p>
+                <p>spaceキーを離すと四角形が消えます。</p>
+            </div>
+            <div id="rectangle" style="display: none; background-color: grey;"></div>
+        `,
+        choices: jsPsych.NO_KEYS,  // Enterキーを不要にするためNO_KEYSを設定
+        on_load: function() {
+            // 四角形のサイズを設定
+            var rectangle = document.getElementById('rectangle');
+            rectangle.style.width = imageWidth + 'px';
+            rectangle.style.height = imageHeight + 'px';
+        },
+        on_start: function(trial) {
+            var startTime = null;
+            var displayed = false;
+    
+            // keydownイベントリスナー
+            var keydownListener = function(e) {
+                if (e.code === 'Space' && startTime === null && !displayed) {
+                    startTime = performance.now();
+    
+                    // 教示を非表示にする
+                    document.getElementById('instructions').style.display = 'none';
+    
+                    // 四角形を表示
+                    document.getElementById('rectangle').style.display = 'block';  
+                }
+            };
+    
+            // keyupイベントリスナー
+            var keyupListener = function(e) {
+                if (e.code === 'Space' && startTime !== null && !displayed) {
+                    var endTime = performance.now();
+                    reactionTime = endTime - startTime;  // reactionTime をグローバル変数に保存
+                    console.log("Reaction time: " + reactionTime + " milliseconds");
+    
+                    // 四角形を非表示にする
+                    document.getElementById('rectangle').style.display = 'none';  
+                    displayed = true;
+    
+                    // イベントリスナーを解除して試行を終了
+                    document.removeEventListener('keydown', keydownListener);
+                    document.removeEventListener('keyup', keyupListener);
+                    jsPsych.finishTrial();  // 試行を終了
+                }
+            };
+    
+            // イベントリスナーの追加
+            document.addEventListener('keydown', keydownListener);
+            document.addEventListener('keyup', keyupListener);
+        },
+        
+        on_finish: function(data) {
+            // reactionTime をデータに保存
+            data.reactionTime = reactionTime;
+            // 表示された画像をデータに保存
+            data.stimulus = selectedImage;
             
-        </div>
-        <div id="rectangle" style="display: none; background-color: grey;"></div>
-    `,
-    choices: jsPsych.NO_KEYS,  // Enterキーを不要にするためNO_KEYSを設定
-    on_load: function() {
-        // 四角形のサイズを設定
-        var rectangle = document.getElementById('rectangle');
-        rectangle.style.width = imageWidth + 'px';
-        rectangle.style.height = imageHeight + 'px';
-    },
-    on_start: function(trial) {
-        var startTime = null;
-        var displayed = false;
-
-        // keydownイベントリスナー
-        var keydownListener = function(e) {
-            if (e.code === 'Space' && startTime === null && !displayed) {
-                startTime = performance.now();
-
-                // 教示を非表示にする
-                document.getElementById('instructions').style.display = 'none';
-
-                // 四角形を表示
-                document.getElementById('rectangle').style.display = 'block';  
-            }
-        };
-
-        // keyupイベントリスナー
-        var keyupListener = function(e) {
-            if (e.code === 'Space' && startTime !== null && !displayed) {
-                var endTime = performance.now();
-                var reactionTime = endTime - startTime;
-                console.log("Reaction time: " + reactionTime + " milliseconds");
-
-                // 四角形を非表示にする
-                document.getElementById('rectangle').style.display = 'none';  
-                displayed = true;
-
-                // イベントリスナーを解除して試行を終了
-                document.removeEventListener('keydown', keydownListener);
-                document.removeEventListener('keyup', keyupListener);
-                jsPsych.finishTrial();  // 試行を終了
-            }
-        };
-
-        // イベントリスナーの追加
-        document.addEventListener('keydown', keydownListener);
-        document.addEventListener('keyup', keyupListener);
-    },
+            // Qualtrics にデータを保存する処理
+            var datajs = jsPsych.data.get().json();
+            Qualtrics.SurveyEngine.setEmbeddedData("datajs", datajs);
+            
+            // 画面の要素をクリーンアップ
+            jQuery('display_stage').remove();
+            jQuery('display_stage_background').remove();
+            qthis.clickNextButton();
+        }
+    };
     
+    timeline.push(space_key_trial);
     
-    on_finish: function(data){
-        data.correct = jsPsych.timelineVariable("reactionTime");
-        data.stimulus = jsPsych.timelineVariable("selectedImage");
-    }
-};
-
-timeline.push(space_key_trial);
-
 // 次の画面に進む指示を表示するトライアル
 var end_message = {
     type: "html-keyboard-response",
