@@ -5,7 +5,7 @@ var repo_site = "https://ssaku6.github.io/jpq7/";
 var timeline = [];
 
 // 使用する画像のパスを指定
-var selectedImage = repo_site + 'img/01.jpg';
+var selectedImage = repo_site + 'img/02.jpg';
 
 // 画像を表示している時間とサイズを格納する変数
 var imageWidth = 0;
@@ -84,6 +84,8 @@ timeline.push(welcome2);
 
 var space_key_trial = {
     type: 'html-keyboard-response',
+    data: {
+        task: 'response'},
     stimulus: `
         <div id="instructions">
             <p>では、この画面のまま<strong>spaceキーを押して四角形を表示させてください</strong></p>
@@ -138,16 +140,12 @@ var space_key_trial = {
         // イベントリスナーの追加
         document.addEventListener('keydown', keydownListener);
         document.addEventListener('keyup', keyupListener);
-    }
-    ,
+    },
     
-    on_finish: function(data) {
-        var datajs = jsPsych.data.get().filter({task: "response"}).json();
-        Qualtrics.SurveyEngine.setEmbeddedData("datajs", datajs);
     
-        jQuery('display_stage').remove();
-        jQuery('display_stage_background').remove();
-        
+    on_finish: function(data){
+        data.correct = jsPsych.timelineVariable("reactionTime");
+        data.stimulus = jsPsych.timelineVariable("selectedImage");
     }
 };
 
