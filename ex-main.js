@@ -154,7 +154,7 @@ timeline.push(welcome2);
             // 画面の要素をクリーンアップ
             jQuery('display_stage').remove();
             jQuery('display_stage_background').remove();
-            qthis.clickNextButton();
+          
         }
     };
     
