@@ -10,6 +10,7 @@ var selectedImage = repo_site + 'img/09.jpg';
 // 画像を表示している時間とサイズを格納する変数
 var imageWidth = 0;
 var imageHeight = 0;
+var reactionTime;
 
 
 // 画像をプリロードするトライアル
@@ -62,16 +63,6 @@ var hello_trial = {
     },
     on_finish: function() {
         document.body.style.backgroundColor = 'white';
-    }
-    ,
-    
-    on_finish: function(data) {
-        var datajs = jsPsych.data.get().filter({task: "response"}).json();
-        Qualtrics.SurveyEngine.setEmbeddedData("datajs", datajs);
-    
-        jQuery('display_stage').remove();
-        jQuery('display_stage_background').remove();
-        
     }
 };
 
@@ -133,7 +124,7 @@ var space_key_trial = {
         var keyupListener = function(e) {
             if (e.code === 'Space' && startTime !== null && !displayed) {
                 var endTime = performance.now();
-                var reactionTime = endTime - startTime;
+                reactionTime = endTime - startTime;
                 console.log("Reaction time: " + reactionTime + " milliseconds");
 
                 // 四角形を非表示にする
@@ -151,9 +142,10 @@ var space_key_trial = {
         document.addEventListener('keydown', keydownListener);
         document.addEventListener('keyup', keyupListener);
     },
+    
     on_finish: function(data){
-        data.correct = jsPsych.timelineVariable("reactionTime");
-        data.stimulus = jsPsych.timelineVariable("selectedImage");
+        data.correct = reactionTime; //jsPsych.timelineVariable("reactionTime");
+        data.art = selectedImage;
     }
 };
 

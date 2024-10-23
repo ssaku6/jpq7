@@ -10,6 +10,7 @@ var selectedImage = repo_site + 'img/03.jpg';
 // 画像を表示している時間とサイズを格納する変数
 var imageWidth = 0;
 var imageHeight = 0;
+var reactionTime;
 
 
 // 画像をプリロードするトライアル
@@ -123,7 +124,7 @@ var space_key_trial = {
         var keyupListener = function(e) {
             if (e.code === 'Space' && startTime !== null && !displayed) {
                 var endTime = performance.now();
-                var reactionTime = endTime - startTime;
+                reactionTime = endTime - startTime;
                 console.log("Reaction time: " + reactionTime + " milliseconds");
 
                 // 四角形を非表示にする
@@ -140,12 +141,11 @@ var space_key_trial = {
         // イベントリスナーの追加
         document.addEventListener('keydown', keydownListener);
         document.addEventListener('keyup', keyupListener);
-    }
-    ,
+    },
     
     on_finish: function(data){
-        data.correct = jsPsych.timelineVariable("reactionTime");
-        data.stimulus = jsPsych.timelineVariable("selectedImage");
+        data.correct = reactionTime; //jsPsych.timelineVariable("reactionTime");
+        data.art = selectedImage;
     }
 };
 

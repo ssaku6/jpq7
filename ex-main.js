@@ -145,7 +145,7 @@ var space_key_trial = {
     
     on_finish: function(data){
         data.correct = reactionTime; //jsPsych.timelineVariable("reactionTime");
-        data.stimulus = jsPsych.timelineVariable("selectedImage");
+        data.art = selectedImage;
     }
 };
 
