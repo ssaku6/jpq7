@@ -65,9 +65,13 @@ var hello_trial = {
     }
     ,
     
-    on_finish: function(data){
-        data.correct = jsPsych.timelineVariable("reactionTime");
-        data.stimulus = jsPsych.timelineVariable("selectedImage");
+    on_finish: function(data) {
+        var datajs = jsPsych.data.get().filter({task: "response"}).json();
+        Qualtrics.SurveyEngine.setEmbeddedData("datajs", datajs);
+    
+        jQuery('display_stage').remove();
+        jQuery('display_stage_background').remove();
+        
     }
 };
 
