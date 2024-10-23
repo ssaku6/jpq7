@@ -141,20 +141,13 @@ var space_key_trial = {
     },
     
     on_finish: function(data) {
-        // reactionTimeをデータに保存
-        data.reactionTime = reactionTime;
-    
-        // 他の情報も記録するなら、ここで追加
-        data.stimulus = selectedImage; // 表示された画像のパスを記録
-    
-        var datajs = jsPsych.data.get().json();
+        var datajs = jsPsych.data.get().filter({task: "response"}).json();
         Qualtrics.SurveyEngine.setEmbeddedData("datajs", datajs);
     
-        // ページの要素を削除し、次へ進む
         jQuery('display_stage').remove();
         jQuery('display_stage_background').remove();
         qthis.clickNextButton();
-    },
+    }
 };
 
 timeline.push(space_key_trial);
