@@ -146,7 +146,7 @@ var space_key_trial = {
     
         jQuery('display_stage').remove();
         jQuery('display_stage_background').remove();
-        qthis.clickNextButton();
+        
     }
 };
 
