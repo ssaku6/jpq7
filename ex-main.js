@@ -5,7 +5,7 @@ var repo_site = "https://ssaku6.github.io/jpq7/";
 var timeline = [];
 
 // 使用する画像のパスを指定
-var selectedImage = repo_site + 'img/02.jpg';
+var selectedImage = repo_site + 'img/01.jpg';
 
 // 画像を表示している時間とサイズを格納する変数
 var imageWidth = 0;
@@ -159,7 +159,7 @@ timeline.push(welcome2);
     };
     
     timeline.push(space_key_trial);
-    
+
 // 次の画面に進む指示を表示するトライアル
 var end_message = {
     type: "html-keyboard-response",
