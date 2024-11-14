@@ -6,8 +6,8 @@ var timeline = [];
 // 使用する画像のパスを指定
 var selectedImages = [
     repo_site + 'img/10.jpg',
-    repo_site + 'img/11.jpg',
-    repo_site + 'img/12.jpg',
+    repo_site + 'img/01.jpg',
+    repo_site + 'img/02.jpg',
     // 他の画像も追加可能
 ];
 
