@@ -1,6 +1,5 @@
 var repo_site = "https://ssaku6.github.io/jpq7/";
 
-
 /* create timeline */
 var timeline = [];
 
@@ -12,7 +11,6 @@ var imageWidth = 0;
 var imageHeight = 0;
 var reactionTime;
 
-
 // 画像をプリロードするトライアル
 var preload = {
     type: 'preload',
@@ -21,21 +19,21 @@ var preload = {
 
 timeline.push(preload);
 
-// ランダムに「良いー悪い」または「明るいー暗い」を選ぶ
-var conditionArray = ["良いー悪い", "明るいー暗い"];
-var selectedCondition = jsPsych.randomization.sampleWithoutReplacement(conditionArray, 1)[0];  // ランダムで1つ選ぶ
+// ランダムに形容詞対セットを選ぶ
+var conditionSets = [
+    ["良いー悪い", "好きなー嫌い"],
+    ["明るいー暗い", "軽いー重い"]
+];
+var selectedSet = jsPsych.randomization.sampleWithoutReplacement(conditionSets, 1)[0];  // ランダムで1セット選ぶ
 
-// 画像を表示する前に、条件（良いー悪い または 明るいー暗い）を表示するトライアル
+// 画像を表示する前に、形容詞対のセットの最初の項目を表示するトライアル
 var condition_trial = {
     type: "html-keyboard-response",
-    stimulus: selectedCondition,
+    stimulus: selectedSet[0],  // 最初の項目を表示
     choices: ["Enter"],  // Enterキーで次のステップに進む
-   
 };
 
 timeline.push(condition_trial);
-
-
 
 // ウェルカムメッセージ
 var welcome = {
@@ -46,12 +44,12 @@ var welcome = {
 
 timeline.push(welcome);
 
-// 固視点トライアル（教示の後に追加）
+// 固視点トライアル
 var fixation_trial = {
     type: "html-keyboard-response",
     stimulus: "<p style='font-size: 48px;'>+</p>",  // 固視点として「+」を表示
     choices: jsPsych.NO_KEYS,  // キー入力を無効にする
-    trial_duration: 1000  // 固視点を1秒間表示（時間は調整可能）
+    trial_duration: 1000  // 固視点を1秒間表示
 };
 
 timeline.push(fixation_trial);
@@ -63,24 +61,20 @@ var hello_trial = {
     choices: jsPsych.NO_KEYS,
     on_load: function() {
         var imageElement = document.getElementById('jspsych-image');
-        // 画像をすぐに表示
         imageElement.style.display = 'block';
 
-        // 画像のサイズを取得
         imageWidth = imageElement.naturalWidth;
         imageHeight = imageElement.naturalHeight;
 
-        var time_array = [3000, 5000, 7000]; // 表示時間の配列を定義
+        var time_array = [3000, 5000, 7000];
+        var shuffled_times = jsPsych.randomization.repeat(time_array, 1);
 
-        var shuffled_times = jsPsych.randomization.repeat(time_array, 1); // 表示時間の配列をランダムに並び替え
-
-        // ランダムに選ばれた時間を取得（0番目の要素を使う）
         var displayTime = shuffled_times[0];  
 
         setTimeout(function() {
             imageElement.style.display = 'none';
-            jsPsych.finishTrial(); // 次の試行に進む
-        }, displayTime); // ランダムに選ばれた時間で遅延させる
+            jsPsych.finishTrial();
+        }, displayTime);
     },
     on_finish: function() {
         document.body.style.backgroundColor = 'white';
@@ -89,8 +83,7 @@ var hello_trial = {
 
 timeline.push(hello_trial);
 
-
-// 次の画面での説明
+// 時間再現課題のインストラクション
 var welcome2 = {
     type: "html-keyboard-response",
     stimulus: `<strong>予告していませんでしたが、絵画の評価の前に、絵画を見ていた時間の長さを再現してもらいます。</strong><br><br>
@@ -112,13 +105,11 @@ var space_key_trial = {
             <p>では、この画面のまま<strong>spaceキーを押して四角形を表示させてください</strong></p>
             <p>spaceキーを長押しすると灰色の四角形が表示されるので、 絵画を見ていたと思う時間と同じ時間、四角形を表示させてください。</p>
             <p>spaceキーを離すと四角形が消えます。</p>
-            
         </div>
         <div id="rectangle" style="display: none; background-color: grey;"></div>
     `,
-    choices: jsPsych.NO_KEYS,  // Enterキーを不要にするためNO_KEYSを設定
+    choices: jsPsych.NO_KEYS,
     on_load: function() {
-        // 四角形のサイズを設定
         var rectangle = document.getElementById('rectangle');
         rectangle.style.width = imageWidth + 'px';
         rectangle.style.height = imageHeight + 'px';
@@ -127,51 +118,42 @@ var space_key_trial = {
         var startTime = null;
         var displayed = false;
 
-        // keydownイベントリスナー
         var keydownListener = function(e) {
             if (e.code === 'Space' && startTime === null && !displayed) {
                 startTime = performance.now();
-
-                // 教示を非表示にする
                 document.getElementById('instructions').style.display = 'none';
-
-                // 四角形を表示
                 document.getElementById('rectangle').style.display = 'block';  
             }
         };
 
-        // keyupイベントリスナー
         var keyupListener = function(e) {
             if (e.code === 'Space' && startTime !== null && !displayed) {
                 var endTime = performance.now();
                 reactionTime = endTime - startTime;
                 console.log("Reaction time: " + reactionTime + " milliseconds");
 
-                // 四角形を非表示にする
                 document.getElementById('rectangle').style.display = 'none';  
                 displayed = true;
 
-                // イベントリスナーを解除して試行を終了
                 document.removeEventListener('keydown', keydownListener);
                 document.removeEventListener('keyup', keyupListener);
-                jsPsych.finishTrial();  // 試行を終了
+                jsPsych.finishTrial();
             }
         };
 
-        // イベントリスナーの追加
         document.addEventListener('keydown', keydownListener);
         document.addEventListener('keyup', keyupListener);
     },
     
     on_finish: function(data){
-        data.correct = reactionTime; //jsPsych.timelineVariable("reactionTime");
+        data.correct = reactionTime;
         data.art = selectedImage;
     }
 };
 
 timeline.push(space_key_trial);
 
-// 次の画面に進む指示を表示するトライアル
+// 次の画面に進む指示
 var end_message = {
     type: "html-keyboard-response",
     stimulus: "続いて絵画の評価をしてください。<br>enterキーで次のページに進みます。",
@@ -180,20 +162,18 @@ var end_message = {
 
 timeline.push(end_message);
 
-// 評価対に基づいた5件法のアンケートを表示するトライアル
-var rating_trial = {
-    type: "html-slider-response",
-    stimulus: function() {
-        // 最初に呈示された評価対を基に質問を出力
-        return `<p>以下の評価項目について回答してください:</p>
-                <p><strong>${selectedCondition}</strong></p>`;
-    },
-    labels: ["1", "2", "3", "4", "5"], // 5件法のラベル
-    slider_width: 500,
-    require_movement: true,  // 回答の必須設定
-    on_finish: function(data) {
-        data.condition = selectedCondition;  // 回答データに条件を保存
-    }
-};
-
-timeline.push(rating_trial);
+// ランダムに選ばれた形容詞対セットでのアンケート
+selectedSet.forEach(function(condition) {
+    var rating_trial = {
+        type: "html-slider-response",
+        stimulus: `<p>以下の評価項目について回答してください:</p>
+                    <p><strong>${condition}</strong></p>`,
+        labels: ["1", "2", "3", "4", "5"], // リッカート尺度
+        slider_width: 500,
+        require_movement: true,
+        on_finish: function(data) {
+            data.condition = condition;  // 回答データに条件を保存
+        }
+    };
+    timeline.push(rating_trial);
+});
