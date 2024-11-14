@@ -21,15 +21,15 @@ timeline.push(preload);
 
 // ランダムに形容詞対セットを選ぶ
 var conditionSets = [
-    ["良いー悪い", "好きなー嫌い"],
+    ["良いー悪い", "好きなー嫌いな"],
     ["明るいー暗い", "軽いー重い"]
 ];
 var selectedSet = jsPsych.randomization.sampleWithoutReplacement(conditionSets, 1)[0];  // ランダムで1セット選ぶ
 
-// 画像を表示する前に、形容詞対のセットの最初の項目を表示するトライアル
+// 画像を表示する前に、形容詞対のセットの最初と2つ目の項目を同時に表示するトライアル
 var condition_trial = {
     type: "html-keyboard-response",
-    stimulus: selectedSet[0],  // 最初の項目を表示
+    stimulus: `<p>${selectedSet[0]}</p><p>${selectedSet[1]}</p>`,  // 両方の項目を表示
     choices: ["Enter"],  // Enterキーで次のステップに進む
 };
 
