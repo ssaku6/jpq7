@@ -145,10 +145,10 @@ var space_key_trial = {
         document.addEventListener('keyup', keyupListener);
     },
     
-    on_finish: function(data){
-        data.correct = reactionTime;
-        data.art = selectedImage;
-    }
+    //on_finish: function(data){
+       // data.correct = reactionTime;
+        //data.art = selectedImage;
+   // }
 };
 
 timeline.push(space_key_trial);
@@ -171,6 +171,9 @@ var rating_trial = {
     ],
     preamble: "<p>以下の評価項目について回答してください:</p>",
     on_finish: function(data) {
+        data.correct = reactionTime;
+        data.art = selectedImage;
+        
         if (data.responses) {
             try {
                 // アンケートの回答をJSONとしてパースする
