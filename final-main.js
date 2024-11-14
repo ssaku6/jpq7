@@ -163,17 +163,18 @@ var end_message = {
 timeline.push(end_message);
 
 // ランダムに選ばれた形容詞対セットでのアンケート
-selectedSet.forEach(function(condition) {
-    var rating_trial = {
-        type: "html-slider-response",
-        stimulus: `<p>以下の評価項目について回答してください:</p>
-                    <p><strong>${condition}</strong></p>`,
-        labels: ["1", "2", "3", "4", "5"], // リッカート尺度
-        slider_width: 500,
-        require_movement: true,
-        on_finish: function(data) {
-            data.condition = condition;  // 回答データに条件を保存
-        }
-    };
-    timeline.push(rating_trial);
-});
+var rating_trial = {
+    type: "survey-likert",
+    questions: [
+        {prompt: `<p><strong>${selectedSet[0]}</strong></p>`, labels: ["1", "2", "3", "4", "5"], required: true},
+        {prompt: `<p><strong>${selectedSet[1]}</strong></p>`, labels: ["1", "2", "3", "4", "5"], required: true}
+    ],
+    preamble: "<p>以下の評価項目について回答してください:</p>",
+    on_finish: function(data) {
+        var responses = JSON.parse(data.responses);
+        data.condition1 = responses.Q0;  // 最初の項目の回答
+        data.condition2 = responses.Q1;  // 2つ目の項目の回答
+    }
+};
+
+timeline.push(rating_trial);
