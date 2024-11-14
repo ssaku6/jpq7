@@ -74,10 +74,13 @@ var hello_trial = {
 
         var shuffled_times = jsPsych.randomization.repeat(time_array, 1); // 表示時間の配列をランダムに並び替え
 
+        // ランダムに選ばれた時間を取得（0番目の要素を使う）
+        var displayTime = shuffled_times[0];  
+
         setTimeout(function() {
             imageElement.style.display = 'none';
             jsPsych.finishTrial(); // 次の試行に進む
-        }, shuffled_times); // 5秒間表示後に非表示
+        }, displayTime); // ランダムに選ばれた時間で遅延させる
     },
     on_finish: function() {
         document.body.style.backgroundColor = 'white';
@@ -85,7 +88,6 @@ var hello_trial = {
 };
 
 timeline.push(hello_trial);
-
 
 
 // 次の画面での説明
