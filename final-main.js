@@ -145,10 +145,10 @@ var space_key_trial = {
         document.addEventListener('keyup', keyupListener);
     },
     
-    //on_finish: function(data){
-       // data.correct = reactionTime;
-        //data.art = selectedImage;
-   // }
+    on_finish: function(data){
+       data.correct = reactionTime;
+       data.art = selectedImage;
+   }
 };
 
 timeline.push(space_key_trial);
@@ -162,6 +162,7 @@ var end_message = {
 
 timeline.push(end_message);
 
+
 // ランダムに選ばれた形容詞対セットでのアンケート
 var rating_trial = {
     type: "survey-likert",
@@ -171,14 +172,14 @@ var rating_trial = {
     ],
     preamble: "<p>以下の評価項目について回答してください:</p>",
     on_finish: function(data) {
-        data.correct = reactionTime;
-        data.art = selectedImage;
+        // data.responsesをログに出力してデータ形式を確認
+        console.log("Responses:", data.responses);
         
+        // もし data.responses が JSON 形式で保存されている場合
         if (data.responses) {
             try {
-                // アンケートの回答をJSONとしてパースする
-                var responses = JSON.parse(data.responses);
-                // 各質問の回答をdataオブジェクトに追加
+                var responses = JSON.parse(data.responses);  // JSONとしてパース
+                // 各質問の回答を data オブジェクトに追加
                 data.condition1_rating = responses.Q0;  // 最初の項目の回答
                 data.condition2_rating = responses.Q1;  // 2つ目の項目の回答
             } catch (e) {
@@ -190,4 +191,3 @@ var rating_trial = {
     }
 };
 timeline.push(rating_trial);
-
