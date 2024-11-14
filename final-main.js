@@ -171,10 +171,17 @@ var rating_trial = {
     ],
     preamble: "<p>以下の評価項目について回答してください:</p>",
     on_finish: function(data) {
-        var responses = JSON.parse(data.responses);
-        data.condition1 = responses.Q0;  // 最初の項目の回答
-        data.condition2 = responses.Q1;  // 2つ目の項目の回答
+        if (data.responses) {
+            try {
+                var responses = JSON.parse(data.responses);
+                data.condition1 = responses.Q0;  // 最初の項目の回答
+                data.condition2 = responses.Q1;  // 2つ目の項目の回答
+            } catch (e) {
+                console.error("Failed to parse responses:", e);
+            }
+        } else {
+            console.warn("No responses found.");
+        }
     }
 };
-
 timeline.push(rating_trial);
