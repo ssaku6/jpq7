@@ -179,3 +179,21 @@ var end_message = {
 };
 
 timeline.push(end_message);
+
+// 評価対に基づいた5件法のアンケートを表示するトライアル
+var rating_trial = {
+    type: "html-slider-response",
+    stimulus: function() {
+        // 最初に呈示された評価対を基に質問を出力
+        return `<p>以下の評価項目について回答してください:</p>
+                <p><strong>${selectedCondition}</strong></p>`;
+    },
+    labels: ["1", "2", "3", "4", "5"], // 5件法のラベル
+    slider_width: 500,
+    require_movement: true,  // 回答の必須設定
+    on_finish: function(data) {
+        data.condition = selectedCondition;  // 回答データに条件を保存
+    }
+};
+
+timeline.push(rating_trial);
