@@ -170,13 +170,14 @@ var rating_trial = {
     ],
     preamble: "<p>以下の評価項目について回答してください:</p>",
     on_finish: function(data) {
+        console.log("data.responses:", data.responses); // 回答データの確認
+    
         if (data.responses) {
             try {
-                // アンケートの回答をJSONとしてパースする
                 var responses = JSON.parse(data.responses);
-                // 各質問の回答をdataオブジェクトに追加
-                data.condition1_rating = responses.Q0;  // 最初の項目の回答
-                data.condition2_rating = responses.Q1;  // 2つ目の項目の回答
+                console.log("Parsed responses:", responses); // パースされた回答データの確認
+                data.condition1_rating = responses.Q0;
+                data.condition2_rating = responses.Q1;
             } catch (e) {
                 console.error("Failed to parse responses:", e);
             }
