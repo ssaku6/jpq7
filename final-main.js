@@ -164,14 +164,15 @@ timeline.push(end_message);
 
 var rating_trial = {
     type: "survey-likert",
+    data:{task: 'response'},
     questions: [
         {name: "Q0", prompt: `<p><strong>${selectedSet[0]}</strong></p>`, labels: ["1", "2", "3", "4", "5"], required: true},
         {name: "Q1", prompt: `<p><strong>${selectedSet[1]}</strong></p>`, labels: ["1", "2", "3", "4", "5"], required: true}
     ],
     preamble: "<p>以下の評価項目について回答してください:</p>",
-    on_finish: function(data) {
-        data.q0 =  response.Q0;
-        data.q1 =  response.Q1;
+    // on_finish: function(data) {
+    //     data.q0 =  response.Q0;
+    //     data.q1 =  response.Q1;
         // if (data.responses) {
         //     try {
         //         // アンケートの回答をJSONとしてパースする
@@ -185,6 +186,6 @@ var rating_trial = {
         // } else {
         //     console.warn("No responses found.");
         // }
-    }
-};
+//     }
+ };
 timeline.push(rating_trial);
