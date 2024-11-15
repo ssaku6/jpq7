@@ -170,8 +170,8 @@ var rating_trial = {
     ],
     preamble: "<p>以下の評価項目について回答してください:</p>",
     on_finish: function(data) {
-        data.q0 =  responses.Q0;
-        data.q1 =  responses.Q1;
+        data.q0 =  response.Q0;
+        data.q1 =  response.Q1;
         // if (data.responses) {
         //     try {
         //         // アンケートの回答をJSONとしてパースする
