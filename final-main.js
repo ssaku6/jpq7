@@ -170,19 +170,21 @@ var rating_trial = {
     ],
     preamble: "<p>以下の評価項目について回答してください:</p>",
     on_finish: function(data) {
-        if (data.responses) {
-            try {
-                // アンケートの回答をJSONとしてパースする
-                var responses = JSON.parse(data.responses);
-                // 各質問の回答をdataオブジェクトに追加
-                data.Q0 = responses.Q0;  // 最初の項目の回答
-                data.Q1 = responses.Q1;  // 2つ目の項目の回答
-            } catch (e) {
-                console.error("Failed to parse responses:", e);
-            }
-        } else {
-            console.warn("No responses found.");
-        }
+        data.q0 =  responses.Q0;
+        data.q1 =  responses.Q1;
+        // if (data.responses) {
+        //     try {
+        //         // アンケートの回答をJSONとしてパースする
+        //         var responses = JSON.parse(data.responses);
+        //         // 各質問の回答をdataオブジェクトに追加
+        //         data.Q0 = responses.Q0;  // 最初の項目の回答
+        //         data.Q1 = responses.Q1;  // 2つ目の項目の回答
+        //     } catch (e) {
+        //         console.error("Failed to parse responses:", e);
+        //     }
+        // } else {
+        //     console.warn("No responses found.");
+        // }
     }
 };
 timeline.push(rating_trial);
