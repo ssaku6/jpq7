@@ -170,10 +170,11 @@ var rating_trial = {
     ],
     preamble: "<p>以下の評価項目について回答してください:</p>",
     on_finish: function(data) {
-        console.log(data.responses);  // ここでresponsesを確認
         if (data.responses) {
             try {
-                var responses = JSON.parse(data.responses);  // 文字列として保存されたデータをパース
+                // アンケートの回答をJSONとしてパースする
+                var responses = JSON.parse(data.responses);
+                // 各質問の回答をdataオブジェクトに追加
                 data.condition1_rating = responses.Q0;  // 最初の項目の回答
                 data.condition2_rating = responses.Q1;  // 2つ目の項目の回答
             } catch (e) {
@@ -183,6 +184,5 @@ var rating_trial = {
             console.warn("No responses found.");
         }
     }
-    
 };
 timeline.push(rating_trial);
