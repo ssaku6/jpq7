@@ -162,15 +162,14 @@ var end_message = {
 
 timeline.push(end_message);
 
-// ランダムに選ばれた形容詞対セットでのアンケート
 var rating_trial = {
     type: "survey-likert",
     questions: [
-        {prompt: `<p><strong>${selectedSet[0]}</strong></p>`, labels: ["1", "2", "3", "4", "5"], required: true},
-        {prompt: `<p><strong>${selectedSet[1]}</strong></p>`, labels: ["1", "2", "3", "4", "5"], required: true}
+        {name: "Q0", prompt: `<p><strong>${selectedSet[0]}</strong></p>`, labels: ["1", "2", "3", "4", "5"], required: true},
+        {name: "Q1", prompt: `<p><strong>${selectedSet[1]}</strong></p>`, labels: ["1", "2", "3", "4", "5"], required: true}
     ],
     preamble: "<p>以下の評価項目について回答してください:</p>",
-    on_finish: function(data) {        
+    on_finish: function(data) {
         if (data.responses) {
             try {
                 // アンケートの回答をJSONとしてパースする
