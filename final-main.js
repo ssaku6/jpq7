@@ -165,31 +165,12 @@ timeline.push(end_message);
 var rating_trial = {
     type: "survey-likert",
     questions: [
-        {name: "Q0", prompt: `<p><strong>${selectedSet[0]}</strong></p>`, labels: ["1", "2", "3", "4", "5"], required: true},
-        {name: "Q1", prompt: `<p><strong>${selectedSet[1]}</strong></p>`, labels: ["1", "2", "3", "4", "5"], required: true}
+        {prompt: `<p><strong>${selectedSet[0]}</strong></p>`, labels: ["1", "2", "3", "4", "5"], required: true},
+        {prompt: `<p><strong>${selectedSet[1]}</strong></p>`, labels: ["1", "2", "3", "4", "5"], required: true}
     ],
     preamble: "<p>以下の評価項目について回答してください:</p>",
-on_finish: function(data) {
-    console.log("data.responses:", data.responses); // 回答データの確認
-
-    if (data.responses) {
-        try {
-            // アンケートの回答をそのまま表示
-            console.log("Raw responses data:", data.responses);
-
-            // JSON形式にパースして、質問ごとの回答を表示
-            var responses = JSON.parse(data.responses);
-            console.log("Parsed responses:", responses); // パース後の回答データ
-
-            // 各質問の回答をdataオブジェクトに追加
-            data.condition1_rating = responses.Q0;  // 最初の項目の回答
-            data.condition2_rating = responses.Q1;  // 2つ目の項目の回答
-        } catch (e) {
-            console.error("Failed to parse responses:", e);
-        }
-    } else {
-        console.warn("No responses found.");
+    on_finish: function(data) {
+        console.log("Survey Responses:", data.responses);  // アンケートの回答データを確認
     }
-}
 };
 timeline.push(rating_trial);
