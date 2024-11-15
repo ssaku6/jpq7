@@ -175,8 +175,8 @@ var rating_trial = {
                 // アンケートの回答をJSONとしてパースする
                 var responses = JSON.parse(data.responses);
                 // 各質問の回答をdataオブジェクトに追加
-                data.condition1_rating = responses.Q0;  // 最初の項目の回答
-                data.condition2_rating = responses.Q1;  // 2つ目の項目の回答
+                data.Q0 = responses.Q0;  // 最初の項目の回答
+                data.Q1 = responses.Q1;  // 2つ目の項目の回答
             } catch (e) {
                 console.error("Failed to parse responses:", e);
             }
