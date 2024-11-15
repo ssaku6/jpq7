@@ -165,25 +165,12 @@ timeline.push(end_message);
 var rating_trial = {
     type: "survey-likert",
     questions: [
-        {name: "Q0", prompt: `<p><strong>${selectedSet[0]}</strong></p>`, labels: ["1", "2", "3", "4", "5"], required: true},
-        {name: "Q1", prompt: `<p><strong>${selectedSet[1]}</strong></p>`, labels: ["1", "2", "3", "4", "5"], required: true}
+        {prompt: "<p><strong>Sample Question 1</strong></p>", labels: ["1", "2", "3", "4", "5"], required: true},
+        {prompt: "<p><strong>Sample Question 2</strong></p>", labels: ["1", "2", "3", "4", "5"], required: true}
     ],
     preamble: "<p>以下の評価項目について回答してください:</p>",
     on_finish: function(data) {
         console.log("data.responses:", data.responses); // 回答データの確認
-    
-        if (data.responses) {
-            try {
-                var responses = JSON.parse(data.responses);
-                console.log("Parsed responses:", responses); // パースされた回答データの確認
-                data.condition1_rating = responses.Q0;
-                data.condition2_rating = responses.Q1;
-            } catch (e) {
-                console.error("Failed to parse responses:", e);
-            }
-        } else {
-            console.warn("No responses found.");
-        }
     }
 };
 timeline.push(rating_trial);
