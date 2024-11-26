@@ -3,8 +3,27 @@ var repo_site = "https://ssaku6.github.io/jpq7/";
 /* create timeline */
 var timeline = [];
 
-// 使用する画像のパスを指定
-var selectedImage = repo_site + 'img/10.jpg';
+// 使用する画像のリストを指定
+var imageList = [
+    repo_site + 'img/01.jpg',
+    repo_site + 'img/02.jpg',
+    repo_site + 'img/03.jpg',
+    // 必要なだけ画像パスを追加
+];
+
+// ランダムに形容詞対セットを選ぶ
+var conditionSets = [
+    ["良いー悪い", "好きなー嫌いな"],
+    ["明るいー暗い", "軽いー重い"]
+];
+
+// 48試行を実行するループ
+for (var i = 0; i < 48; i++) {
+    // 各試行でランダムに形容詞対を選択
+    var selectedSet = jsPsych.randomization.sampleWithoutReplacement(conditionSets, 1)[0];
+    // 各試行でランダムに画像を選択
+    var selectedImage = jsPsych.randomization.sampleWithoutReplacement(imageList, 1)[0];
+
 
 // 画像を表示している時間とサイズを格納する変数
 var imageWidth = 0;
@@ -19,12 +38,8 @@ var preload = {
 
 timeline.push(preload);
 
-// ランダムに形容詞対セットを選ぶ
-var conditionSets = [
-    ["良いー悪い", "好きなー嫌いな"],
-    ["明るいー暗い", "軽いー重い"]
-];
-var selectedSet = jsPsych.randomization.sampleWithoutReplacement(conditionSets, 1)[0];  // ランダムで1セット選ぶ
+
+//var selectedSet = jsPsych.randomization.sampleWithoutReplacement(conditionSets, 1)[0];  // ランダムで1セット選ぶ
 
 // 画像を表示する前に、形容詞対のセットの最初と2つ目の項目を同時に表示するトライアル
 var condition_trial = {
@@ -189,3 +204,4 @@ var rating_trial = {
 //     }
  };
 timeline.push(rating_trial);
+};
