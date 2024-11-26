@@ -29,7 +29,7 @@ var selectedSet = jsPsych.randomization.sampleWithoutReplacement(conditionSets, 
 // 画像を表示する前に、形容詞対のセットの最初と2つ目の項目を同時に表示するトライアル
 var condition_trial = {
     type: "html-keyboard-response",
-    stimulus: `<p>${selectedSet[0]}</p><p>${selectedSet[1]}</p>`,  // 両方の項目を表示
+    stimulus: `<p>以下の項目について絵画を5段階で評価してもらいます。</p><p></p><p>${selectedSet[0]}</p><p>${selectedSet[1]}</p>`,  // 両方の項目を表示
     choices: ["Enter"],  // Enterキーで次のステップに進む
 };
 
