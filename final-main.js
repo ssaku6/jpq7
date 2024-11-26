@@ -18,7 +18,7 @@ var conditionSets = [
 ];
 
 // 48試行を実行するループ
-for (var i = 0; i < 48; i++) {
+for (var i = 0; i < 3; i++) {
     // 各試行でランダムに形容詞対を選択
     var selectedSet = jsPsych.randomization.sampleWithoutReplacement(conditionSets, 1)[0];
     // 各試行でランダムに画像を選択
@@ -204,4 +204,4 @@ var rating_trial = {
 //     }
  };
 timeline.push(rating_trial);
-};
+};//forのしめ
