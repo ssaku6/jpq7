@@ -18,7 +18,7 @@ var conditionSets = [
 ];
 
 // 48試行を実行するループ
-for (var i = 0; i < 3; i++) {
+for (var i = 0; i < 48; i++) {
     // 各試行でランダムに形容詞対を選択
     var selectedSet = jsPsych.randomization.sampleWithoutReplacement(conditionSets, 1)[0];
     // 各試行でランダムに画像を選択
@@ -81,7 +81,7 @@ var hello_trial = {
         imageWidth = imageElement.naturalWidth;
         imageHeight = imageElement.naturalHeight;
 
-        var time_array = [3000, 5000, 7000];
+        var time_array = [100, 200, 300];
         var shuffled_times = jsPsych.randomization.repeat(time_array, 1);
 
         var displayTime = shuffled_times[0];  
