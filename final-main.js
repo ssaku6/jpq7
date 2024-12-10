@@ -44,7 +44,7 @@ timeline.push(preload);
 // 画像を表示する前に、形容詞対のセットの最初と2つ目の項目を同時に表示するトライアル
 var condition_trial = {
     type: "html-keyboard-response",
-    stimulus: `<p>以下の項目について絵画を5段階で評価してもらいます。</p><br><p>${selectedSet[0]}</p><p>${selectedSet[1]}</p><br>enterキーで次に進みます。`,  // 両方の項目を表示
+    stimulus: `<p>以下の項目について絵画を5段階で評価してもらいます。</p><br><p><strong>${selectedSet[0]}</strong></p><p><strong>${selectedSet[1]}</strong></p><br>enterキーで次に進みます。`,  // 両方の項目を表示
     choices: ["Enter"],  // Enterキーで次のステップに進む
 };
 
