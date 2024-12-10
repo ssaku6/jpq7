@@ -170,18 +170,26 @@ for (var i = 0; i < 3; i++) {
 
     var rating_trial = {
         type: "survey-likert",
-        data: { task: 'response' },
+        data: {task: 'response'},
         questions: [
-            { name: "Q0", prompt: `<p><strong>${selectedSet[0]}</strong></p>`, labels: ["1", "2", "3", "4", "5"], required: true },
-            { name: "Q1", prompt: `<p><strong>${selectedSet[1]}</strong></p>`, labels: ["1", "2", "3", "4", "5"], required: true }
+            {name: "Q0", prompt: `<p><strong>${selectedSet[0]}</strong></p>`, labels: ["1", "2", "3", "4", "5"], required: true},
+            {name: "Q1", prompt: `<p><strong>${selectedSet[1]}</strong></p>`, labels: ["1", "2", "3", "4", "5"], required: true}
         ],
         preamble: "<p>以下の評価項目について回答してください:</p>",
-        //on_finish: function(data) {
-            // アンケートの回答をデータに追加
-            //var responses = JSON.parse(data.responses);
-            //data.Q0 = responses.Q0;
-            //data.Q1 = responses.Q1;
-        //}
+        on_finish: function(data) {
+            // 'responses' が存在する場合にパースを行う
+            if (data.responses) {
+                try {
+                    var responses = JSON.parse(data.responses);
+                    data.Q0 = responses.Q0;  // 最初の項目の回答
+                    data.Q1 = responses.Q1;  // 2つ目の項目の回答
+                } catch (e) {
+                    console.error("Failed to parse responses:", e);
+                }
+            } else {
+                console.warn("No responses found.");
+            }
+        }
     };
     timeline.push(rating_trial);
-} // for の締め
+};
