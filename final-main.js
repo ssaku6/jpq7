@@ -176,12 +176,12 @@ for (var i = 0; i < 3; i++) {
             { name: "Q1", prompt: `<p><strong>${selectedSet[1]}</strong></p>`, labels: ["1", "2", "3", "4", "5"], required: true }
         ],
         preamble: "<p>以下の評価項目について回答してください:</p>",
-        on_finish: function(data) {
+        //on_finish: function(data) {
             // アンケートの回答をデータに追加
-            var responses = JSON.parse(data.responses);
-            data.Q0 = responses.Q0;
-            data.Q1 = responses.Q1;
-        }
+            //var responses = JSON.parse(data.responses);
+            //data.Q0 = responses.Q0;
+            //data.Q1 = responses.Q1;
+        //}
     };
     timeline.push(rating_trial);
 } // for の締め
