@@ -108,6 +108,11 @@ for (var i = 0; i < 1; i++) {
 // trials をシャッフル
 trials = jsPsych.randomization.shuffle(trials);
 
+// タイムラインにtrialsを追加
+timeline.push(...trials);
+
+
+
 // 試行を順番に実行する
 for (var i = 0; i < trials.length; i++) {
     var trial = trials[i];
