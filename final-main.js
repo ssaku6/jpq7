@@ -66,24 +66,33 @@ var conditionSets = [
 // 画像リストと条件セットを組み合わせ、12回ずつ選ばれるように配置する var i = 0; i < 1の<x xの数の2倍試行数
 var trials = [];
 
+// 具象画と抽象画を個別にシャッフルして重複を避ける
+var concreteImages = imageList.slice(0, 24); // 具象画
+var abstractImages = imageList.slice(24);    // 抽象画
+
+// シャッフル
+concreteImages = jsPsych.randomization.shuffle(concreteImages);
+abstractImages = jsPsych.randomization.shuffle(abstractImages);
+
+
 // 画像と形容詞対の組み合わせ
-for (var i = 0; i < 2; i++) {  // 24個の具象画と抽象画のセットを作成
+for (var i = 0; i < 12; i++) {  // 12個の具象画と抽象画をセット
     trials.push({
-        image: imageList[i],    // 具象画（1-24）
-        set: conditionSets[0],  // 最初の形容詞対セット
+        image: concreteImages[i],    // シャッフルされた具象画（1-12）
+        set: conditionSets[0],       // 最初の形容詞対セット
     });
     trials.push({
-        image: imageList[i + 24], // 抽象画（25-48）
-        set: conditionSets[0],    // 最初の形容詞対セット
+        image: abstractImages[i],    // シャッフルされた抽象画（25-36）
+        set: conditionSets[0],       // 最初の形容詞対セット
     });
 
     trials.push({
-        image: imageList[i],    // 具象画（1-24）
-        set: conditionSets[1],  // 次の形容詞対セット
+        image: concreteImages[i],    // シャッフルされた具象画（1-12）
+        set: conditionSets[1],       // 次の形容詞対セット
     });
     trials.push({
-        image: imageList[i + 24], // 抽象画（25-48）
-        set: conditionSets[1],    // 次の形容詞対セット
+        image: abstractImages[i],    // シャッフルされた抽象画（25-36）
+        set: conditionSets[1],       // 次の形容詞対セット
     });
 }
 
