@@ -80,7 +80,7 @@ for (var i = 0; i < 12; i++) {
 trials = jsPsych.randomization.shuffle(trials);
 
 // 試行を順番に実行する
-for (var i = 46; i < trials.length; i++) {
+for (var i = 0; i < trials.length; i++) {
     var trial = trials[i];
 
     // 画像を表示している時間とサイズを格納する変数
