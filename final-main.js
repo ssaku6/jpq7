@@ -63,43 +63,49 @@ var conditionSets = [
     ["明るいー暗い", "軽いー重い"]// インデックス 1
 ];
 
-// 画像リストを12枚ずつ4組に分ける
-var groups = [
-    imageList.slice(0, 12),   // グループ1（画像1-12）
-    imageList.slice(12, 24),  // グループ2（画像13-24）
-    imageList.slice(24, 36),  // グループ3（画像25-36）
-    imageList.slice(36, 48)   // グループ4（画像37-48）
+// 具象画と抽象画をそれぞれ2つのグループに分ける
+var concreteGroups = [
+    concreteImages.slice(0, 12),   // 具象画グループ1（1~12）
+    concreteImages.slice(12, 24)   // 具象画グループ2（13~24）
 ];
 
-// 画像をシャッフル
-groups = groups.map(group => jsPsych.randomization.shuffle(group));
+var abstractGroups = [
+    abstractImages.slice(0, 12),   // 抽象画グループ1（25~36）
+    abstractImages.slice(12, 24)   // 抽象画グループ2（37~48）
+];
 
-// 12回ずつ選ばれるようにセットアップ
-var trials = [];
+// グループ内で画像をランダムにシャッフル
+concreteGroups[0] = jsPsych.randomization.shuffle(concreteGroups[0]);
+concreteGroups[1] = jsPsych.randomization.shuffle(concreteGroups[1]);
+abstractGroups[0] = jsPsych.randomization.shuffle(abstractGroups[0]);
+abstractGroups[1] = jsPsych.randomization.shuffle(abstractGroups[1]);
 
 // 各グループから画像をランダムに選択し、形容詞対と組み合わせる
 for (var i = 0; i < 12; i++) {
-    // それぞれのグループから画像を取り出して条件セットを組み合わせる
+    // 具象画のグループから画像を取り出して条件セットを組み合わせる
     trials.push({
-        image: groups[0][i],    // 1番目のグループから画像
-        set: conditionSets[0],  // 最初の形容詞対セット
+        image: concreteGroups[0][i],    // 1番目の具象画グループからランダムに選ばれた画像
+        set: conditionSets[0],          // 最初の形容詞対セット
     });
     trials.push({
-        image: groups[1][i],    // 2番目のグループから画像
-        set: conditionSets[0],  // 最初の形容詞対セット
+        image: concreteGroups[1][i],    // 2番目の具象画グループからランダムに選ばれた画像
+        set: conditionSets[0],          // 最初の形容詞対セット
+    });
+
+    // 抽象画のグループから画像を取り出して条件セットを組み合わせる
+    trials.push({
+        image: abstractGroups[0][i],    // 1番目の抽象画グループからランダムに選ばれた画像
+        set: conditionSets[1],          // 次の形容詞対セット
     });
     trials.push({
-        image: groups[2][i],    // 3番目のグループから画像
-        set: conditionSets[1],  // 次の形容詞対セット
-    });
-    trials.push({
-        image: groups[3][i],    // 4番目のグループから画像
-        set: conditionSets[1],  // 次の形容詞対セット
+        image: abstractGroups[1][i],    // 2番目の抽象画グループからランダムに選ばれた画像
+        set: conditionSets[1],          // 次の形容詞対セット
     });
 }
 
 // trials をシャッフル
 trials = jsPsych.randomization.shuffle(trials);
+
 // 試行を順番に実行する
 for (var i = 0; i < trials.length; i++) {
     var trial = trials[i];
