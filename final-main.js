@@ -4,7 +4,7 @@ var repo_site = "https://ssaku6.github.io/jpq7/";
 var timeline = [];
 
 // 使用する画像のリストを指定
-var imageList = [
+var concreteImages = [
     repo_site + 'img2/01.jpg',                  
     repo_site + 'img2/02.jpg',
     repo_site + 'img2/03.jpg',
@@ -29,8 +29,8 @@ var imageList = [
     repo_site + 'img2/22.jpg',
     repo_site + 'img2/23.jpg',
     repo_site + 'img2/24.jpg',
-
-
+];
+var abstractImages = [
     repo_site + 'img2/25.jpg',
     repo_site + 'img2/26.jpg',
     repo_site + 'img2/27.jpg',
