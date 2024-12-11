@@ -76,31 +76,25 @@ var abstractGroups = [
     abstractImages.slice(12, 24)   // 抽象画グループ2（37~48）
 ];
 
-// グループ内で画像をランダムにシャッフル
-concreteGroups[0] = jsPsych.randomization.shuffle(concreteGroups[0]);
-concreteGroups[1] = jsPsych.randomization.shuffle(concreteGroups[1]);
-abstractGroups[0] = jsPsych.randomization.shuffle(abstractGroups[0]);
-abstractGroups[1] = jsPsych.randomization.shuffle(abstractGroups[1]);
-
-// 各グループから画像をランダムに選択し、形容詞対と組み合わせる  i<12
-for (var i = 0; i < 1; i++) {
+// 各グループから画像をランダムに選択し、形容詞対と組み合わせる
+for (var i = 0; i < 12; i++) {
     // 具象画のグループから画像を取り出して条件セットを組み合わせる
     trials.push({
-        image: concreteGroups[0][i],    // 1番目の具象画グループからランダムに選ばれた画像
+        image: concreteGroups[0][i],    // 1番目の具象画グループから画像
         set: conditionSets[0],          // 最初の形容詞対セット
     });
     trials.push({
-        image: concreteGroups[1][i],    // 2番目の具象画グループからランダムに選ばれた画像
+        image: concreteGroups[1][i],    // 2番目の具象画グループから画像
         set: conditionSets[0],          // 最初の形容詞対セット
     });
 
     // 抽象画のグループから画像を取り出して条件セットを組み合わせる
     trials.push({
-        image: abstractGroups[0][i],    // 1番目の抽象画グループからランダムに選ばれた画像
+        image: abstractGroups[0][i],    // 1番目の抽象画グループから画像
         set: conditionSets[1],          // 次の形容詞対セット
     });
     trials.push({
-        image: abstractGroups[1][i],    // 2番目の抽象画グループからランダムに選ばれた画像
+        image: abstractGroups[1][i],    // 2番目の抽象画グループから画像
         set: conditionSets[1],          // 次の形容詞対セット
     });
 }
@@ -108,8 +102,6 @@ for (var i = 0; i < 1; i++) {
 // trials をシャッフル
 trials = jsPsych.randomization.shuffle(trials);
 
-// タイムラインにtrialsを追加
-timeline.push(...trials);
 
 
 
