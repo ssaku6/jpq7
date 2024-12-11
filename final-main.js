@@ -81,7 +81,7 @@ abstractGroups[0] = jsPsych.randomization.shuffle(abstractGroups[0]);
 abstractGroups[1] = jsPsych.randomization.shuffle(abstractGroups[1]);
 
 // 各グループから画像をランダムに選択し、形容詞対と組み合わせる
-for (var i = 0; i < 12; i++) {
+for (var i = 0; i < 1; i++) {
     // 具象画のグループから画像を取り出して条件セットを組み合わせる
     trials.push({
         image: concreteGroups[0][i],    // 1番目の具象画グループからランダムに選ばれた画像
