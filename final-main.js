@@ -82,20 +82,24 @@ for (var i = 0; i < 1; i++) {
     trials.push({
         image: concreteGroups[0][i],    // 1番目の具象画グループから画像
         set: conditionSets[0],          // 最初の形容詞対セット
+        art: concreteGroups[0][i]      // 'art' として画像を記録
     });
     trials.push({
         image: concreteGroups[1][i],    // 2番目の具象画グループから画像
         set: conditionSets[0],          // 最初の形容詞対セット
+        art: concreteGroups[0][i]      // 'art' として画像を記録
     });
 
     // 抽象画のグループから画像を取り出して条件セットを組み合わせる
     trials.push({
         image: abstractGroups[0][i],    // 1番目の抽象画グループから画像
         set: conditionSets[1],          // 次の形容詞対セット
+        art: concreteGroups[0][i]      // 'art' として画像を記録
     });
     trials.push({
         image: abstractGroups[1][i],    // 2番目の抽象画グループから画像
         set: conditionSets[1],          // 次の形容詞対セット
+        art: concreteGroups[0][i]      // 'art' として画像を記録
     });
 }
 
@@ -118,6 +122,7 @@ for (var i = 0; i < trials.length; i++) {
     var preload = {
         type: 'preload',
         images: [trial.image]
+
     };
 
     timeline.push(preload);
