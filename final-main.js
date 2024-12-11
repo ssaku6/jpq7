@@ -65,7 +65,7 @@ var conditionSets = [
 var trials = [];
 
 // それぞれの形容詞対セットと画像が12回ずつ出るように組み合わせる
-for (var i = 0; i < 12; i++) {
+for (var i = 0; i < 1; i++) {
     trials.push({
         image: imageList[i], // 画像リストから順番に画像を選択
         set: conditionSets[0], // 最初の形容詞対セット
