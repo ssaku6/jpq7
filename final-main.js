@@ -63,6 +63,8 @@ var conditionSets = [
     ["明るいー暗い", "軽いー重い"]// インデックス 1
 ];
 
+var trials = [];
+
 // 具象画と抽象画をそれぞれ2つのグループに分ける
 var concreteGroups = [
     concreteImages.slice(0, 12),   // 具象画グループ1（1~12）
@@ -80,7 +82,7 @@ concreteGroups[1] = jsPsych.randomization.shuffle(concreteGroups[1]);
 abstractGroups[0] = jsPsych.randomization.shuffle(abstractGroups[0]);
 abstractGroups[1] = jsPsych.randomization.shuffle(abstractGroups[1]);
 
-// 各グループから画像をランダムに選択し、形容詞対と組み合わせる
+// 各グループから画像をランダムに選択し、形容詞対と組み合わせる  i<12
 for (var i = 0; i < 1; i++) {
     // 具象画のグループから画像を取り出して条件セットを組み合わせる
     trials.push({
