@@ -249,6 +249,12 @@ for (var i = 0; i < trials.length; i++) {
             data.correct = reactionTime;
             data.art = trial.image;
             data.adjective = trial.set; 
+
+             // 不要なデータは削除
+        delete data.rt;
+        delete data.response;
+        delete data.time_elapsed;
+        delete data.question_order;
         }
     };
 
