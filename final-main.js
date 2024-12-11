@@ -76,7 +76,7 @@ abstractImages = jsPsych.randomization.shuffle(abstractImages);
 
 
 // 画像と形容詞対の組み合わせ
-for (var i = 0; i < 12; i++) {  // 12個の具象画と抽象画をセット
+for (var i = 0; i < 1; i++) {  // 12個の具象画と抽象画をセット    i<12最初
     trials.push({
         image: concreteImages[i],    // シャッフルされた具象画（1-12）
         set: conditionSets[0],       // 最初の形容詞対セット
