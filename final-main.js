@@ -65,7 +65,7 @@ var conditionSets = [
 var trials = [];
 
 // それぞれの形容詞対セットと画像が12回ずつ出るように組み合わせる
-for (var i = 46; i < 12; i++) {
+for (var i = 0; i < 12; i++) {
     trials.push({
         image: imageList[i], // 画像リストから順番に画像を選択
         set: conditionSets[0], // 最初の形容詞対セット
@@ -80,7 +80,7 @@ for (var i = 46; i < 12; i++) {
 trials = jsPsych.randomization.shuffle(trials);
 
 // 試行を順番に実行する
-for (var i = 0; i < trials.length; i++) {
+for (var i = 46; i < trials.length; i++) {
     var trial = trials[i];
 
     // 画像を表示している時間とサイズを格納する変数
