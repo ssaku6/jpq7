@@ -63,36 +63,38 @@ var conditionSets = [
     ["明るいー暗い", "軽いー重い"]// インデックス 1
 ];
 
-// 画像リストと条件セットを組み合わせ、12回ずつ選ばれるように配置する var i = 0; i < 1の<x xの数の2倍試行数
+// 画像リストを12枚ずつ4組に分ける
+var groups = [
+    imageList.slice(0, 12),   // グループ1（画像1-12）
+    imageList.slice(12, 24),  // グループ2（画像13-24）
+    imageList.slice(24, 36),  // グループ3（画像25-36）
+    imageList.slice(36, 48)   // グループ4（画像37-48）
+];
+
+// 画像をシャッフル
+groups = groups.map(group => jsPsych.randomization.shuffle(group));
+
+// 12回ずつ選ばれるようにセットアップ
 var trials = [];
 
-// 具象画と抽象画を個別にシャッフルして重複を避ける
-var concreteImages = imageList.slice(0, 24); // 具象画
-var abstractImages = imageList.slice(24);    // 抽象画
-
-// シャッフル
-concreteImages = jsPsych.randomization.shuffle(concreteImages);
-abstractImages = jsPsych.randomization.shuffle(abstractImages);
-
-
-// 画像と形容詞対の組み合わせ
-for (var i = 0; i < 1; i++) {  // 12個の具象画と抽象画をセット    i<12最初
+// 各グループから画像をランダムに選択し、形容詞対と組み合わせる
+for (var i = 0; i < 12; i++) {
+    // それぞれのグループから画像を取り出して条件セットを組み合わせる
     trials.push({
-        image: concreteImages[i],    // シャッフルされた具象画（1-12）
-        set: conditionSets[0],       // 最初の形容詞対セット
+        image: groups[0][i],    // 1番目のグループから画像
+        set: conditionSets[0],  // 最初の形容詞対セット
     });
     trials.push({
-        image: abstractImages[i],    // シャッフルされた抽象画（25-36）
-        set: conditionSets[0],       // 最初の形容詞対セット
-    });
-
-    trials.push({
-        image: concreteImages[i],    // シャッフルされた具象画（1-12）
-        set: conditionSets[1],       // 次の形容詞対セット
+        image: groups[1][i],    // 2番目のグループから画像
+        set: conditionSets[0],  // 最初の形容詞対セット
     });
     trials.push({
-        image: abstractImages[i],    // シャッフルされた抽象画（25-36）
-        set: conditionSets[1],       // 次の形容詞対セット
+        image: groups[2][i],    // 3番目のグループから画像
+        set: conditionSets[1],  // 次の形容詞対セット
+    });
+    trials.push({
+        image: groups[3][i],    // 4番目のグループから画像
+        set: conditionSets[1],  // 次の形容詞対セット
     });
 }
 
