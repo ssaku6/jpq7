@@ -5,9 +5,59 @@ var timeline = [];
 
 // 使用する画像のリストを指定
 var imageList = [
-    repo_site + 'img/01.jpg',
-    repo_site + 'img/02.jpg',
-    repo_site + 'img/03.jpg',
+    repo_site + 'img2/01.jpg',                  
+    repo_site + 'img2/02.jpg',
+    repo_site + 'img2/03.jpg',
+    repo_site + 'img2/04.jpg',
+    repo_site + 'img2/05.jpg',
+    repo_site + 'img2/06.jpg',
+    repo_site + 'img2/07.jpg',
+    repo_site + 'img2/08.jpg',
+    repo_site + 'img2/09.jpg',
+    repo_site + 'img2/10.jpg',
+   
+    repo_site + 'img2/11.jpg',
+    repo_site + 'img2/12.jpg',
+    repo_site + 'img2/13.jpg',
+    repo_site + 'img2/14.jpg',
+    repo_site + 'img2/15.jpg',
+    repo_site + 'img2/16.jpg',
+    repo_site + 'img2/17.jpg',
+    repo_site + 'img2/18.jpg',
+    repo_site + 'img2/19.jpg',
+    repo_site + 'img2/20.jpg',
+
+    repo_site + 'img2/21.jpg',                  
+    repo_site + 'img2/22.jpg',
+    repo_site + 'img2/23.jpg',
+    repo_site + 'img2/24.jpg',
+    repo_site + 'img2/25.jpg',
+    repo_site + 'img2/26.jpg',
+    repo_site + 'img2/27.jpg',
+    repo_site + 'img2/28.jpg',
+    repo_site + 'img2/29.jpg',
+    repo_site + 'img2/30.jpg',
+
+    repo_site + 'img2/31.jpg',                  
+    repo_site + 'img2/32.jpg',
+    repo_site + 'img2/33.jpg',
+    repo_site + 'img2/34.jpg',
+    repo_site + 'img2/35.jpg',
+    repo_site + 'img2/36.jpg',
+    repo_site + 'img2/37.jpg',
+    repo_site + 'img2/38.jpg',
+    repo_site + 'img2/39.jpg',
+    repo_site + 'img2/40.jpg',
+
+    repo_site + 'img2/41.jpg',                  
+    repo_site + 'img2/42.jpg',
+    repo_site + 'img2/43.jpg',
+    repo_site + 'img2/44.jpg',
+    repo_site + 'img2/45.jpg',
+    repo_site + 'img2/46.jpg',
+    repo_site + 'img2/47.jpg',
+    repo_site + 'img2/48.jpg',
+    
     // 必要なだけ画像パスを追加
 ];
 
