@@ -217,6 +217,7 @@ var space_key_trial = {
     on_finish: function(data){
        data.correct = reactionTime;
        data.art = selectedImage;
+       data.adjective =selectedSet; 
    }
 };
 
