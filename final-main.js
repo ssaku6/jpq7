@@ -29,6 +29,8 @@ var imageList = [
     repo_site + 'img2/22.jpg',
     repo_site + 'img2/23.jpg',
     repo_site + 'img2/24.jpg',
+
+
     repo_site + 'img2/25.jpg',
     repo_site + 'img2/26.jpg',
     repo_site + 'img2/27.jpg',
@@ -64,21 +66,29 @@ var conditionSets = [
 // 画像リストと条件セットを組み合わせ、12回ずつ選ばれるように配置する var i = 0; i < 1の<x xの数の2倍試行数
 var trials = [];
 
-// それぞれの形容詞対セットと画像が12回ずつ出るように組み合わせる 
-for (var i = 0; i < 2; i++) {
+// 画像と形容詞対の組み合わせ
+for (var i = 0; i < 2; i++) {  // 24個の具象画と抽象画のセットを作成
     trials.push({
-        image: imageList[i], // 画像リストから順番に画像を選択
-        set: conditionSets[0], // 最初の形容詞対セット
+        image: imageList[i],    // 具象画（1-24）
+        set: conditionSets[0],  // 最初の形容詞対セット
     });
     trials.push({
-        image: imageList[i + 24], // 画像リストから次の画像を選択
-        set: conditionSets[1], // 2番目の形容詞対セット
+        image: imageList[i + 24], // 抽象画（25-48）
+        set: conditionSets[0],    // 最初の形容詞対セット
+    });
+
+    trials.push({
+        image: imageList[i],    // 具象画（1-24）
+        set: conditionSets[1],  // 次の形容詞対セット
+    });
+    trials.push({
+        image: imageList[i + 24], // 抽象画（25-48）
+        set: conditionSets[1],    // 次の形容詞対セット
     });
 }
 
 // trials をシャッフル
 trials = jsPsych.randomization.shuffle(trials);
-
 // 試行を順番に実行する
 for (var i = 0; i < trials.length; i++) {
     var trial = trials[i];
