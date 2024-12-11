@@ -77,7 +77,7 @@ var abstractGroups = [
 ];
 
 // 各グループから画像をランダムに選択し、形容詞対と組み合わせる     i<12最初
-for (var i = 0; i < 12; i++) {
+for (var i = 0; i < 1; i++) {
     // 具象画のグループから画像を取り出して条件セットを組み合わせる
     trials.push({
         image: concreteGroups[0][i],    // 1番目の具象画グループから画像
