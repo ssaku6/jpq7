@@ -71,7 +71,7 @@ for (var i = 0; i < 1; i++) {
         set: conditionSets[0], // 最初の形容詞対セット
     });
     trials.push({
-        image: imageList[i + 12], // 画像リストから次の画像を選択
+        image: imageList[i + 24], // 画像リストから次の画像を選択
         set: conditionSets[1], // 2番目の形容詞対セット
     });
 }
