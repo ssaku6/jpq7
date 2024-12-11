@@ -63,17 +63,21 @@ var imageList = [
 
 // ランダムに形容詞対セットを選ぶ
 var conditionSets = [
-    ["良いー悪い", "好きなー嫌いな"],
-    ["明るいー暗い", "軽いー重い"]
+    ["良いー悪い", "好きなー嫌いな"],// インデックス 0
+    ["明るいー暗い", "軽いー重い"]// インデックス 1
 ];
+
+// 使用する画像のリストをシャッフル
+var shuffledImageList = jsPsych.randomization.shuffle(imageList);
 
 // 48試行を実行するループ
 for (var i = 0; i < 48; i++) {
     // 各試行でランダムに形容詞対を選択
-    var selectedSet = jsPsych.randomization.sampleWithoutReplacement(conditionSets, 1)[0];
-    // 各試行でランダムに画像を選択
-    var selectedImage = jsPsych.randomization.sampleWithoutReplacement(imageList, 1)[0];
-
+    var selectedIndex = jsPsych.randomization.shuffle([0, 1])[0];
+    var selectedSet = conditionSets[selectedIndex];
+    
+    // シャッフル済み画像リストから順番に画像を選択
+    var selectedImage = shuffledImageList[i];
 
 // 画像を表示している時間とサイズを格納する変数
 var imageWidth = 0;
