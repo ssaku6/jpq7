@@ -181,37 +181,9 @@ var space_key_trial = {
             <p>spaceキーを長押しすると灰色の四角形が表示されるので、絵画を見ていたと思う時間と同じ時間、四角形を表示させてください。</p>
             <p>spaceキーを離すと四角形が消えます。</p>
         </div>
-        <div id="rectangle" style="display: none; background-color: grey;"></div>
+        <div id="rectangle" style="display: none; background-color: grey; width: 200px; height: 100px;"></div>
     `,
     choices: jsPsych.NO_KEYS,
-    on_load: function() {
-        // DOMの全体を確認するログを追加
-        console.log(document.body.innerHTML); // DOMの全体を確認
-
-        // 画像の要素を取得
-        var imageElement = document.getElementById('jspsych-image');
-        console.log(imageElement); // 画像要素が取得できているか確認
-        
-        // 画像が存在する場合のみ処理
-        if (imageElement) {
-            // 画像が完全に読み込まれた後にサイズを取得
-            imageElement.onload = function() {
-                imageWidth = imageElement.naturalWidth;
-                imageHeight = imageElement.naturalHeight;
-                console.log("Image loaded with size: " + imageWidth + " x " + imageHeight);
-                
-                // 画像のサイズを四角形に設定
-                var rectangle = document.getElementById('rectangle');
-                if (rectangle) {
-                    rectangle.style.width = imageWidth + 'px';
-                    rectangle.style.height = imageHeight + 'px';
-                }
-            };
-        } else {
-            console.error("Image element not found.");
-        }
-    },
-
     on_start: function(trial) {
         var startTime = null;
         var displayed = false;
@@ -250,16 +222,17 @@ var space_key_trial = {
         document.addEventListener('keydown', keydownListener);
         document.addEventListener('keyup', keyupListener);
     },
-    
+
     on_finish: function(data){
         // reactionTimeとimageのデータをtrialデータに追加
         data.correct = reactionTime;
         data.art = image;  // 画像URLをデータとして保存
         console.log("Trial finished with reaction time: " + reactionTime);
-   }
+    }
 };
 
 timeline.push(space_key_trial);
+
 
 
 
