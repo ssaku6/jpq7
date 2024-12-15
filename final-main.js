@@ -175,15 +175,20 @@ var space_key_trial = {
     data: {
         task: 'response'
     },
-    stimulus: `
-        <div id="instructions">
-            <p>では、この画面のまま<strong>spaceキーを押して四角形を表示させてください</strong></p>
-            <p>spaceキーを長押しすると灰色の四角形が表示されるので、絵画を見ていたと思う時間と同じ時間、四角形を表示させてください。</p>
-            <p>spaceキーを離すと四角形が消えます。</p>
-        </div>
-        <div id="rectangle" style="display: none; background-color: grey;"></div>
-        <img id="jspsych-image" src="image-path.jpg" style="width: auto; height: auto;">
-    `,
+    stimulus: function() {
+        // 正しい画像URLを取得する
+        var imageUrl = currentStimulus.img;  // `currentStimulus.img` に画像URLが格納されている場合
+
+        return `
+            <div id="instructions">
+                <p>では、この画面のまま<strong>spaceキーを押して四角形を表示させてください</strong></p>
+                <p>spaceキーを長押しすると灰色の四角形が表示されるので、絵画を見ていたと思う時間と同じ時間、四角形を表示させてください。</p>
+                <p>spaceキーを離すと四角形が消えます。</p>
+            </div>
+            <div id="rectangle" style="display: none; background-color: grey;"></div>
+            <img id="jspsych-image" src="${imageUrl}" style="width: auto; height: auto;">
+        `;
+    },
     choices: jsPsych.NO_KEYS,
     on_load: function() {
         // DOMの全体を確認するログを追加
@@ -258,6 +263,7 @@ var space_key_trial = {
 };
 
 timeline.push(space_key_trial);
+
 
 
 
