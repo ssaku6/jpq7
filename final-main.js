@@ -252,13 +252,15 @@ var space_key_trial = {
     },
     
     on_finish: function(data){
-       data.correct = reactionTime;
-       data.art = image;  // 画像URLをデータとして保存
-       console.log("Trial finished with reaction time: " + reactionTime);
+        // reactionTimeとimageのデータをtrialデータに追加
+        data.correct = reactionTime;
+        data.art = image;  // 画像URLをデータとして保存
+        console.log("Trial finished with reaction time: " + reactionTime);
    }
 };
 
 timeline.push(space_key_trial);
+
 
 
 
