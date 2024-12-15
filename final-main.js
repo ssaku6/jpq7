@@ -126,7 +126,7 @@ var fixation_trial = {
 
  // 画像トライアルの修正
 var hello_trial = {
-    type: 'html-keyboard-response',
+    type: 'image-keyboard-response',
     stimulus: jsPsych.timelineVariable('img'),
     choices: jsPsych.NO_KEYS,
     on_load: function() {
@@ -170,7 +170,7 @@ var welcome2 = {
 
 
 var space_key_trial = {
-    type: 'image-keyboard-response',
+    type: 'html-keyboard-response',
     data: {
         task: 'response'},
     stimulus: `
