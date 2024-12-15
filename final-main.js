@@ -93,7 +93,7 @@ timeline.push(preload);
 //var selectedSet = jsPsych.randomization.sampleWithoutReplacement(conditionSets, 1)[0];  // ランダムで1セット選ぶ
 
 // 例として、最初の要素を取り出して表示する場合
-var currentStimulus = random_order[0]; // ランダムに選ばれた画像に関連する形容詞対を取得
+//var currentStimulus = random_order[0]; // ランダムに選ばれた画像に関連する形容詞対を取得
 var condition_trial = {
     type: "html-keyboard-response",
     stimulus: `<p>以下の項目について絵画を5段階で評価してもらいます。</p><br><p>${adjective1}</p><p>${adjective2}</p>`,
