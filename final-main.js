@@ -88,11 +88,11 @@ var image = random_order[0].img;
 
 
 
-// var preload = {
-//     type: 'preload',
-//     images: [image]  // 動的に定義された selectedImage を使用
-// };
-// timeline.push(preload);
+ var preload = {
+     type: 'preload',
+     images: [image]  // 動的に定義された selectedImage を使用
+ };
+ timeline.push(preload);
 
 
 //var selectedSet = jsPsych.randomization.sampleWithoutReplacement(conditionSets, 1)[0];  // ランダムで1セット選ぶ
@@ -125,24 +125,29 @@ var fixation_trial = {
 
 timeline.push(fixation_trial);
 
-// 画像トライアル
-var hello_trial = {
+ // 画像トライアル
+ var hello_trial = {
     type: 'html-keyboard-response',
-    stimulus: '<img id="jspsych-image" src="' + image + '" style="display: none;">',
+    stimulus: '<img id="jspsych-image" src="' + image + '" style="visibility: hidden;">',
     choices: jsPsych.NO_KEYS,
     on_load: function() {
         var imageElement = document.getElementById('jspsych-image');
         if (imageElement) {
             imageElement.onload = function() {
+                // 画像サイズを取得
                 imageWidth = imageElement.naturalWidth;
                 imageHeight = imageElement.naturalHeight;
                 console.log("Image loaded with size: " + imageWidth + " x " + imageHeight);
                 
+                // 必要に応じてスタイル変更や要素の更新
                 var rectangle = document.getElementById('rectangle');
                 if (rectangle) {
                     rectangle.style.width = imageWidth + 'px';
                     rectangle.style.height = imageHeight + 'px';
                 }
+                
+                // 表示させるためにスタイルを変更（テスト用に必要であれば）
+                imageElement.style.visibility = 'visible';
             };
         } else {
             console.error("Image element not found.");
@@ -154,6 +159,8 @@ var hello_trial = {
 };
 
 timeline.push(hello_trial);
+
+
 
 
 // 時間再現課題のインストラクション
