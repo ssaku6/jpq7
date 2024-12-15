@@ -82,10 +82,14 @@ var reactionTime;
 
 
 // random_order[0] の内容を確認する
-console.log(random_order[0]);  // ここで random_order[0] の内容を確認
+//console.log(random_order[0]);  // ここで random_order[0] の内容を確認
 
 // preload トライアルを修正
 var image = random_order[0].img; 
+
+// 画像パスをコンソールに出力して確認
+console.log("Image Path:", random_order[0].img);  // 画像のパスを表示
+
 var preload = {
     type: 'preload',
     images: [image]  // 動的に定義された selectedImage を使用
