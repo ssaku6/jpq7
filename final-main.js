@@ -61,12 +61,14 @@ var imageWidth = 0;
 var imageHeight = 0;
 var reactionTime;
 
-// 画像をプリロードするトライアル
+// 例: selectedImage を動的に定義
+var selectedImage = trials[0].image;  // 最初のトライアルの画像を選択
+
+// preload トライアルを修正
 var preload = {
     type: 'preload',
-    images: [selectedImage]
+    images: [selectedImage]  // 動的に定義された selectedImage を使用
 };
-
 timeline.push(preload);
 
 
