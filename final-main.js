@@ -1,3 +1,9 @@
+var repo_site = "https://ssaku6.github.io/jpq7/";
+
+
+/* create timeline */
+var timeline = [];
+
 // 使用する画像と形容詞対セット
 var concreteImages = [
     repo_site + 'img2/01.jpg', repo_site + 'img2/02.jpg', repo_site + 'img2/03.jpg', repo_site + 'img2/04.jpg',
