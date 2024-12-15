@@ -64,16 +64,18 @@ var test_stimuli_set4 = [
     {adjective1: ["明るいー暗い"], adjective2: ["軽いー重い"], img: repo_site + 'img2/48.jpg'},
 ];
 
-  
+
 // すべての画像を1つのリストにまとめる
 var all_stimuli = test_stimuli_set1.concat(test_stimuli_set2, test_stimuli_set3, test_stimuli_set4);
+
+for (var i = 0; i < 3; i++) {
 
 // ランダムに並べ替える（重複なしでランダムに選ばれる）
 var random_order = jsPsych.randomization.shuffle(all_stimuli);
 
 
 
-for (var i = 0; i < 3; i++) {
+
 
 
 // 画像を表示している時間とサイズを格納する変数
