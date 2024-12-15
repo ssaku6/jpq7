@@ -228,14 +228,17 @@ var end_message = {
 
 timeline.push(end_message);
 
+var currentStimulus = random_order[0]; // ランダムに選ばれた画像に関連する形容詞対を取得
+
 var rating_trial = {
     type: "survey-likert",
-    data:{task: 'response'},
+    data: {task: 'response'},
     questions: [
-        {name: "Q0", prompt: `<p><strong>${adjective1}</strong></p>`, labels: ["1", "2", "3", "4", "5"], required: true},
-        {name: "Q1", prompt: `<p><strong>${adjective2}</strong></p>`, labels: ["1", "2", "3", "4", "5"], required: true}
+        {name: "Q0", prompt: `<p><strong>${currentStimulus.adjective1[0]}</strong></p>`, labels: ["1", "2", "3", "4", "5"], required: true},
+        {name: "Q1", prompt: `<p><strong>${currentStimulus.adjective2[0]}</strong></p>`, labels: ["1", "2", "3", "4", "5"], required: true}
     ],
     preamble: "<p>以下の評価項目について回答してください:</p>",
+
     // on_finish: function(data) {
     //     data.q0 =  response.Q0;
     //     data.q1 =  response.Q1;
