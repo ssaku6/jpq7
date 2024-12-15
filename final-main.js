@@ -85,7 +85,7 @@ var reactionTime;
 var image = random_order[0].img; 
 var preload = {
     type: 'preload',
-    images: [image]  // 動的に定義された selectedImage を使用
+    images: [img]  // 動的に定義された selectedImage を使用
 };
 timeline.push(preload);
 
