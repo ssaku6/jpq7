@@ -132,20 +132,21 @@ var hello_trial = {
     choices: jsPsych.NO_KEYS,
     on_load: function() {
         var imageElement = document.getElementById('jspsych-image');
-        imageElement.style.display = 'block';
-
-        imageWidth = imageElement.naturalWidth;
-        imageHeight = imageElement.naturalHeight;
-
-        var time_array = [100, 200, 300];
-        var shuffled_times = jsPsych.randomization.repeat(time_array, 1);
-
-        var displayTime = shuffled_times[0];  
-
-        setTimeout(function() {
-            imageElement.style.display = 'none';
-            jsPsych.finishTrial();
-        }, displayTime);
+        if (imageElement) {
+            imageElement.onload = function() {
+                imageWidth = imageElement.naturalWidth;
+                imageHeight = imageElement.naturalHeight;
+                console.log("Image loaded with size: " + imageWidth + " x " + imageHeight);
+                
+                var rectangle = document.getElementById('rectangle');
+                if (rectangle) {
+                    rectangle.style.width = imageWidth + 'px';
+                    rectangle.style.height = imageHeight + 'px';
+                }
+            };
+        } else {
+            console.error("Image element not found.");
+        }
     },
     on_finish: function() {
         document.body.style.backgroundColor = 'white';
@@ -153,6 +154,7 @@ var hello_trial = {
 };
 
 timeline.push(hello_trial);
+
 
 // 時間再現課題のインストラクション
 var welcome2 = {
