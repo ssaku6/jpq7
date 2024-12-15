@@ -127,7 +127,7 @@ var fixation_trial = {
  // 画像トライアルの修正
 var hello_trial = {
     type: 'html-keyboard-response',
-    stimulus: '<img id="jspsych-image" src="' + currentStimulus.img + '" style="display: none;">',
+    stimulus: jsPsych.timelineVariable('img'),
     choices: jsPsych.NO_KEYS,
     on_load: function() {
         var imageElement = document.getElementById('jspsych-image');
