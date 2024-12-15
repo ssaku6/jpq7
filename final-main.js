@@ -182,10 +182,19 @@ var space_key_trial = {
     `,
     choices: jsPsych.NO_KEYS,
     on_load: function() {
-        var rectangle = document.getElementById('rectangle');
-        rectangle.style.width = imageWidth + 'px';
-        rectangle.style.height = imageHeight + 'px';
-        console.log("Rectangle size set to: " + imageWidth + " x " + imageHeight);
+        var imageElement = document.getElementById('jspsych-image');
+        
+        // 画像が完全に読み込まれた後にサイズを取得
+        imageElement.onload = function() {
+            imageWidth = imageElement.naturalWidth;
+            imageHeight = imageElement.naturalHeight;
+            console.log("Image loaded with size: " + imageWidth + " x " + imageHeight);
+            
+            // 画像のサイズを四角形に設定
+            var rectangle = document.getElementById('rectangle');
+            rectangle.style.width = imageWidth + 'px';
+            rectangle.style.height = imageHeight + 'px';
+        };
     },
     on_start: function(trial) {
         var startTime = null;
