@@ -173,53 +173,91 @@ timeline.push(welcome2);
 var space_key_trial = {
     type: 'html-keyboard-response',
     data: {
-        task: 'response',  // タスク名
-        image: currentStimulus.img,  // 現在の画像データを渡す
+        task: 'response'
     },
-    stimulus: `...`,  // 表示する指示やHTMLコンテンツ
+    stimulus: `
+        <div id="instructions">
+            <p>では、この画面のまま<strong>spaceキーを押して四角形を表示させてください</strong></p>
+            <p>spaceキーを長押しすると灰色の四角形が表示されるので、絵画を見ていたと思う時間と同じ時間、四角形を表示させてください。</p>
+            <p>spaceキーを離すと四角形が消えます。</p>
+        </div>
+        <div id="rectangle" style="display: none; background-color: grey;"></div>
+        <img id="jspsych-image" src="image-path.jpg" style="width: auto; height: auto;">
+    `,
+    choices: jsPsych.NO_KEYS,
+    on_load: function() {
+        // DOMの全体を確認するログを追加
+        console.log(document.body.innerHTML); // DOMの全体を確認
+
+        // 画像の要素を取得
+        var imageElement = document.getElementById('jspsych-image');
+        console.log(imageElement); // 画像要素が取得できているか確認
+        
+        // 画像が存在する場合のみ処理
+        if (imageElement) {
+            // 画像のスタイルを使ってサイズを取得
+            var imageWidth = imageElement.clientWidth;
+            var imageHeight = imageElement.clientHeight;
+            console.log("Image loaded with size: " + imageWidth + " x " + imageHeight);
+            
+            // 画像のサイズを四角形に設定
+            var rectangle = document.getElementById('rectangle');
+            if (rectangle) {
+                rectangle.style.width = imageWidth + 'px';
+                rectangle.style.height = imageHeight + 'px';
+            }
+        } else {
+            console.error("Image element not found.");
+        }
+    },
+
     on_start: function(trial) {
-        var startTime = null;  // 反応時間を記録するための変数
-        var displayed = false;  // 四角形が表示されたかどうかを追跡するフラグ
-        var image = trial.data.image;  // トライアルから画像データを取得
+        var startTime = null;
+        var displayed = false;
+        var image = "";  // imageの定義を追加
 
         var keydownListener = function(e) {
             if (e.code === 'Space' && startTime === null && !displayed) {
-                startTime = performance.now();  // 反応時間の計測開始
-                document.getElementById('instructions').style.display = 'none';  // 指示を非表示
-                document.getElementById('rectangle').style.display = 'block';  // 四角形を表示
+                startTime = performance.now();
+                document.getElementById('instructions').style.display = 'none';
+                document.getElementById('rectangle').style.display = 'block';  
             }
         };
 
         var keyupListener = function(e) {
             if (e.code === 'Space' && startTime !== null && !displayed) {
-                var endTime = performance.now();  // 反応時間の計測終了
-                reactionTime = endTime - startTime;  // 反応時間を計算
-                console.log("反応時間: " + reactionTime + " ミリ秒");
+                var endTime = performance.now();
+                reactionTime = endTime - startTime;
+                console.log("Reaction time: " + reactionTime + " milliseconds");
 
-                document.getElementById('rectangle').style.display = 'none';  // 四角形を非表示
-                displayed = true;  // もう表示しないフラグを立てる
+                document.getElementById('rectangle').style.display = 'none';  
+                displayed = true;
 
-                // 画像データをトライアルデータに保存
-                trial.data.art = image;  // 表示された画像を保存
-                console.log("表示された画像: " + image);
+                // 画像の名前やIDを設定する（例: imageElement.src から取得）
+                var imageElement = document.getElementById('jspsych-image');
+                if (imageElement) {
+                    image = imageElement.src;  // 画像のURLを取得
+                    console.log("Displayed image: " + image);
+                }
 
-                document.removeEventListener('keydown', keydownListener);  // キーリスナーを削除
+                document.removeEventListener('keydown', keydownListener);
                 document.removeEventListener('keyup', keyupListener);
-                jsPsych.finishTrial();  // トライアル終了
+                jsPsych.finishTrial();
             }
         };
 
-        document.addEventListener('keydown', keydownListener);  // キー押下リスナーを追加
-        document.addEventListener('keyup', keyupListener);  // キー離上リスナーを追加
+        document.addEventListener('keydown', keydownListener);
+        document.addEventListener('keyup', keyupListener);
     },
 
-    on_finish: function(data) {
-        // 反応時間をトライアルデータに追加
-        data.correct = reactionTime;  // 反応時間をデータに保存
+    on_finish: function(data){
+        data.correct = reactionTime;
+        data.art = image;  // 画像URLをデータとして保存
+        console.log("Trial finished with reaction time: " + reactionTime);
     }
 };
 
-
+timeline.push(space_key_trial);
 
 
 
