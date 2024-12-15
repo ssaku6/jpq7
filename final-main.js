@@ -182,19 +182,27 @@ var space_key_trial = {
     `,
     choices: jsPsych.NO_KEYS,
     on_load: function() {
+        // 画像の要素を取得
         var imageElement = document.getElementById('jspsych-image');
         
-        // 画像が完全に読み込まれた後にサイズを取得
-        imageElement.onload = function() {
-            imageWidth = imageElement.naturalWidth;
-            imageHeight = imageElement.naturalHeight;
-            console.log("Image loaded with size: " + imageWidth + " x " + imageHeight);
-            
-            // 画像のサイズを四角形に設定
-            var rectangle = document.getElementById('rectangle');
-            rectangle.style.width = imageWidth + 'px';
-            rectangle.style.height = imageHeight + 'px';
-        };
+        // 画像が存在する場合のみ処理
+        if (imageElement) {
+            // 画像が完全に読み込まれた後にサイズを取得
+            imageElement.onload = function() {
+                imageWidth = imageElement.naturalWidth;
+                imageHeight = imageElement.naturalHeight;
+                console.log("Image loaded with size: " + imageWidth + " x " + imageHeight);
+                
+                // 画像のサイズを四角形に設定
+                var rectangle = document.getElementById('rectangle');
+                if (rectangle) {
+                    rectangle.style.width = imageWidth + 'px';
+                    rectangle.style.height = imageHeight + 'px';
+                }
+            };
+        } else {
+            console.error("Image element not found.");
+        }
     },
     on_start: function(trial) {
         var startTime = null;
@@ -235,6 +243,7 @@ var space_key_trial = {
 };
 
 timeline.push(space_key_trial);
+
 
 
 // 次の画面に進む指示
