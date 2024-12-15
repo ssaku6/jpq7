@@ -82,6 +82,7 @@ var reactionTime;
 
 
 // preload トライアルを修正
+var image = random_order[0].img; 
 var preload = {
     type: 'preload',
     images: [image]  // 動的に定義された selectedImage を使用
