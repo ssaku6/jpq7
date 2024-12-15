@@ -68,7 +68,7 @@ var test_stimuli_set4 = [
 // すべての画像を1つのリストにまとめる
 var all_stimuli = test_stimuli_set1.concat(test_stimuli_set2, test_stimuli_set3, test_stimuli_set4);
 
-for (var i = 0; i < 3; i++) {
+
 
 // ランダムに並べ替える（重複なしでランダムに選ばれる）
 var random_order = jsPsych.randomization.shuffle(all_stimuli);
@@ -91,7 +91,7 @@ var image = random_order[0].img;
      type: 'preload',
      images: [image]  // 動的に定義された selectedImage を使用
  };
- timeline.push(preload);
+ 
 
 
 //var selectedSet = jsPsych.randomization.sampleWithoutReplacement(conditionSets, 1)[0];  // ランダムで1セット選ぶ
@@ -103,7 +103,7 @@ var condition_trial = {
     stimulus: `<p>以下の項目について絵画を5段階で評価してもらいます。</p><br><p><strong>${currentStimulus.adjective1}</strong></p><p><strong>${currentStimulus.adjective2}</strong></p><br>enterキーで次に進みます。`,
     choices: ["Enter"],  // Enterキーで次のステップに進む
 };
-timeline.push(condition_trial);
+
 
 // ウェルカムメッセージ
 var welcome = {
@@ -112,7 +112,7 @@ var welcome = {
     choices: ["Enter"]
 };
 
-timeline.push(welcome);
+
 
 // 固視点トライアル
 var fixation_trial = {
@@ -122,7 +122,7 @@ var fixation_trial = {
     trial_duration: 1000  // 固視点を1秒間表示
 };
 
-timeline.push(fixation_trial);
+
 
  // 画像トライアルの修正
 var hello_trial = {
@@ -150,7 +150,7 @@ var hello_trial = {
         document.body.style.backgroundColor = 'white';  // 背景色をリセット
     }
 };
-timeline.push(hello_trial);
+
 
 
 
@@ -167,7 +167,7 @@ var welcome2 = {
     choices: ["Enter"]
 };
 
-timeline.push(welcome2);
+
 
 var space_key_trial = {
     type: 'html-keyboard-response',
@@ -231,11 +231,10 @@ var space_key_trial = {
     
     on_finish: function(data){
         data.correct = reactionTime; //jsPsych.timelineVariable("reactionTime");
-        data.art = preload;  // 画像URLをデータとして保存
+        data.art = image;  // 画像URLをデータとして保存
     }
 };
 
-timeline.push(space_key_trial);
 
 
 
@@ -246,7 +245,6 @@ var end_message = {
     choices: ["Enter"]
 };
 
-timeline.push(end_message);
 
 var currentStimulus = random_order[0]; // ランダムに選ばれた画像に関連する形容詞対を取得
 
@@ -277,6 +275,14 @@ var rating_trial = {
         // }
 //     }
  };
-timeline.push(rating_trial);
 
-};
+
+
+
+var test_procedure = {
+    timeline: [preload,condition_trial,welcome,fixation_trial,hello_trial,welcome2,space_key_trial,end_message,rating_trial],
+    timeline_variables: all_stimuli,
+    repetitions: 1,
+    randomize_order: true
+  }
+  timeline.push(test_procedure);
