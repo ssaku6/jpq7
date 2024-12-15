@@ -185,6 +185,9 @@ var space_key_trial = {
     `,
     choices: jsPsych.NO_KEYS,
     on_load: function() {
+        // DOMの全体を確認するログを追加
+        console.log(document.body.innerHTML); // DOMの全体を確認
+
         // 画像の要素を取得
         var imageElement = document.getElementById('jspsych-image');
         console.log(imageElement); // 画像要素が取得できているか確認
@@ -208,6 +211,7 @@ var space_key_trial = {
             console.error("Image element not found.");
         }
     },
+
     on_start: function(trial) {
         var startTime = null;
         var displayed = false;
