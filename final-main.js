@@ -4,70 +4,87 @@ var repo_site = "https://ssaku6.github.io/jpq7/";
 /* create timeline */
 var timeline = [];
 
-// 使用する画像と形容詞対セット
-var concreteImages = [
-    repo_site + 'img2/01.jpg', repo_site + 'img2/02.jpg', repo_site + 'img2/03.jpg', repo_site + 'img2/04.jpg',
-    repo_site + 'img2/05.jpg', repo_site + 'img2/06.jpg', repo_site + 'img2/07.jpg', repo_site + 'img2/08.jpg',
-    repo_site + 'img2/09.jpg', repo_site + 'img2/10.jpg', repo_site + 'img2/11.jpg', repo_site + 'img2/12.jpg',
-    repo_site + 'img2/13.jpg', repo_site + 'img2/14.jpg', repo_site + 'img2/15.jpg', repo_site + 'img2/16.jpg',
-    repo_site + 'img2/17.jpg', repo_site + 'img2/18.jpg', repo_site + 'img2/19.jpg', repo_site + 'img2/20.jpg',
-    repo_site + 'img2/21.jpg', repo_site + 'img2/22.jpg', repo_site + 'img2/23.jpg', repo_site + 'img2/24.jpg'
-];
+var test_stimuli_set1 = [
+    {adjective1: ["良いー悪い"], adjective2: ["好きなー嫌いな"], img: 'img2/01.jpg'},
+    {adjective1: ["良いー悪い"], adjective2: ["好きなー嫌いな"], img: 'img2/02.jpg'},
+    {adjective1: ["良いー悪い"], adjective2: ["好きなー嫌いな"], img: 'img2/03.jpg'},
+    {adjective1: ["良いー悪い"], adjective2: ["好きなー嫌いな"], img: 'img2/04.jpg'},
+    {adjective1: ["良いー悪い"], adjective2: ["好きなー嫌いな"], img: 'img2/05.jpg'},
+    {adjective1: ["良いー悪い"], adjective2: ["好きなー嫌いな"], img: 'img2/06.jpg'},
+    {adjective1: ["良いー悪い"], adjective2: ["好きなー嫌いな"], img: 'img2/07.jpg'},
+    {adjective1: ["良いー悪い"], adjective2: ["好きなー嫌いな"], img: 'img2/08.jpg'},
+    {adjective1: ["良いー悪い"], adjective2: ["好きなー嫌いな"], img: 'img2/09.jpg'},
+    {adjective1: ["良いー悪い"], adjective2: ["好きなー嫌いな"], img: 'img2/10.jpg'},
+    {adjective1: ["良いー悪い"], adjective2: ["好きなー嫌いな"], img: 'img2/11.jpg'},
+    {adjective1: ["良いー悪い"], adjective2: ["好きなー嫌いな"], img: 'img2/12.jpg'}
+  ];
+  
+  var test_stimuli_set2 = [
+    {adjective1: ["明るいー暗い"], adjective2: ["軽いー重い"], img: 'img2/13.jpg'},
+    {adjective1: ["明るいー暗い"], adjective2: ["軽いー重い"], img: 'img2/14.jpg'},
+    {adjective1: ["明るいー暗い"], adjective2: ["軽いー重い"], img: 'img2/15.jpg'},
+    {adjective1: ["明るいー暗い"], adjective2: ["軽いー重い"], img: 'img2/16.jpg'},
+    {adjective1: ["明るいー暗い"], adjective2: ["軽いー重い"], img: 'img2/17.jpg'},
+    {adjective1: ["明るいー暗い"], adjective2: ["軽いー重い"], img: 'img2/18.jpg'},
+    {adjective1: ["明るいー暗い"], adjective2: ["軽いー重い"], img: 'img2/19.jpg'},
+    {adjective1: ["明るいー暗い"], adjective2: ["軽いー重い"], img: 'img2/20.jpg'},
+    {adjective1: ["明るいー暗い"], adjective2: ["軽いー重い"], img: 'img2/21.jpg'},
+    {adjective1: ["明るいー暗い"], adjective2: ["軽いー重い"], img: 'img2/22.jpg'},
+    {adjective1: ["明るいー暗い"], adjective2: ["軽いー重い"], img: 'img2/23.jpg'},
+    {adjective1: ["明るいー暗い"], adjective2: ["軽いー重い"], img: 'img2/24.jpg'},
+  ];
+  
+  var test_stimuli_set3 = [
+    {adjective1: ["良いー悪い"], adjective2: ["好きなー嫌いな"], img: 'img2/25.jpg'},
+    {adjective1: ["良いー悪い"], adjective2: ["好きなー嫌いな"], img: 'img2/26.jpg'},
+    {adjective1: ["良いー悪い"], adjective2: ["好きなー嫌いな"], img: 'img2/27.jpg'},
+    {adjective1: ["良いー悪い"], adjective2: ["好きなー嫌いな"], img: 'img2/28.jpg'},
+    {adjective1: ["良いー悪い"], adjective2: ["好きなー嫌いな"], img: 'img2/29.jpg'},
+    {adjective1: ["良いー悪い"], adjective2: ["好きなー嫌いな"], img: 'img2/30.jpg'},
+    {adjective1: ["良いー悪い"], adjective2: ["好きなー嫌いな"], img: 'img2/31.jpg'},
+    {adjective1: ["良いー悪い"], adjective2: ["好きなー嫌いな"], img: 'img2/32.jpg'},
+    {adjective1: ["良いー悪い"], adjective2: ["好きなー嫌いな"], img: 'img2/33.jpg'},
+    {adjective1: ["良いー悪い"], adjective2: ["好きなー嫌いな"], img: 'img2/34.jpg'},
+    {adjective1: ["良いー悪い"], adjective2: ["好きなー嫌いな"], img: 'img2/35.jpg'},
+    {adjective1: ["良いー悪い"], adjective2: ["好きなー嫌いな"], img: 'img2/36.jpg'}
+  ];
+  
+  var test_stimuli_set4 = [
+    {adjective1: ["明るいー暗い"], adjective2: ["軽いー重い"], img: 'img2/37.jpg'},
+    {adjective1: ["明るいー暗い"], adjective2: ["軽いー重い"], img: 'img2/38.jpg'},
+    {adjective1: ["明るいー暗い"], adjective2: ["軽いー重い"], img: 'img2/39.jpg'},
+    {adjective1: ["明るいー暗い"], adjective2: ["軽いー重い"], img: 'img2/40.jpg'},
+    {adjective1: ["明るいー暗い"], adjective2: ["軽いー重い"], img: 'img2/41.jpg'},
+    {adjective1: ["明るいー暗い"], adjective2: ["軽いー重い"], img: 'img2/42.jpg'},
+    {adjective1: ["明るいー暗い"], adjective2: ["軽いー重い"], img: 'img2/43.jpg'},
+    {adjective1: ["明るいー暗い"], adjective2: ["軽いー重い"], img: 'img2/44.jpg'},
+    {adjective1: ["明るいー暗い"], adjective2: ["軽いー重い"], img: 'img2/45.jpg'},
+    {adjective1: ["明るいー暗い"], adjective2: ["軽いー重い"], img: 'img2/46.jpg'},
+    {adjective1: ["明るいー暗い"], adjective2: ["軽いー重い"], img: 'img2/47.jpg'},
+    {adjective1: ["明るいー暗い"], adjective2: ["軽いー重い"], img: 'img2/48.jpg'},
+  ];
+  
+// すべての画像を1つのリストにまとめる
+var all_stimuli = test_stimuli_set1.concat(test_stimuli_set2, test_stimuli_set3, test_stimuli_set4);
 
-var abstractImages = [
-    repo_site + 'img2/25.jpg', repo_site + 'img2/26.jpg', repo_site + 'img2/27.jpg', repo_site + 'img2/28.jpg',
-    repo_site + 'img2/29.jpg', repo_site + 'img2/30.jpg', repo_site + 'img2/31.jpg', repo_site + 'img2/32.jpg',
-    repo_site + 'img2/33.jpg', repo_site + 'img2/34.jpg', repo_site + 'img2/35.jpg', repo_site + 'img2/36.jpg',
-    repo_site + 'img2/37.jpg', repo_site + 'img2/38.jpg', repo_site + 'img2/39.jpg', repo_site + 'img2/40.jpg',
-    repo_site + 'img2/41.jpg', repo_site + 'img2/42.jpg', repo_site + 'img2/43.jpg', repo_site + 'img2/44.jpg',
-    repo_site + 'img2/45.jpg', repo_site + 'img2/46.jpg', repo_site + 'img2/47.jpg', repo_site + 'img2/48.jpg'
-];
+// ランダムに並べ替える（重複なしでランダムに選ばれる）
+var random_order = jsPsych.randomization.shuffle(all_stimuli);
 
-var conditionSets = [
-    ["良いー悪い", "好きなー嫌いな"],
-    ["明るいー暗い", "軽いー重い"]
-];
 
-// 条件の組み合わせを作成
-var conditions = [
-    { images: concreteImages.slice(0, 12), adjectives: conditionSets[0] },
-    { images: concreteImages.slice(12, 24), adjectives: conditionSets[1] },
-    { images: abstractImages.slice(0, 12), adjectives: conditionSets[0] },
-    { images: abstractImages.slice(12, 24), adjectives: conditionSets[1] }
-];
 
-// 各条件を12回繰り返して試行を作成
-var trials = [];
-var repetitions = 1;
-for (var i = 0; i < conditions.length; i++) {
-    var condition = conditions[i];
-    for (var j = 0; j < repetitions; j++) {
-        var shuffledImages = jsPsych.randomization.shuffle(condition.images);
-        for (var k = 0; k < shuffledImages.length; k++) {
-            trials.push({
-                image: shuffledImages[k],
-                adjectives: condition.adjectives,
-                art: shuffledImages[k]
-            });
-        }
-    }
-}
 
-// 全試行をランダムにシャッフル
-trials = jsPsych.randomization.shuffle(trials);
+
 
 // 画像を表示している時間とサイズを格納する変数
 var imageWidth = 0;
 var imageHeight = 0;
 var reactionTime;
 
-// 例: selectedImage を動的に定義
-var selectedImage = trials[0].image;  // 最初のトライアルの画像を選択
 
 // preload トライアルを修正
 var preload = {
     type: 'preload',
-    images: [selectedImage]  // 動的に定義された selectedImage を使用
+    images: [image]  // 動的に定義された selectedImage を使用
 };
 timeline.push(preload);
 
@@ -77,7 +94,7 @@ timeline.push(preload);
 // 画像を表示する前に、形容詞対のセットの最初と2つ目の項目を同時に表示するトライアル
 var condition_trial = {
     type: "html-keyboard-response",
-    stimulus: `<p>以下の項目について絵画を5段階で評価してもらいます。</p><br><p>${selectedSet[0]}</p><p>${selectedSet[1]}</p>`,  // 両方の項目を表示
+    stimulus: `<p>以下の項目について絵画を5段階で評価してもらいます。</p><br><p>${adjective1}</p><p>${adjective2}</p>`,  // 両方の項目を表示
     choices: ["Enter"],  // Enterキーで次のステップに進む
 };
 
@@ -105,7 +122,7 @@ timeline.push(fixation_trial);
 // 画像トライアル
 var hello_trial = {
     type: 'html-keyboard-response',
-    stimulus: '<img id="jspsych-image" src="' + selectedImage + '" style="display: none;">',
+    stimulus: '<img id="jspsych-image" src="' + image + '" style="display: none;">',
     choices: jsPsych.NO_KEYS,
     on_load: function() {
         var imageElement = document.getElementById('jspsych-image');
@@ -214,8 +231,8 @@ var rating_trial = {
     type: "survey-likert",
     data:{task: 'response'},
     questions: [
-        {name: "Q0", prompt: `<p><strong>${selectedSet[0]}</strong></p>`, labels: ["1", "2", "3", "4", "5"], required: true},
-        {name: "Q1", prompt: `<p><strong>${selectedSet[1]}</strong></p>`, labels: ["1", "2", "3", "4", "5"], required: true}
+        {name: "Q0", prompt: `<p><strong>${adjective1}</strong></p>`, labels: ["1", "2", "3", "4", "5"], required: true},
+        {name: "Q1", prompt: `<p><strong>${adjective2}</strong></p>`, labels: ["1", "2", "3", "4", "5"], required: true}
     ],
     preamble: "<p>以下の評価項目について回答してください:</p>",
     // on_finish: function(data) {
