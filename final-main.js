@@ -32,7 +32,7 @@ var conditions = [
 
 // 各条件を12回繰り返して試行を作成
 var trials = [];
-var repetitions = 12;
+var repetitions = 1;
 for (var i = 0; i < conditions.length; i++) {
     var condition = conditions[i];
     for (var j = 0; j < repetitions; j++) {
