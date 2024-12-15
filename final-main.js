@@ -81,6 +81,9 @@ var imageHeight = 0;
 var reactionTime;
 
 
+// random_order[0] の内容を確認する
+console.log(random_order[0]);  // ここで random_order[0] の内容を確認
+
 // preload トライアルを修正
 var image = random_order[0].img; 
 var preload = {
