@@ -215,6 +215,7 @@ var space_key_trial = {
     on_start: function(trial) {
         var startTime = null;
         var displayed = false;
+        var image = "";  // imageの定義を追加
 
         var keydownListener = function(e) {
             if (e.code === 'Space' && startTime === null && !displayed) {
@@ -233,6 +234,13 @@ var space_key_trial = {
                 document.getElementById('rectangle').style.display = 'none';  
                 displayed = true;
 
+                // 画像の名前やIDを設定する（例: imageElement.src から取得）
+                var imageElement = document.getElementById('jspsych-image');
+                if (imageElement) {
+                    image = imageElement.src;  // 画像のURLを取得
+                    console.log("Displayed image: " + image);
+                }
+
                 document.removeEventListener('keydown', keydownListener);
                 document.removeEventListener('keyup', keyupListener);
                 jsPsych.finishTrial();
@@ -245,7 +253,7 @@ var space_key_trial = {
     
     on_finish: function(data){
        data.correct = reactionTime;
-       data.art = image;
+       data.art = image;  // 画像URLをデータとして保存
        console.log("Trial finished with reaction time: " + reactionTime);
    }
 };
