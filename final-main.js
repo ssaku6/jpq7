@@ -180,14 +180,15 @@ var space_key_trial = {
         var imageUrl = currentStimulus.img;  // `currentStimulus.img` に画像URLが格納されている場合
 
         return `
-            <div id="instructions">
-                <p>では、この画面のまま<strong>spaceキーを押して四角形を表示させてください</strong></p>
-                <p>spaceキーを長押しすると灰色の四角形が表示されるので、絵画を見ていたと思う時間と同じ時間、四角形を表示させてください。</p>
-                <p>spaceキーを離すと四角形が消えます。</p>
-            </div>
-            <div id="rectangle" style="display: none; background-color: grey;"></div>
-            <img id="jspsych-image" src="${imageUrl}" style="width: auto; height: auto;">
-        `;
+    <div id="instructions">
+        <p>では、この画面のまま<strong>spaceキーを押して四角形を表示させてください</strong></p>
+        <p>spaceキーを長押しすると灰色の四角形が表示されるので、絵画を見ていたと思う時間と同じ時間、四角形を表示させてください。</p>
+        <p>spaceキーを離すと四角形が消えます。</p>
+    </div>
+    <div id="rectangle" style="display: none; background-color: grey;"></div>
+    <div id="image-placeholder" style="display: none;"></div> <!-- 画像表示をしないためのプレースホルダー -->
+`;
+
     },
     choices: jsPsych.NO_KEYS,
     on_load: function() {
