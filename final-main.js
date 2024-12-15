@@ -93,6 +93,7 @@ timeline.push(preload);
 //var selectedSet = jsPsych.randomization.sampleWithoutReplacement(conditionSets, 1)[0];  // ランダムで1セット選ぶ
 
 // 画像を表示する前に、形容詞対のセットの最初と2つ目の項目を同時に表示するトライアル
+var currentStimulus = random_order[0]; // ランダムに選ばれた画像に関連する形容詞対を取得
 var condition_trial = {
     type: "html-keyboard-response",
     stimulus: `<p>以下の項目について絵画を5段階で評価してもらいます。</p><br><p>${adjective1}</p><p>${adjective2}</p>`,  // 両方の項目を表示
