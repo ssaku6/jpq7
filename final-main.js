@@ -37,24 +37,12 @@ var conditions = [
 ];
 
 // 各条件を12回繰り返して試行を作成
-var trials = [];
-var repetitions = 1;
-for (var i = 0; i < conditions.length; i++) {
-    var condition = conditions[i];
-    for (var j = 0; j < repetitions; j++) {
-        var shuffledImages = jsPsych.randomization.shuffle(condition.images);
-        for (var k = 0; k < shuffledImages.length; k++) {
-            trials.push({
-                image: shuffledImages[k],
-                adjectives: condition.adjectives,
-                art: shuffledImages[k]
-            });
-        }
-    }
-}
+var trials = jsPsych.randomization.factorial({
+    conditions: conditions,
+    repetitions: 1
+}, 1);
 
-// 全試行をランダムにシャッフル
-trials = jsPsych.randomization.shuffle(trials);
+ 
 
 // 画像を表示している時間とサイズを格納する変数
 var imageWidth = 0;
@@ -70,7 +58,6 @@ var preload = {
 timeline.push(preload);
 
 
-//var selectedSet = jsPsych.randomization.sampleWithoutReplacement(conditionSets, 1)[0];  // ランダムで1セット選ぶ
 
 // 画像を表示する前に、形容詞対のセットの最初と2つ目の項目を同時に表示するトライアル
 var condition_trial = {
@@ -112,7 +99,7 @@ var hello_trial = {
         imageWidth = imageElement.naturalWidth;
         imageHeight = imageElement.naturalHeight;
 
-        var time_array = [3000, 5000, 7000];
+        var time_array = [100, 200, 300];
         var shuffled_times = jsPsych.randomization.repeat(time_array, 1);
 
         var displayTime = shuffled_times[0];  
