@@ -3,7 +3,6 @@ var repo_site = "https://ssaku6.github.io/jpq7/";
 /* create timeline */
 var timeline = [];
 
-
 // 使用する画像と形容詞対セット
 var concreteImages = [
     repo_site + 'img2/01.jpg', repo_site + 'img2/02.jpg', repo_site + 'img2/03.jpg', repo_site + 'img2/04.jpg',
@@ -36,12 +35,6 @@ var conditions = [
     { images: abstractImages.slice(12, 24), adjectives: conditionSets[1] }
 ];
 
-// 各条件を繰り返して試行を作成
-var trials = jsPsych.randomization.factorial({
-    conditions: conditions,
-    repetitions: 1
-}, 1);
-
 // 使用済みの画像を記録
 var usedImages = [];
 
@@ -50,172 +43,156 @@ var imageWidth = 0;
 var imageHeight = 0;
 var reactionTime;
 
-// 試行のタイムラインを設定
-trials.forEach(function(trial) {
-    var shuffledImages = jsPsych.randomization.shuffle(trial.images);
+// 各条件の試行を生成
+conditions.forEach(function(condition) {
+    // 画像のシャッフル
+    var shuffledImages = jsPsych.randomization.shuffle(condition.images);
 
-    // 画像をプリロード
-    var preload = {
-        type: 'preload',
-        images: shuffledImages
-    };
-    timeline.push(preload);
+    shuffledImages.forEach(function(image) {
+        // 使われていない画像をフィルタリング
+        if (!usedImages.includes(image)) {
+            usedImages.push(image);
 
-    // すべての画像が重複しないように選択
-    var availableImages = shuffledImages.filter(function(image) {
-        return !usedImages.includes(image);  // 使われていない画像をフィルタリング
-    });
+            // 条件試行: 形容詞対を表示
+            var condition_trial = {
+                type: "html-keyboard-response",
+                stimulus: `<p>以下の項目について絵画を5段階で評価してもらいます。</p><br><p>${condition.adjectives[0]}</p><p>${condition.adjectives[1]}</p>`,
+                choices: ["Enter"],  // Enterキーで次のステップに進む
+            };
 
-    // ランダムに画像を選択して表示
-    availableImages.forEach(function(image) {
-        usedImages.push(image);  // 使用済みリストに追加
+            timeline.push(condition_trial);
 
-        // 画像を表示する前に、形容詞対のセットの最初と2つ目の項目を同時に表示するトライアル
-        var condition_trial = {
-            type: "html-keyboard-response",
-            stimulus: `<p>以下の項目について絵画を5段階で評価してもらいます。</p><br><p>${trial.adjectives[0]}</p><p>${trial.adjectives[1]}</p>`,  // 両方の項目を表示
-            choices: ["Enter"],  // Enterキーで次のステップに進む
-        };
+            // ウェルカムメッセージ
+            var welcome = {
+                type: "html-keyboard-response",
+                stimulus: "enterキーを押すと絵画が表示されます。絵画は自動で消えるまで、表示されます。<br>事前に見た評価項目に基づき、絵画が消えるまで見続けてください。",
+                choices: ["Enter"]
+            };
 
-        timeline.push(condition_trial);
+            timeline.push(welcome);
 
-        // ウェルカムメッセージ
-        var welcome = {
-            type: "html-keyboard-response",
-            stimulus: "enterキーを押すと絵画が表示されます。絵画は自動で消えるまで、表示されます。<br>事前に見た評価項目に基づき、絵画が消えるまで見続けてください。",
-            choices: ["Enter"]
-        };
+            // 固視点トライアル
+            var fixation_trial = {
+                type: "html-keyboard-response",
+                stimulus: "<p style='font-size: 48px;'>+</p>",  // 固視点として「+」を表示
+                choices: jsPsych.NO_KEYS,  // キー入力を無効にする
+                trial_duration: 1000  // 固視点を1秒間表示
+            };
 
-        timeline.push(welcome);
+            timeline.push(fixation_trial);
 
-        // 固視点トライアル
-        var fixation_trial = {
-            type: "html-keyboard-response",
-            stimulus: "<p style='font-size: 48px;'>+</p>",  // 固視点として「+」を表示
-            choices: jsPsych.NO_KEYS,  // キー入力を無効にする
-            trial_duration: 1000  // 固視点を1秒間表示
-        };
+            // 画像トライアル
+            var hello_trial = {
+                type: 'html-keyboard-response',
+                stimulus: '<img id="jspsych-image" src="' + image + '" style="display: none;">',
+                choices: jsPsych.NO_KEYS,
+                on_load: function() {
+                    var imageElement = document.getElementById('jspsych-image');
+                    imageElement.style.display = 'block';
 
-        timeline.push(fixation_trial);
+                    imageWidth = imageElement.naturalWidth;
+                    imageHeight = imageElement.naturalHeight;
 
-        // 画像トライアル
-        var hello_trial = {
-            type: 'html-keyboard-response',
-            stimulus: '<img id="jspsych-image" src="' + image + '" style="display: none;">',
-            choices: jsPsych.NO_KEYS,
-            on_load: function() {
-                var imageElement = document.getElementById('jspsych-image');
-                imageElement.style.display = 'block';
+                    var time_array = [100, 200, 300];
+                    var shuffled_times = jsPsych.randomization.repeat(time_array, 1);
 
-                imageWidth = imageElement.naturalWidth;
-                imageHeight = imageElement.naturalHeight;
+                    var displayTime = shuffled_times[0];  
 
-                var time_array = [100, 200, 300];
-                var shuffled_times = jsPsych.randomization.repeat(time_array, 1);
-
-                var displayTime = shuffled_times[0];  
-
-                setTimeout(function() {
-                    imageElement.style.display = 'none';
-                    jsPsych.finishTrial();
-                }, displayTime);
-            },
-            on_finish: function() {
-                document.body.style.backgroundColor = 'white';
-            }
-        };
-
-        timeline.push(hello_trial);
-
-        // 時間再現課題のインストラクション
-        var welcome2 = {
-            type: "html-keyboard-response",
-            stimulus: `<strong>予告していませんでしたが、絵画の評価の前に、絵画を見ていた時間の長さを再現してもらいます。</strong><br><br>
-            次の画面ではspaceキーを長押しすると四角形が表示され、離すと四角形が消えます。<br>
-            絵画を見ていたと思う時間と同じ時間、四角形を表示させてください。<br>
-            <strong>spaceキーを押す操作は1度しかできないので注意してください。</strong><br>
-            enterキーで次のページに進みます。`,
-            choices: ["Enter"]
-        };
-
-        timeline.push(welcome2);
-
-        var space_key_trial = {
-            type: 'html-keyboard-response',
-            data: {
-                task: 'response'
-            },
-            stimulus: `
-                <div id="instructions">
-                    <p>では、この画面のまま<strong>spaceキーを押して四角形を表示させてください</strong></p>
-                    <p>spaceキーを長押しすると灰色の四角形が表示されるので、 絵画を見ていたと思う時間と同じ時間、四角形を表示させてください。</p>
-                    <p>spaceキーを離すと四角形が消えます。</p>
-                </div>
-                <div id="rectangle" style="display: none; background-color: grey;"></div>
-            `,
-            choices: jsPsych.NO_KEYS,
-            on_load: function() {
-                var rectangle = document.getElementById('rectangle');
-                rectangle.style.width = imageWidth + 'px';
-                rectangle.style.height = imageHeight + 'px';
-            },
-            on_start: function(trial) {
-                var startTime = null;
-                var displayed = false;
-
-                var keydownListener = function(e) {
-                    if (e.code === 'Space' && startTime === null && !displayed) {
-                        startTime = performance.now();
-                        document.getElementById('instructions').style.display = 'none';
-                        document.getElementById('rectangle').style.display = 'block';  
-                    }
-                };
-
-                var keyupListener = function(e) {
-                    if (e.code === 'Space' && startTime !== null && !displayed) {
-                        var endTime = performance.now();
-                        reactionTime = endTime - startTime;
-                        console.log("Reaction time: " + reactionTime + " milliseconds");
-
-                        document.getElementById('rectangle').style.display = 'none';  
-                        displayed = true;
-
-                        document.removeEventListener('keydown', keydownListener);
-                        document.removeEventListener('keyup', keyupListener);
+                    setTimeout(function() {
+                        imageElement.style.display = 'none';
                         jsPsych.finishTrial();
-                    }
-                };
+                    }, displayTime);
+                },
+                on_finish: function() {
+                    document.body.style.backgroundColor = 'white';
+                }
+            };
 
-                document.addEventListener('keydown', keydownListener);
-                document.addEventListener('keyup', keyupListener);
-            },
-            on_finish: function(data){
-                data.correct = reactionTime;
-                data.art = image;
-                data.adjectives = conditionSets;
-            }
-        };
+            timeline.push(hello_trial);
 
-        timeline.push(space_key_trial);
+            // 時間再現課題のインストラクション
+            var welcome2 = {
+                type: "html-keyboard-response",
+                stimulus: `<strong>予告していませんでしたが、絵画の評価の前に、絵画を見ていた時間の長さを再現してもらいます。</strong><br><br>
+                次の画面ではspaceキーを長押しすると四角形が表示され、離すと四角形が消えます。<br>
+                絵画を見ていたと思う時間と同じ時間、四角形を表示させてください。<br>
+                <strong>spaceキーを押す操作は1度しかできないので注意してください。</strong><br>
+                enterキーで次のページに進みます。`,
+                choices: ["Enter"]
+            };
 
-        // 次の画面に進む指示
-        var end_message = {
-            type: "html-keyboard-response",
-            stimulus: "続いて絵画の評価をしてください。<br>enterキーで次のページに進みます。",
-            choices: ["Enter"]
-        };
+            timeline.push(welcome2);
 
-        timeline.push(end_message);
+            var space_key_trial = {
+                type: 'html-keyboard-response',
+                data: {
+                    task: 'response'
+                },
+                stimulus: `
+                    <div id="instructions">
+                        <p>では、この画面のまま<strong>spaceキーを押して四角形を表示させてください</strong></p>
+                        <p>spaceキーを長押しすると灰色の四角形が表示されるので、 絵画を見ていたと思う時間と同じ時間、四角形を表示させてください。</p>
+                        <p>spaceキーを離すと四角形が消えます。</p>
+                    </div>
+                    <div id="rectangle" style="display: none; background-color: grey;"></div>
+                `,
+                choices: jsPsych.NO_KEYS,
+                on_load: function() {
+                    var rectangle = document.getElementById('rectangle');
+                    rectangle.style.width = imageWidth + 'px';
+                    rectangle.style.height = imageHeight + 'px';
+                },
+                on_start: function(trial) {
+                    var startTime = null;
+                    var displayed = false;
 
-        var rating_trial = {
-            type: "survey-likert",
-            data:{task: 'response'},
-            questions: [
-                {name: "Q0", prompt: `<p><strong>${trial.adjectives[0]}</strong></p>`, labels: ['1', '2', '3', '4', '5'], required: true},
-                {name: "Q1", prompt: `<p><strong>${trial.adjectives[1]}</strong></p>`, labels: ['1', '2', '3', '4', '5'], required: true}
-            ]
-        };
+                    var keydownListener = function(e) {
+                        if (e.code === 'Space' && startTime === null && !displayed) {
+                            startTime = performance.now();
+                            document.getElementById('instructions').style.display = 'none';
+                            document.getElementById('rectangle').style.display = 'block';  
+                        }
+                    };
 
-        timeline.push(rating_trial);
+                    var keyupListener = function(e) {
+                        if (e.code === 'Space' && startTime !== null && !displayed) {
+                            var endTime = performance.now();
+                            reactionTime = endTime - startTime;
+                            console.log("Reaction time: " + reactionTime + " milliseconds");
+
+                            document.getElementById('rectangle').style.display = 'none';  
+                            displayed = true;
+
+                            document.removeEventListener('keydown', keydownListener);
+                            document.removeEventListener('keyup', keyupListener);
+                            jsPsych.finishTrial();
+                        }
+                    };
+
+                    document.addEventListener('keydown', keydownListener);
+                    document.addEventListener('keyup', keyupListener);
+                },
+                on_finish: function(data){
+                    data.correct = reactionTime;
+                    data.art = image;
+                    data.adjectives = condition.adjectives;
+                }
+            };
+
+            timeline.push(space_key_trial);
+
+            // 次の画面に進む指示
+            var final_instructions = {
+                type: "html-keyboard-response",
+                stimulus: "<p>終了！次に進んでください。</p><p>spaceキーで次へ。</p>",
+                choices: ["Enter"]
+            };
+
+            timeline.push(final_instructions);
+        }
     });
+});
+
+jsPsych.init({
+    timeline: timeline
 });
