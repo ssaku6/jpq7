@@ -187,6 +187,7 @@ var space_key_trial = {
     on_load: function() {
         // 画像の要素を取得
         var imageElement = document.getElementById('jspsych-image');
+        console.log(imageElement); // 画像要素が取得できているか確認
         
         // 画像が存在する場合のみ処理
         if (imageElement) {
