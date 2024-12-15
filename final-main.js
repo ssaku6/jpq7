@@ -56,81 +56,182 @@ for (var i = 0; i < conditions.length; i++) {
 // 全試行をランダムにシャッフル
 trials = jsPsych.randomization.shuffle(trials);
 
-// 試行のタイムラインを設定
-for (var i = 0; i < trials.length; i++) {
-    var trial = trials[i];
+// 画像を表示している時間とサイズを格納する変数
+var imageWidth = 0;
+var imageHeight = 0;
+var reactionTime;
 
-    // 画像をプリロード
-    var preload = {
-        type: 'preload',
-        images: [trial.image]
-    };
-    timeline.push(preload);
+// 画像をプリロードするトライアル
+var preload = {
+    type: 'preload',
+    images: [selectedImage]
+};
 
-    // 形容詞対セットの提示
-    var condition_trial = {
-        type: "html-keyboard-response",
-        stimulus: `<p>以下の項目について絵画を5段階で評価してもらいます。</p><br><p><strong>${trial.adjectives[0]}</strong></p><p><strong>${trial.adjectives[1]}</strong></p><br>enterキーで次に進みます。`,
-        choices: ["Enter"],
-    };
-    timeline.push(condition_trial);
+timeline.push(preload);
 
-    // 固視点
-    var fixation_trial = {
-        type: "html-keyboard-response",
-        stimulus: "<p style='font-size: 48px;'>+</p>",
-        choices: jsPsych.NO_KEYS,
-        trial_duration: 1000
-    };
-    timeline.push(fixation_trial);
 
-    // 画像呈示
-    var image_trial = {
-        type: 'html-keyboard-response',
-        stimulus: `<img src="${trial.image}" style="width: 800px; height: auto;">`,
-        choices: jsPsych.NO_KEYS,
-        trial_duration: jsPsych.randomization.sampleWithoutReplacement([100, 200, 300], 1)[0]
-    };
-    timeline.push(image_trial);
+//var selectedSet = jsPsych.randomization.sampleWithoutReplacement(conditionSets, 1)[0];  // ランダムで1セット選ぶ
 
-    // 時間再現課題
-    var reproduction_instruction = {
-        type: "html-keyboard-response",
-        stimulus: `<strong>絵画を見ていた時間を再現してください。</strong><br>spaceキーを長押しして時間を再現します。`,
-        choices: ["Enter"]
-    };
-    timeline.push(reproduction_instruction);
+// 画像を表示する前に、形容詞対のセットの最初と2つ目の項目を同時に表示するトライアル
+var condition_trial = {
+    type: "html-keyboard-response",
+    stimulus: `<p>以下の項目について絵画を5段階で評価してもらいます。</p><br><p>${selectedSet[0]}</p><p>${selectedSet[1]}</p>`,  // 両方の項目を表示
+    choices: ["Enter"],  // Enterキーで次のステップに進む
+};
 
-    var space_key_trial = {
-        type: 'html-keyboard-response',
-        stimulus: '<div id="rectangle" style="display:none; width:100px; height:100px; background-color:grey;"></div>',
-        choices: jsPsych.NO_KEYS,
-        on_load: function() {
-            var startTime = null;
-            document.addEventListener('keydown', function(e) {
-                if (e.code === 'Space' && !startTime) {
-                    startTime = performance.now();
-                    document.getElementById('rectangle').style.display = 'block';
-                }
-            });
-            document.addEventListener('keyup', function(e) {
-                if (e.code === 'Space' && startTime) {
-                    var endTime = performance.now();
-                    var reactionTime = endTime - startTime;
-                    jsPsych.finishTrial({ reactionTime: reactionTime });
-                }
-            });
-        }
-    };
-    timeline.push(space_key_trial);
+timeline.push(condition_trial);
 
-    // 評価
-    var rating_trial = {
-        type: "survey-likert",
-        questions: [
-            { prompt: `<p><strong>${trial.adjectives[0]}</strong></p>`, labels: ["1", "2", "3", "4", "5"], required: true },
-            { prompt: `<p><strong>${trial.adjectives[1]}</strong></p>`, labels: ["1", "2", "3", "4", "5"], required: true }
-        ]
-    };
-    timeline.push(rating_trial);
-}
+// ウェルカムメッセージ
+var welcome = {
+    type: "html-keyboard-response",
+    stimulus: "enterキーを押すと絵画が表示されます。絵画は自動で消えるまで、表示されます。<br>事前に見た評価項目に基づき、絵画が消えるまで見続けてください。",
+    choices: ["Enter"]
+};
+
+timeline.push(welcome);
+
+// 固視点トライアル
+var fixation_trial = {
+    type: "html-keyboard-response",
+    stimulus: "<p style='font-size: 48px;'>+</p>",  // 固視点として「+」を表示
+    choices: jsPsych.NO_KEYS,  // キー入力を無効にする
+    trial_duration: 1000  // 固視点を1秒間表示
+};
+
+timeline.push(fixation_trial);
+
+// 画像トライアル
+var hello_trial = {
+    type: 'html-keyboard-response',
+    stimulus: '<img id="jspsych-image" src="' + selectedImage + '" style="display: none;">',
+    choices: jsPsych.NO_KEYS,
+    on_load: function() {
+        var imageElement = document.getElementById('jspsych-image');
+        imageElement.style.display = 'block';
+
+        imageWidth = imageElement.naturalWidth;
+        imageHeight = imageElement.naturalHeight;
+
+        var time_array = [3000, 5000, 7000];
+        var shuffled_times = jsPsych.randomization.repeat(time_array, 1);
+
+        var displayTime = shuffled_times[0];  
+
+        setTimeout(function() {
+            imageElement.style.display = 'none';
+            jsPsych.finishTrial();
+        }, displayTime);
+    },
+    on_finish: function() {
+        document.body.style.backgroundColor = 'white';
+    }
+};
+
+timeline.push(hello_trial);
+
+// 時間再現課題のインストラクション
+var welcome2 = {
+    type: "html-keyboard-response",
+    stimulus: `<strong>予告していませんでしたが、絵画の評価の前に、絵画を見ていた時間の長さを再現してもらいます。</strong><br><br>
+    次の画面ではspaceキーを長押しすると四角形が表示され、離すと四角形が消えます。<br>
+    絵画を見ていたと思う時間と同じ時間、四角形を表示させてください。<br>
+    <strong>spaceキーを押す操作は1度しかできないので注意してください。</strong><br>
+    enterキーで次のページに進みます。`,
+    choices: ["Enter"]
+};
+
+timeline.push(welcome2);
+
+var space_key_trial = {
+    type: 'html-keyboard-response',
+    data: {
+        task: 'response'},
+    stimulus: `
+        <div id="instructions">
+            <p>では、この画面のまま<strong>spaceキーを押して四角形を表示させてください</strong></p>
+            <p>spaceキーを長押しすると灰色の四角形が表示されるので、 絵画を見ていたと思う時間と同じ時間、四角形を表示させてください。</p>
+            <p>spaceキーを離すと四角形が消えます。</p>
+        </div>
+        <div id="rectangle" style="display: none; background-color: grey;"></div>
+    `,
+    choices: jsPsych.NO_KEYS,
+    on_load: function() {
+        var rectangle = document.getElementById('rectangle');
+        rectangle.style.width = imageWidth + 'px';
+        rectangle.style.height = imageHeight + 'px';
+    },
+    on_start: function(trial) {
+        var startTime = null;
+        var displayed = false;
+
+        var keydownListener = function(e) {
+            if (e.code === 'Space' && startTime === null && !displayed) {
+                startTime = performance.now();
+                document.getElementById('instructions').style.display = 'none';
+                document.getElementById('rectangle').style.display = 'block';  
+            }
+        };
+
+        var keyupListener = function(e) {
+            if (e.code === 'Space' && startTime !== null && !displayed) {
+                var endTime = performance.now();
+                reactionTime = endTime - startTime;
+                console.log("Reaction time: " + reactionTime + " milliseconds");
+
+                document.getElementById('rectangle').style.display = 'none';  
+                displayed = true;
+
+                document.removeEventListener('keydown', keydownListener);
+                document.removeEventListener('keyup', keyupListener);
+                jsPsych.finishTrial();
+            }
+        };
+
+        document.addEventListener('keydown', keydownListener);
+        document.addEventListener('keyup', keyupListener);
+    },
+    
+    on_finish: function(data){
+       data.correct = reactionTime;
+       data.art = selectedImage;
+   }
+};
+
+timeline.push(space_key_trial);
+
+// 次の画面に進む指示
+var end_message = {
+    type: "html-keyboard-response",
+    stimulus: "続いて絵画の評価をしてください。<br>enterキーで次のページに進みます。",
+    choices: ["Enter"]
+};
+
+timeline.push(end_message);
+
+var rating_trial = {
+    type: "survey-likert",
+    data:{task: 'response'},
+    questions: [
+        {name: "Q0", prompt: `<p><strong>${selectedSet[0]}</strong></p>`, labels: ["1", "2", "3", "4", "5"], required: true},
+        {name: "Q1", prompt: `<p><strong>${selectedSet[1]}</strong></p>`, labels: ["1", "2", "3", "4", "5"], required: true}
+    ],
+    preamble: "<p>以下の評価項目について回答してください:</p>",
+    // on_finish: function(data) {
+    //     data.q0 =  response.Q0;
+    //     data.q1 =  response.Q1;
+        // if (data.responses) {
+        //     try {
+        //         // アンケートの回答をJSONとしてパースする
+        //         var responses = JSON.parse(data.responses);
+        //         // 各質問の回答をdataオブジェクトに追加
+        //         data.Q0 = responses.Q0;  // 最初の項目の回答
+        //         data.Q1 = responses.Q1;  // 2つ目の項目の回答
+        //     } catch (e) {
+        //         console.error("Failed to parse responses:", e);
+        //     }
+        // } else {
+        //     console.warn("No responses found.");
+        // }
+//     }
+ };
+timeline.push(rating_trial);
