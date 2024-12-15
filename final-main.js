@@ -125,40 +125,34 @@ var fixation_trial = {
 
 timeline.push(fixation_trial);
 
- // 画像トライアル
- var hello_trial = {
+ // 画像トライアルの修正
+var hello_trial = {
     type: 'html-keyboard-response',
-    stimulus: '<img id="jspsych-image" src="' + image + '" style="visibility: hidden;">',
+    stimulus: '<img id="jspsych-image" src="' + currentStimulus.img + '" style="display: none;">',
     choices: jsPsych.NO_KEYS,
     on_load: function() {
         var imageElement = document.getElementById('jspsych-image');
-        if (imageElement) {
-            imageElement.onload = function() {
-                // 画像サイズを取得
-                imageWidth = imageElement.naturalWidth;
-                imageHeight = imageElement.naturalHeight;
-                console.log("Image loaded with size: " + imageWidth + " x " + imageHeight);
-                
-                // 必要に応じてスタイル変更や要素の更新
-                var rectangle = document.getElementById('rectangle');
-                if (rectangle) {
-                    rectangle.style.width = imageWidth + 'px';
-                    rectangle.style.height = imageHeight + 'px';
-                }
-                
-                // 表示させるためにスタイルを変更（テスト用に必要であれば）
-                imageElement.style.visibility = 'visible';
-            };
-        } else {
-            console.error("Image element not found.");
-        }
+        imageElement.style.display = 'block';  // 画像を表示
+
+        imageWidth = imageElement.naturalWidth;
+        imageHeight = imageElement.naturalHeight;
+
+        // ランダム表示時間の設定
+        var time_array = [1000, 2000, 3000];
+        var shuffled_times = jsPsych.randomization.repeat(time_array, 1);
+        var displayTime = shuffled_times[0];  
+
+        setTimeout(function() {
+            imageElement.style.display = 'none';  // 表示時間後に非表示
+            jsPsych.finishTrial();  // トライアル終了
+        }, displayTime);
     },
     on_finish: function() {
-        document.body.style.backgroundColor = 'white';
+        document.body.style.backgroundColor = 'white';  // 背景色をリセット
     }
 };
-
 timeline.push(hello_trial);
+
 
 
 
