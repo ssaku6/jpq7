@@ -170,7 +170,7 @@ var welcome2 = {
 
 
 var space_key_trial = {
-    type: 'html-keyboard-response',
+    type: 'image-keyboard-response',
     data: {
         task: 'response'},
     stimulus: `
