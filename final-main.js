@@ -126,8 +126,8 @@ var fixation_trial = {
 
  // 画像トライアルの修正
 var hello_trial = {
-    type: 'image-keyboard-response',
-    stimulus:'<img id="jspsych-image" src="' +  jsPsych.timelineVariable('img') + '" style="display: none;">',
+    type: 'html-keyboard-response',
+    stimulus: '<img id="jspsych-image" src="' + currentStimulus.img + '" style="display: none;">',
     choices: jsPsych.NO_KEYS,
     on_load: function() {
         var imageElement = document.getElementById('jspsych-image');
@@ -280,7 +280,7 @@ var rating_trial = {
 
 
 var test_procedure = {
-    timeline: [preload,condition_trial,welcome,fixation_trial,hello_trial,welcome2,space_key_trial,end_message,rating_trial],
+    timeline: [image,preload,condition_trial,welcome,fixation_trial,hello_trial,welcome2,space_key_trial,end_message,rating_trial],
     timeline_variables: all_stimuli,
     repetitions: 1,
     randomize_order: true
