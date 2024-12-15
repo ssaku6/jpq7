@@ -73,7 +73,7 @@ var random_order = jsPsych.randomization.shuffle(all_stimuli);
 
 
 
-
+for (var i = 0; i < 3; i++) {
 
 
 // 画像を表示している時間とサイズを格納する変数
@@ -279,5 +279,5 @@ var rating_trial = {
 //     }
  };
 timeline.push(rating_trial);
-
+};//for
 
