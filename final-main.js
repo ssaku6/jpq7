@@ -170,11 +170,12 @@ timeline.push(welcome2);
 var space_key_trial = {
     type: 'html-keyboard-response',
     data: {
-        task: 'response'},
+        task: 'response'
+    },
     stimulus: `
         <div id="instructions">
             <p>では、この画面のまま<strong>spaceキーを押して四角形を表示させてください</strong></p>
-            <p>spaceキーを長押しすると灰色の四角形が表示されるので、 絵画を見ていたと思う時間と同じ時間、四角形を表示させてください。</p>
+            <p>spaceキーを長押しすると灰色の四角形が表示されるので、絵画を見ていたと思う時間と同じ時間、四角形を表示させてください。</p>
             <p>spaceキーを離すと四角形が消えます。</p>
         </div>
         <div id="rectangle" style="display: none; background-color: grey;"></div>
@@ -184,6 +185,7 @@ var space_key_trial = {
         var rectangle = document.getElementById('rectangle');
         rectangle.style.width = imageWidth + 'px';
         rectangle.style.height = imageHeight + 'px';
+        console.log("Rectangle size set to: " + imageWidth + " x " + imageHeight);
     },
     on_start: function(trial) {
         var startTime = null;
@@ -219,10 +221,12 @@ var space_key_trial = {
     on_finish: function(data){
        data.correct = reactionTime;
        data.art = image;
+       console.log("Trial finished with reaction time: " + reactionTime);
    }
 };
 
 timeline.push(space_key_trial);
+
 
 // 次の画面に進む指示
 var end_message = {
