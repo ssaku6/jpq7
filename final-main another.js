@@ -133,6 +133,7 @@ var fixation_trial = {
 timeline.push(fixation_trial);
 
 //画像トライアル
+var trials = [];
 var hello_trial = {
     type: 'html-keyboard-response',
     stimulus: '<img id="jspsych-image" src="' + currentStimulus.img + '" style="display: none;">',
