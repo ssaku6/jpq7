@@ -88,7 +88,7 @@ timeline.push(preload);
 var condition_trial = {
     type: "html-keyboard-response",
     stimulus:  `<p>以下の項目について絵画を5段階で評価してもらいます。
-    </p><br><p><strong>${jsPsych.timelineVariable('gazou')}</strong></p>
+    </p><br><p><strong>${jsPsych.timelineVariable('adjective1')}</strong></p>
     <p><strong>${currentStimulus.adjective2}</strong></p><br>enterキーで次に進みます。`,,
     choices: ["Enter"],  // Enterキーで次のステップに進む
 };
