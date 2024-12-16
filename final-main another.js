@@ -69,25 +69,29 @@ var test_stimuli_set4 = [
 var all_stimuli = test_stimuli_set1.concat(test_stimuli_set2, test_stimuli_set3, test_stimuli_set4);
 
 // 使用する画像をランダムに選ぶ
-var selectedImages = jsPsych.randomization.sampleWithoutReplacement(all_stimuli, 48);
+var shuffledStimuli = jsPsych.randomization.shuffle(all_stimuli);
 
-
-
-var imageWidth = 0;
-var imageHeight = 0;
-var reactionTime;
-
-// 使用した画像データを格納する配列
 // 使用した画像データを格納する配列
 var selectedImages = [];
 
-// 画像のプリロード
+// 3つの画像を選択
 for (var i = 0; i < 3; i++) {
-    var preload = {
-        type: 'preload',
-        images: [selectedImages[i].img],
-    };
-    timeline.push(preload);
+    selectedImages.push(shuffledStimuli[i]); // ランダムに選んだ画像データを格納
+
+
+// プリロードする画像データ
+var preloadImages = selectedImages.map(function(stimulus) {
+    return stimulus.img; // imgプロパティを取得
+});
+
+// 画像のプリロード
+var preload = {
+    type: 'preload',
+    images: preloadImages, // 選択された画像をプリロード
+};
+
+// プリロードをタイムラインに追加
+timeline.push(preload);
 
 
 
@@ -236,7 +240,7 @@ var space_key_trial = {
     
     on_finish: function(data){
         data.correct = reactionTime; //jsPsych.timelineVariable("reactionTime");
-        data.art = currentStimulus.img;  // 各試行で選んだ画像のURLを記録
+        data.art = stimulus.img;  // 各試行で選んだ画像のURLを記録
     }
 };
 
