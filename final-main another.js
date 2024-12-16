@@ -257,8 +257,8 @@ var end_message = {
 
 timeline.push(end_message);
 
-var currentStimulus = all_stimuli.find(stimulus => stimulus.img === selectedImage);; // ランダムに選ばれた画像に関連する形容詞対を取得
-
+// 例: 最初の選択された画像の形容詞対を取得する処理
+var currentStimulus = selectedImages[0]; // 最初の画像を選択
 var rating_trial = {
     type: "survey-likert",
     data: {task: 'response'},
