@@ -105,10 +105,7 @@ var condition_trial = {
     type: "html-keyboard-response",
     stimulus: `<p>以下の項目について絵画を5段階で評価してもらいます。</p><br><p><strong>${currentStimulus.adjective1}</strong></p><p><strong>${currentStimulus.adjective2}</strong></p><br>enterキーで次に進みます。`,
     choices: ["Enter"],  // Enterキーで次のステップに進む
-    on_finish: function(data) {
-        // 各試行で選ばれた画像を datajs に追加
-        jsPsych.data.addDataToLastTrial({ art: selectedImage });
-    }
+    
 };
 timeline.push(condition_trial);
 
@@ -240,7 +237,7 @@ var space_key_trial = {
     
     on_finish: function(data){
         data.correct = reactionTime; //jsPsych.timelineVariable("reactionTime");
-       // data.art = selectedImage;  // 各試行で選んだ画像のURLを記録
+        data.art = selectedImage;  // 各試行で選んだ画像のURLを記録
     }
 };
 
