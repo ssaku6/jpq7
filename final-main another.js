@@ -105,7 +105,10 @@ var condition_trial = {
     type: "html-keyboard-response",
     stimulus: `<p>以下の項目について絵画を5段階で評価してもらいます。</p><br><p><strong>${currentStimulus.adjective1}</strong></p><p><strong>${currentStimulus.adjective2}</strong></p><br>enterキーで次に進みます。`,
     choices: ["Enter"],  // Enterキーで次のステップに進む
-    data: { art: selectedImage }  // 画像データを記録
+    on_finish: function(data) {
+        // 各試行で選ばれた画像を datajs に追加
+        jsPsych.data.addDataToLastTrial({ art: selectedImage });
+    }
 };
 timeline.push(condition_trial);
 
