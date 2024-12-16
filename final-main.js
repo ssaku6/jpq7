@@ -74,15 +74,6 @@ var imageWidth = 0;
 var imageHeight = 0;
 var reactionTime;
 
-// preloadトライアルを設定
-var preload = {
-    type: 'preload',
-    images: [test_rand[0].img]  // test_randの最初の画像をプリロードする
-};
-
-// タイムラインにpreloadを追加
-timeline.push(preload);
-
 // 現在の刺激を取得
 // ランダムに選ばれた画像に関連する形容詞対を取得
 var condition_trial = {
