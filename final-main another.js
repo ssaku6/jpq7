@@ -84,6 +84,8 @@ for (var i = 0; i < 3; i++) {
 
     // 画像データを記録
     selectedImages.push(selectedImage);
+    // 確認用のログ出力
+console.log("Selected Image in Trial " + (i + 1) + ": " + selectedImage);
 
 // 画像を表示している時間とサイズを格納する変数
 var imageWidth = 0;
