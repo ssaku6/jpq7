@@ -154,7 +154,7 @@ var hello_trial = {
             jsPsych.finishTrial();  // トライアル終了
         }, displayTime);
     },
-    on_finish: function() {
+    on_finish: function(data) {
         document.body.style.backgroundColor = 'white';  // 背景色をリセット
         data.art = selectedImage; // 画像データを記録
     }
