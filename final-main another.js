@@ -68,7 +68,7 @@ var test_stimuli_set4 = [
 // すべての画像を1つのリストにまとめる
 var all_stimuli = test_stimuli_set1.concat(test_stimuli_set2, test_stimuli_set3, test_stimuli_set4);
 
-
+for (var i = 0; i < 1; i++) {
 
 // ランダムに並べ替える（重複なしでランダムに選ばれる）
 var random_order = jsPsych.randomization.shuffle(all_stimuli);
@@ -281,8 +281,9 @@ var rating_trial = {
 
 var test_procedure = {
     timeline: [preload,condition_trial,welcome,fixation_trial,hello_trial,welcome2,space_key_trial,end_message,rating_trial],
-    timeline_variables: image,
+    timeline_variables: all_stimuli,
     repetitions: 1,
     randomize_order: true
   }
   timeline.push(test_procedure);
+};//for
