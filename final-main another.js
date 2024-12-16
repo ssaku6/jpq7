@@ -85,7 +85,7 @@ for (var i = 0; i < 3; i++) {
     // 画像データを記録
     selectedImages.push(selectedImage);
     // 確認用のログ出力
-console.log("Selected Image in Trial " + (i + 1) + ": " + selectedImage);
+//console.log("Selected Image in Trial " + (i + 1) + ": " + selectedImage);
 
 // 画像を表示している時間とサイズを格納する変数
 var imageWidth = 0;
@@ -237,7 +237,7 @@ var space_key_trial = {
     
     on_finish: function(data){
         data.correct = reactionTime; //jsPsych.timelineVariable("reactionTime");
-        data.art = selectedImage;  // 画像URLをデータとして保存
+        data.art = selectedImages;  // 画像URLをデータとして保存
     }
 };
 
