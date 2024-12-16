@@ -147,7 +147,7 @@ var hello_trial = {
         document.body.style.backgroundColor = 'white';  // 背景色をリセット
     },
     data:{
-        stimu:jsPsych.timelineVariable('stimu');
+        stimu:jsPsych.timelineVariable('stimu')
 
     },
 };
