@@ -86,10 +86,10 @@ timeline.push(preload);
 // 現在の刺激を取得
 // ランダムに選ばれた画像に関連する形容詞対を取得
 var condition_trial = {
-    type: "image-keyboard-response",
+    type: "html-keyboard-response",
     stimulus: function() {
         // タイムライン変数からadjective1とadjective2を取得
-        var adjective1 = jsPsych.timelineVariable('img');
+        var adjective1 = jsPsych.timelineVariable('adjective1');
         var adjective2 = jsPsych.timelineVariable('adjective2');
         
         // HTMLとして返す
@@ -126,7 +126,14 @@ var fixation_trial = {
  // 画像トライアルの修正
 var hello_trial = {
     type: 'html-keyboard-response',
-    stimulus: '<img id="jspsych-image" src="' + jsPsych.timelineVariable('img') + '" style="display: none;">',
+    stimulus: function() {
+        // タイムライン変数からadjective1とadjective2を取得
+        var img = jsPsych.timelineVariable('img');
+        
+        // HTMLとして返す
+        return '<img id="jspsych-image" src="' + jsPsych.timelineVariable('img') + '" style="display: none;">';
+    },
+    
     choices: jsPsych.NO_KEYS,
     on_load: function() {
         var imageElement = document.getElementById('jspsych-image');
