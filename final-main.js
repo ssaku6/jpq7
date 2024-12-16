@@ -67,7 +67,7 @@ var test_stimuli_set4 = [
 var all_stimuli = test_stimuli_set1.concat(test_stimuli_set2, test_stimuli_set3, test_stimuli_set4);
 
 // 画像をランダムに選ぶ（test_randは3つの画像セットからランダムに選ばれる）
-var test_rand = jsPsych.randomization.sampleWithReplacement(all_stimuli, 3);
+var test_rand = jsPsych.randomization.sampleWithReplacement(test_stimuli_set4, 3);
 
 // 画像を表示している時間とサイズを格納する変数
 var imageWidth = 0;
@@ -86,8 +86,8 @@ timeline.push(preload);
 // 現在の刺激を取得
 // ランダムに選ばれた画像に関連する形容詞対を取得
 var condition_trial = {
-    type: "image-keyboard-response",
-    stimulus: jsPsych.timelineVariable(''),
+    type: "html-keyboard-response",
+    stimulus: jsPsych.timelineVariable('adjective1'),
     choices: ["Enter"],  // Enterキーで次のステップに進む
 };
 
