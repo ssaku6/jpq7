@@ -71,8 +71,7 @@ var all_stimuli = test_stimuli_set1.concat(test_stimuli_set2, test_stimuli_set3,
 
 
 // ランダムに並べ替える（重複なしでランダムに選ばれる）
-var random_order = jsPsych.randomization.sampleWithoutReplacement(all_stimuli, 3);
-
+var random_order = jsPsych.randomization.shuffle(all_stimuli);
 
 
 // 画像を表示している時間とサイズを格納する変数
@@ -281,7 +280,7 @@ var rating_trial = {
 
 var test_procedure = {
     timeline: [preload,condition_trial,welcome,fixation_trial,hello_trial,welcome2,space_key_trial,end_message,rating_trial],
-    timeline_variables: image,
+    timeline_variables: imageimage.slice(0, 3),  // 画像を3つに制限,
     repetitions: 1,
     randomize_order: true
   }
