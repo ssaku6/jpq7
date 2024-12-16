@@ -84,10 +84,10 @@ var preload = {
 timeline.push(preload);
 
 // 現在の刺激を取得
-var currentStimulus = test_rand[0]; // ランダムに選ばれた画像に関連する形容詞対を取得
+// ランダムに選ばれた画像に関連する形容詞対を取得
 var condition_trial = {
     type: "html-keyboard-response",
-    stimulus: `<p>以下の項目について絵画を5段階で評価してもらいます。</p><br><p><strong>${currentStimulus.adjective1}</strong></p><p><strong>${currentStimulus.adjective2}</strong></p><br>Enterキーで次に進みます。`,
+    stimulus: `<p>以下の項目について絵画を5段階で評価してもらいます。</p><br><p><strong>${test_rand[0].adjective1}</strong></p><p><strong>${test_rand[0].adjective2}</strong></p><br>Enterキーで次に進みます。`,
     choices: ["Enter"],  // Enterキーで次のステップに進む
 };
 
@@ -117,7 +117,7 @@ var fixation_trial = {
  // 画像トライアルの修正
 var hello_trial = {
     type: 'html-keyboard-response',
-    stimulus: '<img id="jspsych-image" src="' + currentStimulus.img + '" style="display: none;">',
+    stimulus: '<img id="jspsych-image" src="' + test_rand[0].img + '" style="display: none;">',
     choices: jsPsych.NO_KEYS,
     on_load: function() {
         var imageElement = document.getElementById('jspsych-image');
@@ -242,8 +242,8 @@ var rating_trial = {
     type: "survey-likert",
     data: {task: 'response'},
     questions: [
-        {name: "Q0", prompt: `<p><strong>${currentStimulus.adjective1[0]}</strong></p>`, labels: ["1", "2", "3", "4", "5"], required: true},
-        {name: "Q1", prompt: `<p><strong>${currentStimulus.adjective2[0]}</strong></p>`, labels: ["1", "2", "3", "4", "5"], required: true}
+        {name: "Q0", prompt: `<p><strong>${test_rand[0].adjective1[0]}</strong></p>`, labels: ["1", "2", "3", "4", "5"], required: true},
+        {name: "Q1", prompt: `<p><strong>${test_rand[0].adjective2[0]}</strong></p>`, labels: ["1", "2", "3", "4", "5"], required: true}
     ],
     preamble: "<p>以下の評価項目について回答してください:</p>",
 
