@@ -263,8 +263,8 @@ var rating_trial = {
     type: "survey-likert",
     data: {task: 'response'},
     questions: [
-        {name: "Q0", prompt: `<p><strong>${currentStimulus.adjective1[0]}</strong></p>`, labels: ["1", "2", "3", "4", "5"], required: true},
-        {name: "Q1", prompt: `<p><strong>${currentStimulus.adjective2[0]}</strong></p>`, labels: ["1", "2", "3", "4", "5"], required: true}
+        {name: "Q0", prompt: `<p><strong>${currentStimulus.adjective1}</strong></p>`, labels: ["1", "2", "3", "4", "5"], required: true},
+        {name: "Q1", prompt: `<p><strong>${currentStimulus.adjective2}</strong></p>`, labels: ["1", "2", "3", "4", "5"], required: true}
     ],
     preamble: "<p>以下の評価項目について回答してください:</p>",
 
