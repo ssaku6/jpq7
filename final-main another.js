@@ -91,7 +91,7 @@ var image = random_order[0].img;
      type: 'preload',
      images: [image]  // 動的に定義された selectedImage を使用
  };
- 
+ timeline.push(preload);
 
 
 //var selectedSet = jsPsych.randomization.sampleWithoutReplacement(conditionSets, 1)[0];  // ランダムで1セット選ぶ
@@ -103,7 +103,7 @@ var condition_trial = {
     stimulus: `<p>以下の項目について絵画を5段階で評価してもらいます。</p><br><p><strong>${currentStimulus.adjective1}</strong></p><p><strong>${currentStimulus.adjective2}</strong></p><br>enterキーで次に進みます。`,
     choices: ["Enter"],  // Enterキーで次のステップに進む
 };
-
+timeline.push(condition_trial);
 
 // ウェルカムメッセージ
 var welcome = {
@@ -112,7 +112,7 @@ var welcome = {
     choices: ["Enter"]
 };
 
-
+timeline.push(welcome);
 
 // 固視点トライアル
 var fixation_trial = {
@@ -122,35 +122,39 @@ var fixation_trial = {
     trial_duration: 1000  // 固視点を1秒間表示
 };
 
+timeline.push(fixation_trial);
 
 
- // 画像トライアルの修正
+
+ // 画像と再生時間を格納する変数
+var imageDisplayed = "";
+var reproducedTime = 0;
+
+// 修正済みの画像トライアル
 var hello_trial = {
     type: 'html-keyboard-response',
-    stimulus: '<img id="jspsych-image" src="' + currentStimulus.img + '" style="display: none;">',
+    stimulus: function() {
+        var currentStimulus = random_order[0]; // ランダムに選ばれた画像
+        imageDisplayed = currentStimulus.img; // 表示画像を記録
+        return '<img id="jspsych-image" src="' + currentStimulus.img + '" style="display: none;">';
+    },
     choices: jsPsych.NO_KEYS,
     on_load: function() {
         var imageElement = document.getElementById('jspsych-image');
         imageElement.style.display = 'block';  // 画像を表示
 
-        imageWidth = imageElement.naturalWidth;
-        imageHeight = imageElement.naturalHeight;
-
-        // ランダム表示時間の設定
+        // ランダム表示時間
         var time_array = [1000, 2000, 3000];
-        var shuffled_times = jsPsych.randomization.repeat(time_array, 1);
-        var displayTime = shuffled_times[0];  
+        var shuffled_times = jsPsych.randomization.shuffle(time_array);
+        var displayTime = shuffled_times[0];
 
         setTimeout(function() {
             imageElement.style.display = 'none';  // 表示時間後に非表示
             jsPsych.finishTrial();  // トライアル終了
         }, displayTime);
     },
-    on_finish: function() {
-        document.body.style.backgroundColor = 'white';  // 背景色をリセット
-    }
 };
-
+timeline.push(hello_trial);
 
 
 
@@ -166,74 +170,49 @@ var welcome2 = {
     enterキーで次のページに進みます。`,
     choices: ["Enter"]
 };
+timeline.push(welcome2);
 
 
-
+// 再生時間を記録するトライアル
 var space_key_trial = {
     type: 'html-keyboard-response',
-    data: {
-        task: 'response'},
     stimulus: `
-        <div id="instructions">
-            <p>では、この画面のまま<strong>spaceキーを押して四角形を表示させてください</strong></p>
-            <p>spaceキーを長押しすると灰色の四角形が表示されるので、 絵画を見ていたと思う時間と同じ時間、四角形を表示させてください。</p>
-            <p>spaceキーを離すと四角形が消えます。</p>
-            
-        </div>
-        <div id="rectangle" style="display: none; background-color: grey;"></div>
+        <p>spaceキーを長押しして、再現してください。</p>
+        <div id="rectangle" style="width:100px; height:100px; background-color:gray; display:none;"></div>
     `,
-    choices: jsPsych.NO_KEYS,  // Enterキーを不要にするためNO_KEYSを設定
+    choices: [" "], // Spaceキー
     on_load: function() {
-        // 四角形のサイズを設定
-        var rectangle = document.getElementById('rectangle');
-        rectangle.style.width = imageWidth + 'px';
-        rectangle.style.height = imageHeight + 'px';
-    },
-    on_start: function(trial) {
-        var startTime = null;
-        var displayed = false;
+        var rectangle = document.getElementById("rectangle");
+        var startTime = 0;
+        var endTime = 0;
 
-        // keydownイベントリスナー
-        var keydownListener = function(e) {
-            if (e.code === 'Space' && startTime === null && !displayed) {
+        // Spaceキーを押したときの処理
+        document.addEventListener("keydown", function(event) {
+            if (event.code === "Space" && startTime === 0) {
+                rectangle.style.display = "block";
                 startTime = performance.now();
-
-                // 教示を非表示にする
-                document.getElementById('instructions').style.display = 'none';
-
-                // 四角形を表示
-                document.getElementById('rectangle').style.display = 'block';  
             }
-        };
+        });
 
-        // keyupイベントリスナー
-        var keyupListener = function(e) {
-            if (e.code === 'Space' && startTime !== null && !displayed) {
-                var endTime = performance.now();
-                reactionTime = endTime - startTime;
-                console.log("Reaction time: " + reactionTime + " milliseconds");
-
-                // 四角形を非表示にする
-                document.getElementById('rectangle').style.display = 'none';  
-                displayed = true;
-
-                // イベントリスナーを解除して試行を終了
-                document.removeEventListener('keydown', keydownListener);
-                document.removeEventListener('keyup', keyupListener);
-                jsPsych.finishTrial();  // 試行を終了
+        // Spaceキーを離したときの処理
+        document.addEventListener("keyup", function(event) {
+            if (event.code === "Space" && startTime > 0) {
+                rectangle.style.display = "none";
+                endTime = performance.now();
+                reproducedTime = endTime - startTime; // 再生時間を計算
+                jsPsych.finishTrial();
             }
-        };
-
-        // イベントリスナーの追加
-        document.addEventListener('keydown', keydownListener);
-        document.addEventListener('keyup', keyupListener);
+        });
     },
-    
-    on_finish: function(data){
-        data.correct = reactionTime; //jsPsych.timelineVariable("reactionTime");
-        data.art = image;  // 画像URLをデータとして保存
-    }
+    on_finish: function(data) {
+        data.image = imageDisplayed; // 表示した画像を記録
+        data.reproducedTime = reproducedTime; // 再生時間を記録
+    },
 };
+
+// タイムラインにトライアルを追加
+timeline.push(space_key_trial)
+
 
 
 
@@ -244,6 +223,7 @@ var end_message = {
     stimulus: "続いて絵画の評価をしてください。<br>enterキーで次のページに進みます。",
     choices: ["Enter"]
 };
+timeline.push(end_message);
 
 
 var currentStimulus = random_order[0]; // ランダムに選ばれた画像に関連する形容詞対を取得
@@ -275,15 +255,5 @@ var rating_trial = {
         // }
 //     }
  };
-
-
-
-
-var test_procedure = {
-    timeline: [preload,condition_trial,welcome,fixation_trial,hello_trial,welcome2,space_key_trial,end_message,rating_trial],
-    timeline_variables: all_stimuli,
-    repetitions: 1,
-    randomize_order: true
-  }
-  timeline.push(test_procedure);
+ timeline.push(rating_trial);
 };//for
