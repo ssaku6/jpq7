@@ -96,8 +96,8 @@ timeline.push(preload);
 
 
 
-    // 画像に関連する形容詞対を取得
-var currentStimulus = all_stimuli.find(stimulus => stimulus.img === selectedImage.img);
+    // 例: 最初の選択された画像の形容詞対を取得する処理
+var currentStimulus = selectedImages[0]; // 最初の画像を選択
 ;
 
 
