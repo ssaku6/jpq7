@@ -86,10 +86,10 @@ timeline.push(preload);
 // 現在の刺激を取得
 // ランダムに選ばれた画像に関連する形容詞対を取得
 var condition_trial = {
-    type: "html-keyboard-response",
+    type: "image-keyboard-response",
     stimulus: function() {
         // タイムライン変数からadjective1とadjective2を取得
-        var adjective1 = jsPsych.timelineVariable('adjective1');
+        var adjective1 = jsPsych.timelineVariable('img');
         var adjective2 = jsPsych.timelineVariable('adjective2');
         
         // HTMLとして返す
