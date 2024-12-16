@@ -99,6 +99,18 @@ var reactionTime;
     };
     timeline.push(preload);
 
+    // 画像表示トライアル
+    var imageTrial = {
+        type: 'image-keyboard-response',
+        stimulus: selectedImage, // 1試行の画像
+        choices: ['space'], // スペースキーで進む
+        on_finish: function(data) {
+            data.art = selectedImage; // 画像データを記録
+            console.log("Recorded art: " + data.art);
+        }
+    };
+    timeline.push(imageTrial);
+
 
 //var selectedSet = jsPsych.randomization.sampleWithoutReplacement(conditionSets, 1)[0];  // ランダムで1セット選ぶ
 
@@ -237,8 +249,8 @@ var space_key_trial = {
     
     on_finish: function(data){
         data.correct = reactionTime; //jsPsych.timelineVariable("reactionTime");
-        data.art = currentStimulus;  // 画像URLをデータとして保存
-        console.log("data.art")
+        
+        
     }
 };
 
