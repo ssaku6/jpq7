@@ -281,7 +281,7 @@ var rating_trial = {
 
 var test_procedure = {
     timeline: [preload,condition_trial,welcome,fixation_trial,hello_trial,welcome2,space_key_trial,end_message,rating_trial],
-    timeline_variables: all_stimuli,
+    timeline_variables: image,
     repetitions: 1,
     randomize_order: true
   }
