@@ -87,7 +87,7 @@ timeline.push(preload);
 // ランダムに選ばれた画像に関連する形容詞対を取得
 var condition_trial = {
     type: "html-keyboard-response",
-    stimulus: `<p>以下の項目について絵画を5段階で評価してもらいます。</p><br><p><strong>${jsPsych.timelineVariable('keiyoushi1')}</strong></p><p><strong>${jsPsych.timelineVariable('keiyoushi2')}</strong></p><br>Enterキーで次に進みます。`,
+    stimulus: `<p>以下の項目について絵画を5段階で評価してもらいます。</p><br><p><strong>${jsPsych.timelineVariable('adjective1')}</strong></p><p><strong>${jsPsych.timelineVariable('adjective2')}</strong></p><br>Enterキーで次に進みます。`,
     choices: ["Enter"],  // Enterキーで次のステップに進む
 };
 
