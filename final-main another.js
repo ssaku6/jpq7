@@ -237,7 +237,8 @@ var space_key_trial = {
     
     on_finish: function(data){
         data.correct = reactionTime; //jsPsych.timelineVariable("reactionTime");
-        data.art = selectedImages;  // 画像URLをデータとして保存
+        data.art = selectedImage;  // 画像URLをデータとして保存
+        console.log("SelectedImage")
     }
 };
 
