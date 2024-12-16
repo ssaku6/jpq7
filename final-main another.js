@@ -132,15 +132,11 @@ var fixation_trial = {
 
 timeline.push(fixation_trial);
 
-//画像トライアル
-var trials = [];
+// 画像トライアルの修正
 var hello_trial = {
     type: 'html-keyboard-response',
     stimulus: '<img id="jspsych-image" src="' + currentStimulus.img + '" style="display: none;">',
     choices: jsPsych.NO_KEYS,
-    timeline_variables: [
-        { img: currentStimulus.img }  // ここで選んだ画像をタイムラインに追加
-    ],
     on_load: function() {
         var imageElement = document.getElementById('jspsych-image');
         imageElement.style.display = 'block';  // 画像を表示
@@ -150,18 +146,19 @@ var hello_trial = {
 
         // ランダム表示時間の設定
         var time_array = [1000, 2000, 3000];
-        var shuffled_times = jsPsych.randomization.shuffle(time_array);  // 配列をシャッフル
-        var displayTime = shuffled_times[0];  // ランダムな時間を選ぶ
+        var shuffled_times = jsPsych.randomization.repeat(time_array, 1);
+        var displayTime = shuffled_times[0];  
 
-        // 指定した時間後に画像を非表示にし、トライアルを終了
         setTimeout(function() {
-            imageElement.style.display = 'none';  // 画像を非表示
+            imageElement.style.display = 'none';  // 表示時間後に非表示
             jsPsych.finishTrial();  // トライアル終了
         }, displayTime);
     },
-  
+    on_finish: function() {
+        document.body.style.backgroundColor = 'white';  // 背景色をリセット
+    }
 };
-trials.push(hello_trial);  // 試行をタイムラインに追加
+timeline.push(hello_trial);
 
 
 
