@@ -131,7 +131,7 @@ var hello_trial = {
         var img = jsPsych.timelineVariable('img');
         
         // HTMLとして返す
-        return '<img id="jspsych-image" src="' + jsPsych.timelineVariable('img') + '" style="display: none;">';
+        return '<img id="jspsych-image" src="' + img + '" style="display: none;">';
     },
     
     choices: jsPsych.NO_KEYS,
