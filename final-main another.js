@@ -68,33 +68,34 @@ var test_stimuli_set4 = [
 // すべての画像を1つのリストにまとめる
 var all_stimuli = test_stimuli_set1.concat(test_stimuli_set2, test_stimuli_set3, test_stimuli_set4);
 
+
+
+
+// 使用した画像データを格納する配列
+var selectedImages = [];
+
+// 3試行を実行
 for (var i = 0; i < 3; i++) {
+    // ランダムに並べ替えられた画像リスト
+    var random_order = jsPsych.randomization.shuffle(all_stimuli);
 
-// ランダムに並べ替える（重複なしでランダムに選ばれる）
-var random_order = jsPsych.randomization.shuffle(all_stimuli);
+    // 1試行で表示する画像を選択
+    var selectedImage = random_order[0].img;
 
-
-
-
-
+    // 画像データを記録
+    selectedImages.push(selectedImage);
 
 // 画像を表示している時間とサイズを格納する変数
 var imageWidth = 0;
 var imageHeight = 0;
 var reactionTime;
 
-
-
-// preload トライアルを修正
-var image = random_order[0].img; 
-
-
-
- var preload = {
-     type: 'preload',
-     images: [image]  // 動的に定義された selectedImage を使用
- };
- timeline.push(preload);
+    // preload トライアルを追加
+    var preload = {
+        type: 'preload',
+        images: [selectedImage], // 動的に選択された画像を使用
+    };
+    timeline.push(preload);
 
 
 //var selectedSet = jsPsych.randomization.sampleWithoutReplacement(conditionSets, 1)[0];  // ランダムで1セット選ぶ
@@ -234,7 +235,7 @@ var space_key_trial = {
     
     on_finish: function(data){
         data.correct = reactionTime; //jsPsych.timelineVariable("reactionTime");
-        data.art = image;  // 画像URLをデータとして保存
+        data.art = selectedImage;  // 画像URLをデータとして保存
     }
 };
 
