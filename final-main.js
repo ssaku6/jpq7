@@ -243,7 +243,7 @@ var rating_trial = {
     data: {task: 'response'},
     questions: [
         {name: "Q0", prompt: `<p><strong>${test_rand[0].adjective1[0]}</strong></p>`, labels: ["1", "2", "3", "4", "5"], required: true},
-        {name: "Q1", prompt: `<p><strong>${adjective2[0]}</strong></p>`, labels: ["1", "2", "3", "4", "5"], required: true}
+        {name: "Q1", prompt: `<p><strong>${test_rand[0].adjective2[0]}</strong></p>`, labels: ["1", "2", "3", "4", "5"], required: true}
     ],
     preamble: "<p>以下の評価項目について回答してください:</p>",
 
