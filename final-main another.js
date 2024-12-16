@@ -69,43 +69,38 @@ var test_stimuli_set4 = [
 var all_stimuli = test_stimuli_set1.concat(test_stimuli_set2, test_stimuli_set3, test_stimuli_set4);
 
 
-
-
-// 使用した画像データを格納する配列
-var selectedImages = [];
-
-// 3試行を実行
-for (var i = 0; i < 3; i++) {
-    // ランダムに並べ替えられた画像リスト
-    var random_order = jsPsych.randomization.shuffle(all_stimuli);
-
-    // 1試行で表示する画像を選択
-    var selectedImage = random_order[0].img;
-
-    // 画像データを記録
-    selectedImages.push(selectedImage);
-    // 確認用のログ出力
-//console.log("Selected Image in Trial " + (i + 1) + ": " + selectedImage);
-
-// 画像を表示している時間とサイズを格納する変数
 var imageWidth = 0;
 var imageHeight = 0;
 var reactionTime;
 
-    // preload トライアルを追加
-    var preload = {
-        type: 'preload',
-        images: [selectedImage], // 動的に選択された画像を使用
-    };
-    timeline.push(preload);
+// 使用した画像データを格納する配列
+// 使用した画像データを格納する配列
+var selectedImages = [];
 
+// 48個の画像からランダムに1つずつ選ぶ
+for (var i = 0; i < 48; i++) {
+    // ランダムに画像を選ぶ（重複なく選択）
+    var selectedImage = jsPsych.randomization.sampleWithoutReplacement(all_stimuli, 1)[0].img;
+
+    // 画像データを記録
+    selectedImages.push(selectedImage);
     
+// preload トライアルを追加
+var preload = {
+    type: 'preload',
+    images: [selectedImage], // 動的に選択された画像を使用
+};
+timeline.push(preload);
+
+
+
+    // 画像に関連する形容詞対を取得
+    var currentStimulus = all_stimuli.find(stimulus => stimulus.img === selectedImage);
 
 
 //var selectedSet = jsPsych.randomization.sampleWithoutReplacement(conditionSets, 1)[0];  // ランダムで1セット選ぶ
 
-// 例として、最初の要素を取り出して表示する場合
-var currentStimulus = random_order[0]; // ランダムに選ばれた画像に関連する形容詞対を取得
+
 var condition_trial = {
     type: "html-keyboard-response",
     stimulus: `<p>以下の項目について絵画を5段階で評価してもらいます。</p><br><p><strong>${currentStimulus.adjective1}</strong></p><p><strong>${currentStimulus.adjective2}</strong></p><br>enterキーで次に進みます。`,
@@ -241,7 +236,7 @@ var space_key_trial = {
     
     on_finish: function(data){
         data.correct = reactionTime; //jsPsych.timelineVariable("reactionTime");
-        data.img = data.timeline_variables[0].img;  // 各試行で選んだ画像のURLを記録
+        data.art = selectedImage;  // 各試行で選んだ画像のURLを記録
     }
 };
 
