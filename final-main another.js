@@ -133,15 +133,17 @@ var fixation_trial = {
 timeline.push(fixation_trial);
 
 //画像トライアル
- var hello_trial = {
+var hello_trial = {
     type: 'html-keyboard-response',
     stimulus: '<img id="jspsych-image" src="' + currentStimulus.img + '" style="display: none;">',
     choices: jsPsych.NO_KEYS,
+    timeline_variables: [
+        { img: currentStimulus.img }  // ここで選んだ画像をタイムラインに追加
+    ],
     on_load: function() {
         var imageElement = document.getElementById('jspsych-image');
         imageElement.style.display = 'block';  // 画像を表示
 
-        // 画像の自然の幅と高さを取得
         imageWidth = imageElement.naturalWidth;
         imageHeight = imageElement.naturalHeight;
 
@@ -156,15 +158,10 @@ timeline.push(fixation_trial);
             jsPsych.finishTrial();  // トライアル終了
         }, displayTime);
     },
-    on_finish: function(data) {
-        document.body.style.backgroundColor = 'white';  // 背景色をリセット
-        data.art = currentStimulus.img;  // 表示した画像をデータとして記録
-        console.log("Recorded image: " + data.art);  // ログに出力
-    }
+  
 };
+trials.push(hello_trial);  // 試行をタイムラインに追加
 
-// タイムラインに追加
-timeline.push(hello_trial);
 
 
 
@@ -246,7 +243,7 @@ var space_key_trial = {
     
     on_finish: function(data){
         data.correct = reactionTime; //jsPsych.timelineVariable("reactionTime");
-       
+        data.img = data.timeline_variables[0].img;  // 各試行で選んだ画像のURLを記録
     }
 };
 
