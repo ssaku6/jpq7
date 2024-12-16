@@ -87,7 +87,7 @@ timeline.push(preload);
 // ランダムに選ばれた画像に関連する形容詞対を取得
 var condition_trial = {
     type: "image-keyboard-response",
-    stimulus: jsPsych.timelineVariable('img'),
+    stimulus: jsPsych.timelineVariable(''),
     choices: ["Enter"],  // Enterキーで次のステップに進む
 };
 
