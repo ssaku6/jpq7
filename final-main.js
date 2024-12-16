@@ -87,7 +87,9 @@ timeline.push(preload);
 // ランダムに選ばれた画像に関連する形容詞対を取得
 var condition_trial = {
     type: "html-keyboard-response",
-    stimulus: jsPsych.timelineVariable('adjective1'),
+    stimulus:  `<p>以下の項目について絵画を5段階で評価してもらいます。
+    </p><br><p><strong>${jsPsych.timelineVariable('gazou')}</strong></p>
+    <p><strong>${currentStimulus.adjective2}</strong></p><br>enterキーで次に進みます。`,,
     choices: ["Enter"],  // Enterキーで次のステップに進む
 };
 
@@ -269,7 +271,7 @@ var rating_trial = {
 
 
 var test_procedure = {
-    timeline: [preload,condition_trial,welcome,fixation_trial,hello_trial,welcome2,space_key_trial,end_message,rating_trial],
+    timeline: [condition_trial,welcome,fixation_trial,hello_trial,welcome2,space_key_trial,end_message,rating_trial],
     timeline_variables: test_rand,  // 画像を3つに制限,
     repetitions: 1,
     randomize_order: true
