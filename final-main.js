@@ -64,14 +64,10 @@ var test_stimuli_set4 = [
     {adjective1: ["明るいー暗い"], adjective2: ["軽いー重い"], img: repo_site + 'img2/48.jpg'},
 ];
 
-
 // すべての画像を1つのリストにまとめる
 var all_stimuli = test_stimuli_set1.concat(test_stimuli_set2, test_stimuli_set3, test_stimuli_set4);
 
-
-
-// ランダムに並べ替える（重複なしでランダムに選ばれる）
-var random_order = jsPsych.randomization.shuffle(all_stimuli);
+var test_rand = jsPsych.randomization.sampleWithReplacement(all_stimuli, 3);
 
 
 // 画像を表示している時間とサイズを格納する変数
@@ -81,14 +77,9 @@ var reactionTime;
 
 
 
-// preload トライアルを修正
-var image = random_order[0].img; 
-
-
-
  var preload = {
      type: 'preload',
-     images: [image]  // 動的に定義された selectedImage を使用
+     images: [test_rand[i].img]  // 動的に定義された selectedImage を使用
  };
  
 
@@ -96,7 +87,7 @@ var image = random_order[0].img;
 //var selectedSet = jsPsych.randomization.sampleWithoutReplacement(conditionSets, 1)[0];  // ランダムで1セット選ぶ
 
 // 例として、最初の要素を取り出して表示する場合
-var currentStimulus = random_order[0]; // ランダムに選ばれた画像に関連する形容詞対を取得
+var currentStimulus = test_rand[0]; // ランダムに選ばれた画像に関連する形容詞対を取得
 var condition_trial = {
     type: "html-keyboard-response",
     stimulus: `<p>以下の項目について絵画を5段階で評価してもらいます。</p><br><p><strong>${currentStimulus.adjective1}</strong></p><p><strong>${currentStimulus.adjective2}</strong></p><br>enterキーで次に進みます。`,
@@ -245,7 +236,7 @@ var end_message = {
 };
 
 
-var currentStimulus = random_order[0]; // ランダムに選ばれた画像に関連する形容詞対を取得
+var currentStimulus = test_rand[0]; // ランダムに選ばれた画像に関連する形容詞対を取得
 
 var rating_trial = {
     type: "survey-likert",
@@ -279,7 +270,7 @@ var rating_trial = {
 
 var test_procedure = {
     timeline: [preload,condition_trial,welcome,fixation_trial,hello_trial,welcome2,space_key_trial,end_message,rating_trial],
-    timeline_variables: random_order.slice(0, 3),  // 画像を3つに制限,
+    timeline_variables: test_rand,  // 画像を3つに制限,
     repetitions: 1,
     randomize_order: true
   }
