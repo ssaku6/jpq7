@@ -78,7 +78,7 @@ var reactionTime;
 var selectedImages = [];
 
 // 48個の画像からランダムに1つずつ選ぶ
-for (var i = 0; i < 48; i++) {
+for (var i = 0; i < 3; i++) {
     // ランダムに画像を選ぶ（重複なく選択）
     var selectedImage = jsPsych.randomization.sampleWithoutReplacement(all_stimuli, 1)[0].img;
 
@@ -253,7 +253,7 @@ var end_message = {
 
 timeline.push(end_message);
 
-var currentStimulus = random_order[0]; // ランダムに選ばれた画像に関連する形容詞対を取得
+var currentStimulus = all_stimuli.find(stimulus => stimulus.img === selectedImage);; // ランダムに選ばれた画像に関連する形容詞対を取得
 
 var rating_trial = {
     type: "survey-likert",
