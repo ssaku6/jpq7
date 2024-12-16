@@ -279,7 +279,7 @@ var rating_trial = {
 
 
 var test_procedure = {
-    timeline: [random_order,image,preload,condition_trial,welcome,fixation_trial,hello_trial,welcome2,space_key_trial,end_message,rating_trial],
+    timeline: [random_order,preload,condition_trial,welcome,fixation_trial,hello_trial,welcome2,space_key_trial,end_message,rating_trial],
     timeline_variables: random_order.slice(0, 3),  // 画像を3つに制限,
     repetitions: 1,
     randomize_order: true
