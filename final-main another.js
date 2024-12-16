@@ -154,9 +154,8 @@ var hello_trial = {
             jsPsych.finishTrial();  // トライアル終了
         }, displayTime);
     },
-    on_finish: function(data) {
+    on_finish: function() {
         document.body.style.backgroundColor = 'white';  // 背景色をリセット
-        data.art = selectedImage; // 画像データを記録
     }
 };
 timeline.push(hello_trial);
@@ -240,8 +239,7 @@ var space_key_trial = {
     
     on_finish: function(data){
         data.correct = reactionTime; //jsPsych.timelineVariable("reactionTime");
-        
-        
+        data.art = random_order[0];  // 画像URLをデータとして保存
     }
 };
 
