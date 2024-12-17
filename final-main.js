@@ -68,6 +68,7 @@ var all_stimuli = test_stimuli_set1.concat(test_stimuli_set2, test_stimuli_set3,
 
 // 画像をランダムに選ぶ（test_randは3つの画像セットからランダムに選ばれる）
 var test_rand = jsPsych.randomization.sampleWithReplacement(all_stimuli, 3);
+console.log('test_rand');
 
 // 画像を表示している時間とサイズを格納する変数
 var imageWidth = 0;
@@ -260,7 +261,7 @@ var rating_trial = {
 
 var test_procedure = {
     timeline: [condition_trial,welcome,fixation_trial,hello_trial,welcome2,space_key_trial,end_message,rating_trial],
-    timeline_variables: currentStimulus,  // 画像を3つに制限,
+    timeline_variables: test_rand,  // 画像を3つに制限,
     repetitions: 1,
     randomize_order: true
   }
