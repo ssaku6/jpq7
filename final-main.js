@@ -63,11 +63,17 @@ var test_stimuli_set4 = [
     {adjective1: ["明るいー暗い"], adjective2: ["軽いー重い"], img: repo_site + 'img2/48.jpg'},
 ];
 
+var test_stimuli_set0 = [
+    {adjective1: ["明るいー暗い"], adjective2: ["軽いー重い"], img: repo_site + 'img2/37.jpg'},
+    {adjective1: ["明るいー暗い"], adjective2: ["軽いー重い"], img: repo_site + 'img2/48.jpg'}
+];
+
 // すべての画像を1つのリストにまとめる
 var all_stimuli = test_stimuli_set1.concat(test_stimuli_set2, test_stimuli_set3, test_stimuli_set4);
 
 // 画像をランダムに選ぶ（test_randは3つの画像セットからランダムに選ばれる）
-var test_rand = jsPsych.randomization.shuffle(all_stimuli, 3);
+//var test_rand = jsPsych.randomization.shuffle(all_stimuli, 3);
+var test_rand = test_stimuli_set0;
 
 // 画像を表示している時間とサイズを格納する変数
 var imageWidth = 0;
@@ -91,7 +97,7 @@ var condition_trial = {
 };
 
 // タイムラインに試行を追加
-timeline.push(condition_trial);
+//timeline.push(condition_trial);
 
 
 // ウェルカムメッセージ
@@ -100,7 +106,7 @@ var welcome = {
     stimulus: "enterキーを押すと絵画が表示されます。絵画は自動で消えるまで、表示されます。<br>事前に見た評価項目に基づき、絵画が消えるまで見続けてください。",
     choices: ["Enter"]
 };
-
+//timeline.push(welcome);
 
 
 // 固視点トライアル
@@ -111,12 +117,36 @@ var fixation_trial = {
     trial_duration: 1000  // 固視点を1秒間表示
 };
 
+// show image
 
+var show_image = {
+    type: "image-keyboard-response",
+    stimulus: jsPsych.timelineVariable('img'),
+    choices: jsPsych.NO_KEYS,
+    on_load: function(data) {
+        // ランダム表示時間の設定
+        var time_array = [1000, 2000, 3000];
+        var shuffled_times = jsPsych.randomization.repeat(time_array, 1);
+        var displayTime = shuffled_times[0];
+        data.dur = displayTime;
+        setTimeout(function() {
+            jsPsych.finishTrial();  // トライアル終了
+        }, displayTime);
+    },
+    data: {
+        task: 'response',
+        //dur: displayTime 
+    },
+    on_finish: function() {
+        document.body.style.backgroundColor = 'white';  // 背景色をリセット
+    }
+}
 
  // 画像トライアルの修正
 var hello_trial = {
     type: 'html-keyboard-response',
     stimulus: '<img id="jspsych-image" src="' + currentStimulus.img + '" style="display: none;">',
+    //stimulus: jsPsych.timelineVariable('img'),
     choices: jsPsych.NO_KEYS,
     on_load: function() {
         var imageElement = document.getElementById('jspsych-image');
@@ -124,7 +154,8 @@ var hello_trial = {
 
         imageWidth = imageElement.naturalWidth;
         imageHeight = imageElement.naturalHeight;
-
+        console.log(jsPsych.timelineVariable('img'))
+        console.log(currentStimulus.img)
         // ランダム表示時間の設定
         var time_array = [1000, 2000, 3000];
         var shuffled_times = jsPsych.randomization.repeat(time_array, 1);
@@ -148,7 +179,7 @@ var hello_trial = {
 // 時間再現課題のインストラクション
 var welcome2 = {
     type: "html-keyboard-response",
-    stimulus: `<strong>予告していませんでしたが、絵画の評価の前に、絵画を見ていた時間の長さを再現してもらいます。</strong><br><br>
+    stimulus: `
     次の画面ではspaceキーを長押しすると四角形が表示され、離すと四角形が消えます。<br>
     絵画を見ていたと思う時間と同じ時間、四角形を表示させてください。<br>
     <strong>spaceキーを押す操作は1度しかできないので注意してください。</strong><br>
@@ -220,7 +251,7 @@ var space_key_trial = {
     
     on_finish: function(data){
         data.correct = reactionTime; //jsPsych.timelineVariable("reactionTime");
-        data.art = currentStimulus.img;  // 画像URLをデータとして保存
+        //data.art = currentStimulus.img;  // 画像URLをデータとして保存
     }
 };
 
@@ -267,7 +298,7 @@ var rating_trial = {
 
 
 var test_procedure = {
-    timeline: [condition_trial,welcome,fixation_trial,hello_trial,welcome2,space_key_trial,end_message,rating_trial],
+    timeline: [condition_trial, fixation_trial,show_image, welcome2,space_key_trial,end_message,rating_trial],
     timeline_variables: test_rand,  // 画像を3つに制限,
     repetitions: 1,
     randomize_order: true
