@@ -67,7 +67,7 @@ var test_stimuli_set4 = [
 var all_stimuli = test_stimuli_set1.concat(test_stimuli_set2, test_stimuli_set3, test_stimuli_set4);
 
 // 画像をランダムに選ぶ（test_randは3つの画像セットからランダムに選ばれる）
-var test_rand = jsPsych.randomization.sampleWithReplacement(all_stimuli, 3);
+var test_rand = jsPsych.randomization.shuffle(all_stimuli, 3);
 
 // 画像を表示している時間とサイズを格納する変数
 var imageWidth = 0;
