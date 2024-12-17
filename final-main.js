@@ -74,6 +74,14 @@ var imageWidth = 0;
 var imageHeight = 0;
 var reactionTime;
 
+// preload トライアルを修正
+var image = test_rand[0].img; 
+
+ var preload = {
+     type: 'preload',
+     images: [image]  // 動的に定義された selectedImage を使用
+ };
+
 // 例として、最初の要素を取り出して表示する場合
 var currentStimulus = test_rand[0]; // ランダムに選ばれた画像に関連する形容詞対を取得
 var condition_trial = {
