@@ -128,7 +128,7 @@ var show_image = {
         var time_array = [1000, 2000, 3000];
         var shuffled_times = jsPsych.randomization.repeat(time_array, 1);
         var displayTime = shuffled_times[0];
-        data.dur = displayTime;
+        //data.dur = displayTime;
         setTimeout(function() {
             jsPsych.finishTrial();  // トライアル終了
         }, displayTime);
