@@ -3,7 +3,7 @@ var rs = "https://ssaku6.github.io/jpq7/";
 /* create timeline */
 var timeline = [];
 
-var numtrl = 48;
+var numtrl = 4;
 var dur = [4000, 5000, 6000];
 var adj1 = ["良いー悪い", "明るいー暗い"];
 var adj2 = ["好きなー嫌いな", "軽いー重い"];
@@ -152,6 +152,7 @@ var space_key_trial = {
     
     on_finish: function(data){
         data.task = 'resp';
+        data.task = adjs;
         data.rtime = reactionTime; //jsPsych.timelineVariable("reactionTime");
         //data.art = currentStimulus.img;  // 画像URLをデータとして保存
     }
