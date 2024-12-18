@@ -152,7 +152,7 @@ var space_key_trial = {
     
     on_finish: function(data){
         data.task = 'resp';
-        data.task = adjs;
+        data.task = radj;
         data.rtime = reactionTime; //jsPsych.timelineVariable("reactionTime");
         //data.art = currentStimulus.img;  // 画像URLをデータとして保存
     }
