@@ -1,4 +1,4 @@
-var repo_site = "https://ssaku6.github.io/jpq7/";
+var rs = "https://ssaku6.github.io/jpq7/";
 
 /* create timeline */
 var timeline = [];
