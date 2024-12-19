@@ -3,7 +3,7 @@ var rs = "https://ssaku6.github.io/jpq7/";
 /* create timeline */
 var timeline = [];
 
-var numtrl = 48;
+var numtrl = 4;
 var dur = [4000, 5000, 6000];
 var adj1 = ["良いー悪い", "明るいー暗い"];
 var adj2 = ["好きなー嫌いな", "軽いー重い"];
@@ -23,17 +23,68 @@ var rdurs = jsPsych.randomization.shuffle(durs);
 var rfiles = jsPsych.randomization.shuffle(file);
 var radj = jsPsych.randomization.shuffle(adjs);
 
-var factors=[];
- for (var i = 0; i < numtrl; i++){
-    factors.push({stimulus: rfiles[i], adj1: adj1[radj[i]], adj2: adj2[radj[i]], duration: rdurs[i]});
- }
+// var factors=[];
+//  for (var i = 0; i < numtrl; i++){
+//     factors.push({stimulus: rfiles[i], adj1: adj1[radj[i]], adj2: adj2[radj[i]], duration: rdurs[i]});
+//  }
 
-// ここまでで、factorsというオブジェクトに以下のようなものができる
-// factors = {
-//     [stimulus: "https://imaru.github.io/sakurai2024/img3/1.jpg", adj1: "良いー悪い", adj2: "好きなー嫌いな", duration: 1000],
-//     [stimulus: "https://imaru.github.io/sakurai2024/img3/6.jpg", adj1: "良いー悪い", adj2: "好きなー嫌いな", duration: 5000],
-//     ... 今は6試行分で画像1-6がランダマイズされている。これは手動で書いても大丈夫。
-// }
+//ここまでで、factorsというオブジェクトに以下のようなものができる
+var factors = [
+    {stimulus: "https://imaru.github.io/sakurai2024/img2/1.jpg", adj1: "良いー悪い", adj2: "好きなー嫌いな", duration: 4000, ratj: 0},
+    {stimulus: "https://imaru.github.io/sakurai2024/img2/2.jpg", adj1: "良いー悪い", adj2: "好きなー嫌いな", duration: 4000, ratj: 0},
+    {stimulus: "https://imaru.github.io/sakurai2024/img2/3.jpg", adj1: "良いー悪い", adj2: "好きなー嫌いな", duration: 4000, ratj: 0},
+    {stimulus: "https://imaru.github.io/sakurai2024/img2/4.jpg", adj1: "良いー悪い", adj2: "好きなー嫌いな", duration: 4000, ratj: 0},
+    {stimulus: "https://imaru.github.io/sakurai2024/img2/5.jpg", adj1: "良いー悪い", adj2: "好きなー嫌いな", duration: 5000, ratj: 0},
+    {stimulus: "https://imaru.github.io/sakurai2024/img2/6.jpg", adj1: "良いー悪い", adj2: "好きなー嫌いな", duration: 5000, ratj: 0},
+    {stimulus: "https://imaru.github.io/sakurai2024/img2/7.jpg", adj1: "良いー悪い", adj2: "好きなー嫌いな", duration: 5000, ratj: 0},
+    {stimulus: "https://imaru.github.io/sakurai2024/img2/8.jpg", adj1: "良いー悪い", adj2: "好きなー嫌いな", duration: 5000, ratj: 0},
+    {stimulus: "https://imaru.github.io/sakurai2024/img2/9.jpg", adj1: "良いー悪い", adj2: "好きなー嫌いな", duration: 6000, ratj: 0},
+    {stimulus: "https://imaru.github.io/sakurai2024/img2/10.jpg", adj1: "良いー悪い", adj2: "好きなー嫌いな", duration: 6000, ratj: 0},
+    {stimulus: "https://imaru.github.io/sakurai2024/img2/11.jpg", adj1: "良いー悪い", adj2: "好きなー嫌いな", duration: 6000, ratj: 0},
+    {stimulus: "https://imaru.github.io/sakurai2024/img2/12.jpg", adj1: "良いー悪い", adj2: "好きなー嫌いな", duration: 6000, ratj: 0},
+
+    {stimulus: "https://imaru.github.io/sakurai2024/img2/13.jpg", adj1: "明るいー暗い", adj2: "軽いー重い", duration: 4000, ratj: 1},
+    {stimulus: "https://imaru.github.io/sakurai2024/img2/14.jpg", adj1: "明るいー暗い", adj2: "軽いー重い", duration: 4000, ratj: 1},
+    {stimulus: "https://imaru.github.io/sakurai2024/img2/15.jpg", adj1: "明るいー暗い", adj2: "軽いー重い", duration: 4000, ratj: 1},
+    {stimulus: "https://imaru.github.io/sakurai2024/img2/16.jpg", adj1: "明るいー暗い", adj2: "軽いー重い", duration: 4000, ratj: 1},
+    {stimulus: "https://imaru.github.io/sakurai2024/img2/17.jpg", adj1: "明るいー暗い", adj2: "軽いー重い", duration: 5000, ratj: 1},
+    {stimulus: "https://imaru.github.io/sakurai2024/img2/18.jpg", adj1: "明るいー暗い", adj2: "軽いー重い", duration: 5000, ratj: 1},
+    {stimulus: "https://imaru.github.io/sakurai2024/img2/19.jpg", adj1: "明るいー暗い", adj2: "軽いー重い", duration: 5000, ratj: 1},
+    {stimulus: "https://imaru.github.io/sakurai2024/img2/20.jpg", adj1: "明るいー暗い", adj2: "軽いー重い", duration: 5000, ratj: 1},
+    {stimulus: "https://imaru.github.io/sakurai2024/img2/21.jpg", adj1: "明るいー暗い", adj2: "軽いー重い", duration: 6000, ratj: 1},
+    {stimulus: "https://imaru.github.io/sakurai2024/img2/22.jpg", adj1: "明るいー暗い", adj2: "軽いー重い", duration: 6000, ratj: 1},
+    {stimulus: "https://imaru.github.io/sakurai2024/img2/23.jpg", adj1: "明るいー暗い", adj2: "軽いー重い", duration: 6000, ratj: 1},
+    {stimulus: "https://imaru.github.io/sakurai2024/img2/24.jpg", adj1: "明るいー暗い", adj2: "軽いー重い", duration: 6000, ratj: 1},
+
+    {stimulus: "https://imaru.github.io/sakurai2024/img2/25.jpg", adj1: "良いー悪い", adj2: "好きなー嫌いな", duration: 4000, ratj: 0},
+    {stimulus: "https://imaru.github.io/sakurai2024/img2/26.jpg", adj1: "良いー悪い", adj2: "好きなー嫌いな", duration: 4000, ratj: 0},
+    {stimulus: "https://imaru.github.io/sakurai2024/img2/27.jpg", adj1: "良いー悪い", adj2: "好きなー嫌いな", duration: 4000, ratj: 0},
+    {stimulus: "https://imaru.github.io/sakurai2024/img2/28.jpg", adj1: "良いー悪い", adj2: "好きなー嫌いな", duration: 4000, ratj: 0},
+    {stimulus: "https://imaru.github.io/sakurai2024/img2/29.jpg", adj1: "良いー悪い", adj2: "好きなー嫌いな", duration: 5000, ratj: 0},
+    {stimulus: "https://imaru.github.io/sakurai2024/img2/30.jpg", adj1: "良いー悪い", adj2: "好きなー嫌いな", duration: 5000, ratj: 0},
+    {stimulus: "https://imaru.github.io/sakurai2024/img2/31.jpg", adj1: "良いー悪い", adj2: "好きなー嫌いな", duration: 5000, ratj: 0},
+    {stimulus: "https://imaru.github.io/sakurai2024/img2/32.jpg", adj1: "良いー悪い", adj2: "好きなー嫌いな", duration: 5000, ratj: 0},
+    {stimulus: "https://imaru.github.io/sakurai2024/img2/33.jpg", adj1: "良いー悪い", adj2: "好きなー嫌いな", duration: 6000, ratj: 0},
+    {stimulus: "https://imaru.github.io/sakurai2024/img2/34.jpg", adj1: "良いー悪い", adj2: "好きなー嫌いな", duration: 6000, ratj: 0},
+    {stimulus: "https://imaru.github.io/sakurai2024/img2/35.jpg", adj1: "良いー悪い", adj2: "好きなー嫌いな", duration: 6000, ratj: 0},
+    {stimulus: "https://imaru.github.io/sakurai2024/img2/36.jpg", adj1: "良いー悪い", adj2: "好きなー嫌いな", duration: 6000, ratj: 0},
+
+    {stimulus: "https://imaru.github.io/sakurai2024/img2/37.jpg", adj1: "明るいー暗い", adj2: "軽いー重い", duration: 4000, ratj: 1},
+    {stimulus: "https://imaru.github.io/sakurai2024/img2/38.jpg", adj1: "明るいー暗い", adj2: "軽いー重い", duration: 4000, ratj: 1},
+    {stimulus: "https://imaru.github.io/sakurai2024/img2/39.jpg", adj1: "明るいー暗い", adj2: "軽いー重い", duration: 4000, ratj: 1},
+    {stimulus: "https://imaru.github.io/sakurai2024/img2/40.jpg", adj1: "明るいー暗い", adj2: "軽いー重い", duration: 4000, ratj: 1},
+    {stimulus: "https://imaru.github.io/sakurai2024/img2/41.jpg", adj1: "明るいー暗い", adj2: "軽いー重い", duration: 5000, ratj: 1},
+    {stimulus: "https://imaru.github.io/sakurai2024/img2/42.jpg", adj1: "明るいー暗い", adj2: "軽いー重い", duration: 5000, ratj: 1},
+    {stimulus: "https://imaru.github.io/sakurai2024/img2/43.jpg", adj1: "明るいー暗い", adj2: "軽いー重い", duration: 5000, ratj: 1},
+    {stimulus: "https://imaru.github.io/sakurai2024/img2/44.jpg", adj1: "明るいー暗い", adj2: "軽いー重い", duration: 5000, ratj: 1},
+    {stimulus: "https://imaru.github.io/sakurai2024/img2/45.jpg", adj1: "明るいー暗い", adj2: "軽いー重い", duration: 6000, ratj: 1},
+    {stimulus: "https://imaru.github.io/sakurai2024/img2/46.jpg", adj1: "明るいー暗い", adj2: "軽いー重い", duration: 6000, ratj: 1},
+    {stimulus: "https://imaru.github.io/sakurai2024/img2/47.jpg", adj1: "明るいー暗い", adj2: "軽いー重い", duration: 6000, ratj: 1},
+    {stimulus: "https://imaru.github.io/sakurai2024/img2/48.jpg", adj1: "明るいー暗い", adj2: "軽いー重い", duration: 6000, ratj: 1}
+];
+
+    
+
 
  var preload ={
     type: 'preload',
@@ -185,6 +236,6 @@ var test_procedure = {
     timeline: [inst, fixation,show_image, inst_time, space_key_trial,rating_trial],
     timeline_variables: factors,  
     repetitions: 1,
-    randomize_order: false
+    randomize_order: true//trueにする、練習試行つくる
   }
   timeline.push(test_procedure);
