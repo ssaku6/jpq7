@@ -48,7 +48,7 @@ var reactionTime;
 var inst = {
     type: "html-keyboard-response",
     stimulus: function(){
-        return "<p>この試行では、下の2つの形容詞についての評価をお願いします。</p><br><p><strong>" + jsPsych.timelineVariable('adj1') + "</strong></p><p><strong>" + jsPsych.timelineVariable('adj2') + "</strong></p><br>enterキーで絵が表示されます。"
+        return "<p>この試行では、下の2つの形容詞についての評価をお願いします。<br>次の画面で絵画が表示されるので、この形容詞の評価を絵画が消えるまで続けてください。</p><br><p><strong>" + jsPsych.timelineVariable('adj1') + "</strong></p><p><strong>" + jsPsych.timelineVariable('adj2') + "</strong></p><br>enterキーで絵が表示されます。"
     },
     choices: ["Enter"],  // Enterキーで次のステップに進む
 };
@@ -173,7 +173,7 @@ var rating_trial = {
         {name: "Q0", prompt: jsPsych.timelineVariable('adj1'), labels: [" ", " ", " ", " ", " "], required: true},
         {name: "Q1", prompt: jsPsych.timelineVariable('adj2'), labels: [" ", " ", " ", " ", " "], required: true}
     ],
-    preamble: "<p>以下の評価項目について回答してください:</p>",
+    preamble: "<p>以下の評価項目について回答してください:<br>評価が終わったら、continue押してください。</p>",
     on_finish: function(data){
         data.task = 'resp';
     }
