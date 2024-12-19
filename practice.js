@@ -173,7 +173,7 @@ var rating_trial = {
         {name: "Q0", prompt: jsPsych.timelineVariable('adj1'), labels: [" ", " ", " ", " ", " "], required: true},
         {name: "Q1", prompt: jsPsych.timelineVariable('adj2'), labels: [" ", " ", " ", " ", " "], required: true}
     ],
-    preamble: "<p>以下の評価項目について回答してください:<br>評価が終わったら、continue押してください。</p>",
+    preamble: "<p>以下の評価項目について回答してください。<br>評価が終わったら、continue押してください。</p>",
     on_finish: function(data){
         data.task = 'resp';
     }
