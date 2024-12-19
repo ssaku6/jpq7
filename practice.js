@@ -1,10 +1,10 @@
-var rs = "https://imaru.github.io/sakurai2024/";
+var rs = "https://ssaku6.github.io/jpq7/";
 
 /* create timeline */
 var timeline = [];
 
-var numtrl = 6;
-var dur = [1000, 3000, 5000];
+var numtrl = 5;
+var dur = [3000, 3400, 3800];
 var adj1 = ["良いー悪い", "明るいー暗い"];
 var adj2 = ["好きなー嫌いな", "軽いー重い"];
 var durs=[];
@@ -13,7 +13,7 @@ var adjs=[];
 
 var file = [];
 for (var i = 0; i < numtrl; i++){
-    file[i]=rs + "img3/"+ String(i+1) + ".jpg";
+    file[i]=rs + "imgp/"+ String(i+1) + ".jpg";
     durs[i]=dur[i%dur.length];
     adjs[i]=i%2;
     //console.log(file[i]);
