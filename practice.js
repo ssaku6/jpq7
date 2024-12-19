@@ -3,7 +3,7 @@ var rs = "https://ssaku6.github.io/jpq7/";
 /* create timeline */
 var timeline = [];
 
-var numtrl = 5;
+var numtrl = 1;
 var dur = [3000, 3400, 3800];
 var adj1 = ["良いー悪い", "明るいー暗い"];
 var adj2 = ["好きなー嫌いな", "軽いー重い"];
