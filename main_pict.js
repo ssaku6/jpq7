@@ -153,7 +153,7 @@ var space_key_trial = {
     on_finish: function(data){
         data.task = 'resp';
         data.rtime = reactionTime; //jsPsych.timelineVariable("reactionTime");
-        jsPsych.timelineVariable('adj1') === "良いー悪い" ? 0 : 1;//良いー悪いなら0
+        data.adj = jsPsych.timelineVariable('adj1') === "良いー悪い" ? 0 : 1;//良いー悪いなら0
 
         //data.art = currentStimulus.img;  // 画像URLをデータとして保存
     }
