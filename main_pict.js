@@ -32,14 +32,14 @@ var radj = jsPsych.randomization.shuffle(adjs);
 var factors = [
     {stimulus: "https://ssaku6.github.io/jpq7/img2/1.jpg", adj1: "良いー悪い", adj2: "好きなー嫌いな", duration: 4000, ratj: 0},
     {stimulus: "https://ssaku6.github.io/jpq7/img2/2.jpg", adj1: "良いー悪い", adj2: "好きなー嫌いな", duration: 4000, ratj: 0},
-    {stimulus:"https://ssaku6.github.io/jpq7/img2/3.jpg", adj1: "良いー悪い", adj2: "好きなー嫌いな", duration: 4000, ratj: 0},
+    {stimulus: "https://ssaku6.github.io/jpq7/img2/3.jpg", adj1: "良いー悪い", adj2: "好きなー嫌いな", duration: 4000, ratj: 0},
     {stimulus: "https://ssaku6.github.io/jpq7/img2/4.jpg", adj1: "良いー悪い", adj2: "好きなー嫌いな", duration: 4000, ratj: 0},
     {stimulus: "https://ssaku6.github.io/jpq7/img2/5.jpg", adj1: "良いー悪い", adj2: "好きなー嫌いな", duration: 5000, ratj: 0},
     {stimulus: "https://ssaku6.github.io/jpq7/img2/6.jpg", adj1: "良いー悪い", adj2: "好きなー嫌いな", duration: 5000, ratj: 0},
     {stimulus: "https://ssaku6.github.io/jpq7/img2/7.jpg", adj1: "良いー悪い", adj2: "好きなー嫌いな", duration: 5000, ratj: 0},
     {stimulus: "https://ssaku6.github.io/jpq7/img2/8.jpg", adj1: "良いー悪い", adj2: "好きなー嫌いな", duration: 5000, ratj: 0},
-    {stimulus:"https://ssaku6.github.io/jpq7/img2/9.jpg", adj1: "良いー悪い", adj2: "好きなー嫌いな", duration: 6000, ratj: 0},
-    {stimulus:"https://ssaku6.github.io/jpq7/img2/10.jpg", adj1: "良いー悪い", adj2: "好きなー嫌いな", duration: 6000, ratj: 0},
+    {stimulus: "https://ssaku6.github.io/jpq7/img2/9.jpg", adj1: "良いー悪い", adj2: "好きなー嫌いな", duration: 6000, ratj: 0},
+    {stimulus: "https://ssaku6.github.io/jpq7/img2/10.jpg", adj1: "良いー悪い", adj2: "好きなー嫌いな", duration: 6000, ratj: 0},
     {stimulus: "https://ssaku6.github.io/jpq7/img2/11.jpg", adj1: "良いー悪い", adj2: "好きなー嫌いな", duration: 6000, ratj: 0},
     {stimulus: "https://ssaku6.github.io/jpq7/img2/12.jpg", adj1: "良いー悪い", adj2: "好きなー嫌いな", duration: 6000, ratj: 0},
 
