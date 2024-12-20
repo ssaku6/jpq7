@@ -48,7 +48,7 @@ var reactionTime;
 var inst = {
     type: "html-keyboard-response",
     stimulus: function(){
-        return "<p>この試行では、下の2つの形容詞対についての評価をお願いします。<br>この形容詞対は、<strong>前の試行と違うもの</strong>が表示される場合もあるので、<strong>毎試行必ず見てください。</strong><br>次の画面で絵画が表示されるので、この形容詞の評価を絵画が消えるまで続けてください。</p><br><p><strong>" + jsPsych.timelineVariable('adj1') + "</strong></p><p><strong>" + jsPsych.timelineVariable('adj2') + "</strong></p><br>enterキーで絵が表示されます。"
+        return "<p>この試行では、下の2つの形容詞対についての評価をお願いします。<br>この形容詞対は、<strong>前の試行とは違うもの</strong>が表示される場合もあるので、<strong>毎試行必ず見てください。</strong><br>次の画面で絵画が表示されるので、この形容詞の評価を絵画が消えるまで続けてください。</p><br><p><strong>" + jsPsych.timelineVariable('adj1') + "</strong></p><p><strong>" + jsPsych.timelineVariable('adj2') + "</strong></p><br>enterキーで絵が表示されます。"
     },
     choices: ["Enter"],  // Enterキーで次のステップに進む
 };
