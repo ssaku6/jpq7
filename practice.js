@@ -170,8 +170,8 @@ var end_message = {
 var rating_trial = {
     type: "survey-likert",
     questions: [
-        {name: "Q0", prompt: jsPsych.timelineVariable('adj1'), labels: [" ", " ", " ", " ", " "], required: true},
-        {name: "Q1", prompt: jsPsych.timelineVariable('adj2'), labels: [" ", " ", " ", " ", " "], required: true}
+        {name: "Q0", prompt: jsPsych.timelineVariable('adj1'), labels: ["1", "2", "3", "4", "5"], required: true},
+        {name: "Q1", prompt: jsPsych.timelineVariable('adj2'), labels: ["1", "2", "3", "4", "5"], required: true}
     ],
     preamble: "<p>以下の評価項目について回答してください。<br>評価が終わったら、continue押してください。</p>",
     on_finish: function(data){
